@@ -39,7 +39,7 @@
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Tipo</h5>
-									<select class="form-control" name="id_tipo" required>
+									<select class="form-select" name="id_tipo" required>
 										<option disabled selected>Selecciona una opción</option>
 										<?php while($dato = $tiposHardware->fetch_object()): ?>
 										<option value="<?= $dato->id_tipo_hardware ?>"><?= $dato->tipo_hardware ?> </option>
@@ -52,7 +52,7 @@
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Marca</h5>
-									<select class="form-control" name="marca" required>
+									<select class="form-select" name="id_marca" required>
 										<option disabled selected>Selecciona una opción</option>
 										<?php while($dato = $marcas->fetch_object()): ?>
 										<option value="<?= $dato->id_marca ?>"><?= $dato->marca ?> </option>
@@ -76,7 +76,7 @@
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Estado Hardware</h5>
-									<select class="form-control" name="estado_hardware" required>
+									<select class="form-select" name="id_estado_hardware" required>
 										<option disabled selected>Selecciona una opción</option>
 										<?php while($dato = $estadosHardware->fetch_object()): ?>
 										<option value="<?= $dato->id_estado_hardware ?>"><?= $dato->estado_hardware ?> </option>

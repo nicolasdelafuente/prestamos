@@ -23,7 +23,7 @@
                 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
                 $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : false;
                 $numeroSerie = isset($_POST['numero_serie']) ? $_POST['numero_serie'] : false;
-                $numeroUnahur = isset($_POST['numero_unahur']) ? $_POST['numero_unahur'] : false;
+                $numeroUnahur = isset($_POST['codigo_unahur']) ? $_POST['codigo_unahur'] : false;
 
                 if($idTipo && $idMarca && $idEstadoHardware && $descripcion && $modelo && $numeroSerie && $numeroUnahur) {
                     $hardware = new HardwareModel();
