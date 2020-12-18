@@ -1,10 +1,14 @@
 <?php
-return array(
-    "driver"    =>"mysql",
-    "host"      =>"localhost",
-    "user"      =>"root",
-    "pass"      =>"",
-    "database"  =>"prestamo",
-    "charset"   =>"utf8"
-);
-?>
+
+    const SERVER='localhost';
+    const DB='prestamo';
+    const USER='root';
+    const PASS='';
+
+    class Database{
+        public static function connect(){
+            $db = new mysqli(SERVER, USER, PASS, DB);
+            $db->query("SET NAMES 'utf8'");
+            return $db;
+        }
+    }

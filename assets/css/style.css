@@ -1,5 +1,71 @@
+:root {
+  --primary: grey;
+  --light: #ffffff;
+  --light-blue: #F5F6FA;
+  --grey: #eff2f7;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.text-muted {
+  color: var(--primary) !important;
+  opacity: .7;
+}
+
+.shadow-sm {
+  box-shadow: 0 0 1.25rem rgba(11,37,75,.05);
+}
+
+.shadow-hover {
+  transition: 1s ease-in-out;
+}
+
+.shadow-hover:hover {
+  transition: 1s ease-in-out;
+  box-shadow: 0 .5rem 1rem rgba(11,37,75,.10)!important;
+}
+
+.badge {
+  padding: .5rem 1rem;
+}
+
+.bg-primary, .badge-primary {
+  background-color: rgba(0, 123, 255, .1) !important;
+}
+
+.badge-secondary {
+  background-color: var(--grey);
+  color: var(--primary);
+}
+
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 .5rem;
+}
+
+table thead th {
+  border: 0 !important;
+}
+
+table tbody tr {
+  background-color: var(--light);
+}
+
+table tbody td {
+  border-top: 0 !important;
+  line-height: 1.2;
+}
+
 .btn-sq-lg {
     width: 150px !important;
     height: 150px !important;
   }
+
+
   

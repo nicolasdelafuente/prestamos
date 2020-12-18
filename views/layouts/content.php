@@ -1,34 +1,35 @@
+<?php
+        function mostrarError() {
+            $error = new ErrorController();
+            $error->index();
+        }
 
-<div class="row align-items-center justify-content-center vh-100">
-    <div class="col-sm-8 bg-white text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="m-1">
-                <a href="#" class="btn btn-sq-lg btn-success">
-                    <i class="fas fa-laptop fa-5x"></i> </br>
-                    Solicitar préstamo
-                </a>
-            </div>
-            <div class="m-1">
-                <a href="#" class="btn btn-sq-lg btn-success">
-                <i class="fas fa-check-circle fa-5x"></i> </br>
-                    Confirmar solicitudes 
-                </a>
-            </div>
-            <div class="m-1">
-                <a href="#" class="btn btn-sq-lg btn-success">
-                <i class="fas fa-list fa-5x"></i> </br>
-                    Listar hardware 
-                </a>
-            </div>
-            <div class="m-1">
-                <a href="#" class="btn btn-sq-lg btn-success">
-                <i class="fas fa-undo-alt fa-5x"></i> </br>
-                Devolver préstamo
-                </a>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+        // Compruebo si llega el controlador por la url. 
+        if(isset($_GET['controller'])){
+            $nombre_controlador = $_GET['controller'].'controller';   // Genero Variable.
+        }elseif(!isset($_GET['controller']) && !isset($_GET['action'])){
+            $nombre_controlador = controller_default;
+        }else{
+            mostrarError();
+            exit();
+        }
+
+        // Compruebo si existe controlador y creo Objeto
+        if(class_exists($nombre_controlador)){
+            $controlador = new $nombre_controlador();
+
+            //Compruebo si lelga la acción y si el método existe dentro del controlador..
+            if(isset($_GET['action']) && method_exists($controlador, $_GET['action'])) {
+                $action = $_GET['action'];
+                $controlador->$action(); // Llamo al método
+            }elseif(!isset($_GET['controller']) && !isset($_GET['action'])){
+                $actionDefault = action_default;
+                $controlador->$actionDefault();          
+            }else{
+                mostrarError();
+            }
+        }else{
+            mostrarError();
+        }
+?>

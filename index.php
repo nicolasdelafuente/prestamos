@@ -2,11 +2,9 @@
   require_once 'config/database.php';
   require_once 'config/parameters.php';
   require_once 'helpers/utils.php';
-  require_once 'autoload.php';
+  require_once 'cargarControladores.php';
   include_once "views/layouts/header.php";
 ?>
-
-
 
 
 <div class="container-fluid">
