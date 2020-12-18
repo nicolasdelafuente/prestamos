@@ -10,7 +10,7 @@
             require_once 'views/contents/tablaHardware.php';
         }
 
-        public function regregistrar() {
+        public function registrar() {
             require_once 'views/contents/nuevoHardware.php';
         }
 
@@ -48,6 +48,6 @@
             }else{
                 $_SESSION['register'] = "failed";
             }
-            header("Location:".base_url.'hardware/registro');
+            header("Location:".base_url.'hardware/registrar');
         }
     }

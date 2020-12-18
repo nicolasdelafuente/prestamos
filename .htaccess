@@ -6,7 +6,7 @@ ErrorDocument 404 http://localhost/prestamos/error/index
 RewriteCond %(SCRIPT_FILENAME) !-d
 RewriteCond %(SCRIPT_FILENAME) !-f
 
-
 RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
+
 
 </IfModule>

@@ -1,8 +1,9 @@
-<?php  
+<?php
+  session_start();  
+  require_once 'cargarControladores.php';
   require_once 'config/database.php';
   require_once 'config/parameters.php';
   require_once 'helpers/utils.php';
-  require_once 'cargarControladores.php';
   include_once "views/layouts/header.php";
 ?>
 

@@ -50,7 +50,6 @@
                             </td>
                         </tr>
                     <?php endwhile; ?>
-                    </tr>
                 </tbody>
             </table>
         </div>

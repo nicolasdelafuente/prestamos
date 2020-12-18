@@ -2,6 +2,6 @@
 
     class ErrorController {
         public function index() {
-            require_once 'views/error/error404.php';
+            require_once 'views/errors/error404.php';
         }
     }
