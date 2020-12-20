@@ -210,14 +210,16 @@ VALUES('Pendiente', 'rgba(244, 244, 0, 0.5)');
 CREATE TABLE IF NOT EXISTS solicitudes
 ( 
     id_solicitud INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
-    fecha_inicio DATE NOT NULL,
-    fecha_fin DATE NOT NULL,
+    id_tipo_hardware INT NOT NULL,
     id_usuario INT NOT NULL,
     id_edificio INT NOT NULL ,
+    fecha_desde DATE NOT NULL,
+    fecha_hasta DATE NOT NULL,
     id_estado_solicitud INT DEFAULT 3,
     motivo VARCHAR(1024) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware(id_tipo_hardware),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_edificio) REFERENCES edificios(id_edificio),
     FOREIGN KEY (id_estado_solicitud) REFERENCES estados_solicitud(id_estado_solicitud)
