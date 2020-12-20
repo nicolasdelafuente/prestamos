@@ -1,16 +1,18 @@
-<?php 
-	require_once 'models/marcaModel.php';
-	require_once 'models/tipoHardwareModel.php';
-	require_once 'models/estadoHardwareModel.php';
+<?php   
+	require_once '../config/conexion.php';
+	include_once '../views/header.php';
+    include_once '../views/navbar.php';
+?>
 
-	$tipoHardware = new TipoHardwareModel();
-	$tiposHardware = $tipoHardware->getAll();
-
-	$marca = new MarcaModel();
-	$marcas = $marca->getAll();
-
-	$estadoHardware = new EstadoHardwareModel();
-	$estadosHardware = $estadoHardware->getAll();
+<?php    
+	$sql = $bd->query("SELECT * FROM tipos_hardware ORDER BY tipo_Hardware");
+	$tiposHardware = $sql->fetchAll(PDO::FETCH_OBJ);
+	
+	$sql = $bd->query("SELECT * FROM estados_hardware ORDER BY estado_Hardware");
+	$estadosHardware = $sql->fetchAll(PDO::FETCH_OBJ);
+	
+	$sql = $bd->query("SELECT * FROM marcas ORDER BY marca");
+	$marcas = $sql->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 
@@ -29,21 +31,21 @@
     <div class="row my-3 mx-5">
 		<div class="col-xl-12 col-lg-12">
 
-			<?php require_once 'helpers/alertaRegistro.php';?>
-
 			<div class="card card-body">
-				<form action="<?=base_url?>hardware/guardar" method="POST">
+				<form action="../functions/insertarHardware.php" method="POST">
 
 					<div class="row my-1">
 						<div class="col-sm-6">
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Tipo</h5>
-									<select class="form-select" name="id_tipo" required>
+                                    <select class="form-select" name="id_tipo_hardware" required>
 										<option disabled selected>Selecciona una opción</option>
-										<?php while($dato = $tiposHardware->fetch_object()): ?>
-										<option value="<?= $dato->id_tipo_hardware ?>"><?= $dato->tipo_hardware ?> </option>
-										<?php endwhile; ?>
+										<?php foreach($tiposHardware as $tipoHardware) { ?>
+                                        <option
+                                            value="<?= $tipoHardware->id_tipo_hardware ?>"><?= $tipoHardware->tipo_hardware ?>
+                                        </option>
+                                        <?php } ?>
 									</select>
 								</div>
 							</div>
@@ -53,10 +55,12 @@
 								<div class="card-body">
 									<h5 class="card-title">Marca</h5>
 									<select class="form-select" name="id_marca" required>
-										<option disabled selected>Selecciona una opción</option>
-										<?php while($dato = $marcas->fetch_object()): ?>
-										<option value="<?= $dato->id_marca ?>"><?= $dato->marca ?> </option>
-										<?php endwhile; ?>
+										<option disabled selected>Selecciona una opción</option>	
+										<?php foreach($marcas as $marca) { ?>
+                                        <option 
+                                        	value="<?= $marca->id_marca ?>"><?= $marca->marca ?>
+                                        </option>
+                                        <?php } ?>
 									</select>
 								</div>
 							</div>
@@ -68,8 +72,7 @@
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Modelo</h5>
-									<input type="text" class="form-control" placeholder="Modelo" name="modelo" required>
-								</div>
+                                    <input type="text" class="form-control" placeholder="Modelo" name="modelo" required>								</div>
 							</div>
 						</div>
 						<div class="col-sm-6">
@@ -78,9 +81,11 @@
 									<h5 class="card-title">Estado Hardware</h5>
 									<select class="form-select" name="id_estado_hardware" required>
 										<option disabled selected>Selecciona una opción</option>
-										<?php while($dato = $estadosHardware->fetch_object()): ?>
-										<option value="<?= $dato->id_estado_hardware ?>"><?= $dato->estado_hardware ?> </option>
-										<?php endwhile; ?>
+										<?php foreach($estadosHardware as $estadoHardware) { ?>
+                                        <option
+                                            value="<?= $estadoHardware->id_estado_hardware ?>"><?= $estadoHardware->estado_hardware ?>
+                                        </option>
+                                        <?php } ?>
 									</select>
 								</div>
 							</div>
@@ -132,3 +137,9 @@
 
 
 </div>    
+
+<?php include_once "../views/footer.php"; ?>
+
+
+
+

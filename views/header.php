@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
 
-        <link rel="stylesheet" href="<?=base_url?>assets/css/style.css">
-        <link rel="stylesheet" href="<?=base_url?>assets/css/error404.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
         <title>Prestamos | Prestamos</title>
     </head>
