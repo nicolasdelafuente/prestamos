@@ -5,7 +5,6 @@ IF (!isset($_POST['id_tipo_hardware'])) {
     echo "no hay datos";
 }
 
-print_r($_POST);
 
 include '../config/conexion.php';
 

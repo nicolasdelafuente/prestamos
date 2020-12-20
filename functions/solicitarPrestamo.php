@@ -5,9 +5,9 @@ IF (!isset($_POST['id_tipo_hardware'])) {
     echo "no hay datos";
 }
 
-print_r($_POST);
 
 include '../config/conexion.php';
+
 
 $id_tipo = $_POST['id_tipo_hardware'];
 $id_usuario = $_POST['id_usuario'];
@@ -22,7 +22,7 @@ $sql = $bd->prepare("INSERT INTO solicitudes(  id_tipo_hardware,
                                             fecha_desde,
                                             fecha_hasta,                                       
                                             id_edificio,
-                                            motivo)) 
+                                            motivo)
                             VALUES(?,?,?,?,?,?);");
 
 $resultado = $sql->execute([$id_tipo,

@@ -10,6 +10,11 @@
 	$edificios = $sql->fetchAll(PDO::FETCH_OBJ);
 ?>
 
+
+<?php 
+// Id del Usuario logueado.
+$usuarioSolicitante = 2; ?>
+
 <?php include_once "../views/header.php"; ?>
 <div class="container-fluid">
     <?php include_once "../views/navbar.php"; ?>
@@ -31,6 +36,8 @@
 				<div class="card card-body">
 					<form action="../functions/solicitarPrestamo.php" method="POST">
 
+					<input type="hidden" name="id_usuario" value="<?php echo $usuarioSolicitante ?>">
+
 						<div class="row my-1">
 							<div class="col-sm-6">
 								<div class="card border-0">
@@ -51,7 +58,7 @@
 								<div class="card border-0">
 									<div class="card-body">
 										<h5 class="card-title">Edificio</h5>
-										<select class="form-select" name="id_marca" required>
+										<select class="form-select" name="id_edificio" required>
 											<option disabled selected>Selecciona una opción</option>	
 											<?php foreach($edificios as $edificio) { ?>
 											<option 
@@ -69,16 +76,16 @@
 							<div class="col-sm-6">
 								<div class="card border-0">
 									<div class="card-body">
-										<h5 class="card-title">Fecha hasta</h5>
-										<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+										<h5 class="card-title">Fecha desde</h5>
+										<input class="form-control" type="date" value="Fecha desde" name="fecha_desde">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="card border-0">
 									<div class="card-body">
-										<h5 class="card-title">Fecha Desde</h5>
-										<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+										<h5 class="card-title">Fecha hasta</h5>
+										<input class="form-control" type="date" name="fecha_hasta">
 									</div>
 								</div>
 							</div>
