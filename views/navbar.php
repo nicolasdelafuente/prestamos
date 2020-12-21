@@ -12,7 +12,7 @@
                 <a class="nav-link"  href="../pages/listadoHardware.php">Listado hardware</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/confirmarPrestamo.php">Confirmar solicitudes</a>
+                <a class="nav-link" href="../pages/listadoSolicitud.php">Confirmar solicitudes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../pages/listadoPrestamo.php"">Devolución de prestamos</a>

@@ -11,10 +11,10 @@
 
     // Consulta Hardware.    
     if(!$_GET) {
-        header('Location:confirmarPrestamo.php?pagina=1');                        
+        header('Location:listadoSolicitud.php?pagina=1');                        
     }
     if($_GET['pagina']>($paginas+1)) {
-        header('Location:confirmarPrestamo.php?pagina=1');                        
+        header('Location:listadoSolicitud.php?pagina=1');                        
     }
 
 
@@ -117,7 +117,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <a href="./editarSolicitud.php?id=<?=$solicitudes->id_hardware?>">
-                                            <span class="badge bg-secondary"><i class="far fa-eye"></i></span> 
+                                            <span class="badge bg-secondary"><i class="fas fa-pencil-alt"></i></span> 
                                         </a>
                                     </td>
                                 </tr>
@@ -143,7 +143,7 @@
                     <?php for($i=0; $i<$paginas; $i++): ?>
                     <li class="page-item
                     <?php echo $_GET['pagina']==$i+1 ? 'active' : '' ?>">
-                        <a class="page-link" href="confirmarPrestamo.php?pagina=<?php echo $i+1 ?>">
+                        <a class="page-link" href="listadoSolicitud.php?pagina=<?php echo $i+1 ?>">
                             <?php echo $i+1 ?>
                         </a>
                     </li>
@@ -152,7 +152,7 @@
                     <li class="page-item
                     <?php echo $_GET['pagina']>=$paginas ? 'disabled' : '' ?> ">
                         <a class="page-link"
-                        href= "confirmarPrestamo.php?pagina=<?php echo $_GET['pagina']+1 ?>">
+                        href= "listadoSolicitud.php?pagina=<?php echo $_GET['pagina']+1 ?>">
                         Siguiente
                         </a>
                     </li>

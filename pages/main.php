@@ -19,7 +19,7 @@
                             </a>
                         </div>
                         <div class="m-1">
-                            <a href="pages/confirmarPrestamo.php" class="btn btn-sq-lg btn-success">
+                            <a href="pages/listadoSolicitud.php" class="btn btn-sq-lg btn-success">
                             <i class="fas fa-check-circle fa-5x"></i> </br>
                                 Confirmar solicitudes 
                             </a>
