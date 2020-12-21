@@ -15,7 +15,7 @@
                 <a class="nav-link" href="../pages/confirmarPrestamo.php">Confirmar solicitudes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/devolverPrestanos.php"">Devolución de prestamos</a>
+                <a class="nav-link" href="../pages/listadoPrestamo.php"">Devolución de prestamos</a>
             </li>
         </ul>
     </div>

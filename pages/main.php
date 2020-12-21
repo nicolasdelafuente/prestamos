@@ -31,9 +31,9 @@
                             </a>
                         </div>
                         <div class="m-1">
-                            <a href="pages/devolverPrestanos.php" class="btn btn-sq-lg btn-success">
+                            <a href="pages/listadoPrestamo.php" class="btn btn-sq-lg btn-success">
                             <i class="fas fa-undo-alt fa-5x"></i> </br>
-                            Devolver préstamo
+                                Devolver préstamo
                             </a>
                         </div>
                     </div>

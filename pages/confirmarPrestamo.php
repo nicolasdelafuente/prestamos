@@ -32,10 +32,26 @@
 
 
 
-<?php
-    $idTipo = 1;
-    $sql = $bd->query("SELECT * FROM hardwares WHERE id_tipo = $idTipo ORDER BY numero_serie");
-    $hardwares = $sql->fetchAll(PDO::FETCH_OBJ);
+<?php     
+/* Para ver los numeros de serie */
+    function serie($idTipo) {
+        $dsn = 'mysql:dbname=prestamo;localhost';
+    $usuario = "root";
+    $password = "";
+    $bd = "prestamo";
+
+
+    try{
+        $bd = new PDO(  $dsn,
+                        $usuario, 
+                        $password);
+    } catch (PDOException $e) {
+        echo 'Falló la conexión: ' . $e->getMessage();
+    }
+
+        $sql = $bd->query("SELECT * FROM hardwares WHERE id_tipo = $idTipo ORDER BY numero_serie");
+        return $hardwares = $sql->fetchAll(PDO::FETCH_OBJ);
+    }
 ?>
 
 <?php include_once "../views/header.php"; ?>
@@ -47,13 +63,13 @@
             <div class="col align-middle">
                 <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
                     <div class="card-body d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Confirmación de prestamos</h5>
-                        <a href="nuevoHardware.php"class="btn btn-success text-light">Nuevo</a>
+                        <h5 class="mb-0">Confirmación de solicitudes</h5>
                     </div>
                 </div>
             </div>
         </div>
 
+        <?php serie(3); ?>
 
         <div class="row my-3 mx-5">
             <div class="col">
@@ -66,10 +82,8 @@
                                 <th scope="col"><small class="font-weight-bold">Edificio<small></th>
                                 <th scope="col"><small class="font-weight-bold">Período<small></th>
                                 <th scope="col"><small class="font-weight-bold">Estado<small></th>
-                                <th scope="col"><small class="font-weight-bold">Numero Serie<small></th>
-                                <th scope="col"><small class="font-weight-bold">Confirmar<small></th>
-                                <th scope="col"><small class="font-weight-bold">Cancelar<small></th>
-                                <th scope="col"><small class="font-weight-bold">Ver<small></th>
+                                <th colspan=2 scope="col"><small class="font-weight-bold">Numero Serie<small></th>
+                                <th scope="col"><small class="font-weight-bold">Editar<small></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,9 +98,9 @@
                                     <td class="align-middle"><span><?= $solicitud->estado_solicitud; ?></span></td>
                                     <td class="align-middle">
                                         <span>
-                                            <select class="form-select" name="id_tipo_hardware" required>
+                                            <select class="form-select" name="numero_serie" required>
                                                 <option disabled selected>Selecciona una opción</option>
-                                                <?php foreach($hardwares as $hardware) { ?>
+                                                <?php foreach(serie($solicitud->id_tipo_hardware) as $hardware) { ?>
                                                 <option
                                                     value="<?= $hardware->numero_serie ?>"><?= $hardware->numero_serie ?>
                                                 </option>
@@ -96,18 +110,13 @@
                                     </td>
                                     <td class="align-middle">
                                         <span>
-                                            <a href="./editarHardware.php?id=<?=$solicitudes->id_hardware?>">
+                                            <a href="./confirmarPrestamo.php?id=<?=$solicitudes->id_hardware?>">
                                                 <span class="badge bg-success"><i class="fas fa-check"></i></span> 
                                             </a>
                                         </span>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="./editarHardware.php?id=<?=$solicitudes->id_hardware?>">
-                                            <span class="badge bg-danger"><i class="fas fa-times"></i></span> 
-                                        </a>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="./editarHardware.php?id=<?=$solicitudes->id_hardware?>">
+                                        <a href="./editarSolicitud.php?id=<?=$solicitudes->id_hardware?>">
                                             <span class="badge bg-secondary"><i class="far fa-eye"></i></span> 
                                         </a>
                                     </td>
