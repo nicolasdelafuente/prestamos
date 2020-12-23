@@ -35,7 +35,7 @@
 <?php     
 /* Para ver los numeros de serie */
     function serie($idTipo) {
-        $dsn = 'mysql:dbname=prestamo;localhost';
+    $dsn = 'mysql:dbname=prestamo;localhost';
     $usuario = "root";
     $password = "";
     $bd = "prestamo";
@@ -110,13 +110,15 @@
                                     </td>
                                     <td class="align-middle">
                                         <span>
-                                            <a href="./confirmarPrestamo.php?id=<?=$solicitudes->id_hardware?>">
-                                                <span class="badge bg-success"><i class="fas fa-check"></i></span> 
-                                            </a>
+                                            <form action="../functions/confirmarPrestamo.php"></form>
+                                                <a href="#">
+                                                    <span class="badge bg-success"><i class="fas fa-check"></i></span> 
+                                                </a>
+                                            </form>
                                         </span>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="./editarSolicitud.php?id=<?=$solicitudes->id_hardware?>">
+                                        <a href="./detalleSolicitud.php?id=<?= $solicitud->id_solicitud ?>">
                                             <span class="badge bg-secondary"><i class="fas fa-pencil-alt"></i></span> 
                                         </a>
                                     </td>
@@ -129,13 +131,13 @@
         </div>
 
         <!--Paginado-->                                
-        <div class="row justify-content-center mt-1">
-            <nav class="col align-self-center">
+        <div class="row justify-content-center">
+            <nav class="col ">
                 <ul class="pagination">
                     <li class="page-item
                     <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?> ">
                         <a class="page-link"
-                        href= "confirmarPrestamo.php?pagina=<?php echo $_GET['pagina']-1 ?>">
+                        href= "listadoSolicitud.php?pagina=<?php echo $_GET['pagina']-1 ?>">
                         Anterior
                         </a>
                     </li>

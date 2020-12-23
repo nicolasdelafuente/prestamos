@@ -93,7 +93,7 @@
 
         <!--Paginado-->                                
         <div class="row justify-content-center mt-1">
-            <nav class="col align-self-center">
+            <nav class="col">
                 <ul class="pagination">
                     <li class="page-item
                     <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?> ">
