@@ -1,0 +1,117 @@
+:root {
+  --primary: 	#122562;
+  --light: #ffffff;
+  --light-blue: #F5F6FA;
+  --grey: #eff2f7;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.text-muted {
+  color: var(--primary) !important;
+  opacity: .7;
+}
+
+.shadow-sm {
+  box-shadow: 0 0 1.25rem rgba(11,37,75,.05);
+}
+
+.shadow-hover {
+  transition: 1s ease-in-out;
+}
+
+.shadow-hover:hover {
+  transition: 1s ease-in-out;
+  box-shadow: 0 .5rem 1rem rgba(11,37,75,.10)!important;
+}
+
+.badge {
+  padding: .5rem 1rem;
+}
+
+.bg-primary, .badge-primary {
+  background-color: rgba(0, 123, 255, .1) !important;
+}
+
+.badge-secondary {
+  background-color: var(--grey);
+  color: var(--primary);
+}
+
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 .5rem;
+}
+
+table thead th {
+  border: 0 !important;
+}
+
+table tbody tr {
+  background-color: var(--light);
+}
+
+table tbody td {
+  border-top: 0 !important;
+  line-height: 1.2;
+}
+
+.btn-sq-lg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+
+.imageError {
+  width: 600px;
+  height: 400px;
+  box-shadow: 0px 0px 10px 2px grey; 
+  background-image: url('<?=base_url?>assets/img/error404.jpg');
+  background-size: cover;
+}
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
