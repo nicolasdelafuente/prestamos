@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS roles_usuario
 ( 
     id_rol_usuario INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     rol_usuario VARCHAR(40) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_rol_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_rol_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS tipos_hardware
 (
     id_tipo_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     tipo_hardware VARCHAR(40) NOT NULL UNIQUE,
-    created_at_tipo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_tipo TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_tipo_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_tipo_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE = InnoDb;
 
 
@@ -96,10 +96,9 @@ CREATE TABLE IF NOT EXISTS estados_hardware
     id_estado_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     estado_hardware VARCHAR(40) NOT NULL UNIQUE,
     color_estado_hardware VARCHAR(40) NOT NULL UNIQUE,
-    created_at_estado_h TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_h TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE = InnoDb;
-
 
 INSERT INTO estados_hardware (estado_hardware, color_estado_hardware)
 VALUES('Disponible', 'rgba(0, 244, 0, 0.5)');
@@ -113,61 +112,135 @@ VALUES('En Reparación', 'rgba(244, 244, 0, 0.5)');
 CREATE TABLE IF NOT EXISTS hardwares
 (
     id_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    id_tipo INT NOT NULL,
+    id_tipo_hardware INT NOT NULL,
     id_marca INT NOT NULL,
-    id_estado_hardware INT NOT NULL,
     descripcion VARCHAR(600),
     modelo VARCHAR(40) NOT NULL,
     numero_serie VARCHAR(40) NOT NULL UNIQUE,
-    numero_unahur VARCHAR(40) UNIQUE,
+    codigo_interno VARCHAR(40) UNIQUE,
     created_at_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_tipo) REFERENCES Tipos_hardware (id_tipo_hardware),
-    FOREIGN KEY (id_marca) REFERENCES Marcas (id_marca),
-    FOREIGN KEY (id_estado_hardware) REFERENCES Estados_hardware (id_estado_hardware)
+    FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware (id_tipo_hardware),
+    FOREIGN KEY (id_marca) REFERENCES marcas (id_marca)
 )ENGINE = InnoDb;
 
 
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0001', 'UNAH-0000-0001' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('8', '6', '1', 'Ninguna', 'Modelo#', '0000-0002', 'UNAH-0000-0002' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('3', '4', '1', 'Ninguna', 'Modelo#', '0000-0003', 'UNAH-0000-0003' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0004', 'UNAH-0000-0004' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0006', 'UNAH-0000-0005' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('8', '5', '1', 'Ninguna', 'Modelo#', '0000-0005', 'UNAH-0000-0006' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0007', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0010', 'UNAH-0000-0007' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0011', 'UNAH-0000-0008' );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('8', '5', '1', 'Ninguna', 'Modelo#', '0000-0013', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0012', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0009', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0014', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0016', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('3', '4', '1', 'Ninguna', 'Modelo#', '0000-0017', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('1', '1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '1', 'Ninguna', 'Modelo#', '0000-0018', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL );
-INSERT INTO hardwares (id_tipo, id_marca, id_estado_hardware, descripcion, modelo, numero_serie, numero_unahur)
-VALUES('5', '2', '3', 'Ninguna', 'Modelo#', '0000-0021', 'UNAH-0000-0009' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0001', 'INT-0000-0001' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('8', '6', 'Ninguna', 'Modelo#', '0000-0002', 'INT-0000-0002' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0003', 'INT-0000-0003' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0004', 'INT-0000-0004' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0006', 'INT-0000-0005' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0005', 'INT-0000-0006' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0007', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0010', 'INT-0000-0007' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0011', 'INT-0000-0008' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0013', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0012', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0009', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0014', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0016', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0017', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0018', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion, modelo, numero_serie, codigo_interno)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020' );
+
+
+CREATE TABLE IF NOT EXISTS hardwares_estados_hardware
+(
+    id_hardware_estados_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    id_hardware INT NOT NULL,
+    id_estado_hardware INT NOT NULL,
+    created_at_hardware_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_hardware) REFERENCES hardwares (id_hardware),
+    FOREIGN KEY (id_estado_hardware) REFERENCES estados_hardware (id_estado_hardware)
+)ENGINE = InnoDb;
+
+
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(1,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(2,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(3,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(6,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(7,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(8,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(9,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(10,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(11,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(12,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(13,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(14,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(15,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(16,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(17,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(18,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(19,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(20,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(1,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(3,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(7,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(1,3);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,3);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(6,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(9,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(18,3);
+
+
+
 
 
 CREATE TABLE IF NOT EXISTS edificios
@@ -193,8 +266,8 @@ CREATE TABLE IF NOT EXISTS estados_solicitud
     id_estado_solicitud INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_solicitud VARCHAR(40) NOT NULL UNIQUE,
     color_estado_solicitud VARCHAR(40) NOT NULL UNIQUE, 
-    created_at_estado_s TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_s TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_estado_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_estado_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -219,7 +292,7 @@ CREATE TABLE IF NOT EXISTS solicitudes
     motivo_solicitud VARCHAR(1024) NOT NULL,
     motivo_aprobacion VARCHAR(1024),
     created_at_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware(id_tipo_hardware),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_edificio) REFERENCES edificios(id_edificio),
@@ -254,8 +327,8 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
     id_estado_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_prestamo VARCHAR(40) NOT NULL UNIQUE,
     color_estado_prestamo VARCHAR(40) NOT NULL UNIQUE, 
-    created_at_estado_p TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_p TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_estado_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_estado_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -286,8 +359,8 @@ CREATE TABLE IF NOT EXISTS estados_devolucion
     id_estado_devolucion INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_devolucion VARCHAR(40) NOT NULL UNIQUE,
     color_estado_devolucion VARCHAR(40) NOT NULL UNIQUE, 
-    created_at_estado_d TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_d TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at_estado_devolucion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at_estado_devolucion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -298,18 +371,3 @@ INSERT INTO estados_devolucion (estado_devolucion, color_estado_devolucion)
 VALUES('Recibida con Problemas', 'rgba(244, 244, 0, 0.5)');
 INSERT INTO estados_devolucion (estado_devolucion, color_estado_devolucion)
 VALUES('No recibido', 'rgba(244, 0, 0, 0.5)');
-
-
-
-
-CREATE TABLE IF NOT EXISTS devoluciones
-( 
-    id_devolucion INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
-    id_prestamo INT NOT NULL,
-    id_estado_devolucion INT NOT NULL,
-    observacion_devolucion VARCHAR(1024),
-    created_at_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id_prestamo),
-    FOREIGN KEY (id_estado_devolucion) REFERENCES estados_devolucion(id_estado_devolucion)
-) ENGINE = InnoDb;
