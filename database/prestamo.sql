@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS roles_usuario
 ( 
     id_rol_usuario INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     rol_usuario VARCHAR(40) NOT NULL UNIQUE,
-    created_at_rol_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_rol_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS usuarios
     email VARCHAR(60) NOT NULL UNIQUE,
     password VARCHAR(20) NOT NULL,
     id_rol_usuario INT NOT NULL,
-    created_at_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_rol_usuario) REFERENCES roles_usuario(id_rol_usuario)
 ) ENGINE = InnoDb;
 
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS tipos_hardware
 (
     id_tipo_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     tipo_hardware VARCHAR(40) NOT NULL UNIQUE,
-    created_at_tipo_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_tipo_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE = InnoDb;
 
 
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS marcas
 (
     id_marca INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     marca VARCHAR(40) NOT NULL UNIQUE,
-    created_at_marca TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_marca TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE = InnoDb;
 
 
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS estados_hardware
     id_estado_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     estado_hardware VARCHAR(40) NOT NULL UNIQUE,
     color_estado_hardware VARCHAR(40) NOT NULL UNIQUE,
-    created_at_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE = InnoDb;
 
 INSERT INTO estados_hardware (estado_hardware, color_estado_hardware)
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS hardwares
     modelo VARCHAR(40) NOT NULL,
     numero_serie VARCHAR(40) NOT NULL UNIQUE,
     codigo_interno VARCHAR(40) UNIQUE,
-    created_at_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware (id_tipo_hardware),
     FOREIGN KEY (id_marca) REFERENCES marcas (id_marca)
 )ENGINE = InnoDb;
@@ -169,10 +169,10 @@ VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020' );
 
 CREATE TABLE IF NOT EXISTS hardwares_estados_hardware
 (
-    id_hardware_estados_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    id_hardware_estado_hardware INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     id_hardware INT NOT NULL,
     id_estado_hardware INT NOT NULL,
-    created_at_hardware_estado_hardware TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_hardware) REFERENCES hardwares (id_hardware),
     FOREIGN KEY (id_estado_hardware) REFERENCES estados_hardware (id_estado_hardware)
 )ENGINE = InnoDb;
@@ -184,6 +184,8 @@ INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(2,1);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(3,1);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(4,1);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(5,1);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
@@ -216,6 +218,10 @@ INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(19,1);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(20,1);
+
+
+-- ESTADO 2
+/*
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(1,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
@@ -225,20 +231,20 @@ VALUES(5,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(7,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(1,3);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(5,1);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(5,3);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(5,1);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(6,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(9,2);
+*/
+
+-- ESTADO 3
+/*
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(1,3);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(5,3);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(18,3);
-
+*/
 
 
 
@@ -247,8 +253,8 @@ CREATE TABLE IF NOT EXISTS edificios
 ( 
     id_edificio INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     edificio VARCHAR(60) NOT NULL UNIQUE,
-    created_at_edificio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_edificio TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -266,8 +272,8 @@ CREATE TABLE IF NOT EXISTS estados_solicitud
     id_estado_solicitud INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_solicitud VARCHAR(40) NOT NULL UNIQUE,
     color_estado_solicitud VARCHAR(40) NOT NULL UNIQUE, 
-    created_at_estado_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -290,8 +296,8 @@ CREATE TABLE IF NOT EXISTS solicitudes
     fecha_hasta DATE NOT NULL,
     motivo_solicitud VARCHAR(1024) NOT NULL,
     motivo_aprobacion VARCHAR(1024),
-    created_at_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware(id_tipo_hardware),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_edificio) REFERENCES edificios(id_edificio)
@@ -325,7 +331,7 @@ CREATE TABLE IF NOT EXISTS solcitudes_estados_solicitud
     id_solicitud_estado_solicitud INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     id_solicitud INT NOT NULL,
     id_estado_solicitud INT NOT NULL,
-    created_at_solcitude_estado_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_solicitud) REFERENCES solicitudes (id_solicitud),
     FOREIGN KEY (id_estado_solicitud) REFERENCES estados_solicitud (id_estado_solicitud)
 )ENGINE = InnoDb;
@@ -363,8 +369,8 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
     id_estado_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_prestamo VARCHAR(40) NOT NULL UNIQUE,
     color_estado_prestamo VARCHAR(40) NOT NULL UNIQUE, 
-    created_at_estado_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_estado_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
@@ -387,8 +393,8 @@ CREATE TABLE IF NOT EXISTS prestamos
     id_solicitud INT NOT NULL,
     id_hardware INT NOT NULL,
     observacion_devolucion VARCHAR(1024),
-    created_at_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_solicitud) REFERENCES solicitudes(id_solicitud),
     FOREIGN KEY (id_hardware) REFERENCES hardwares(id_hardware)
 ) ENGINE = InnoDb;
@@ -399,7 +405,7 @@ CREATE TABLE IF NOT EXISTS prestamos_estados_prestamo
     id_prestamo_estado_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     id_prestamo INT NOT NULL,
     id_estado_prestamo INT NOT NULL,
-    created_at_prestamo_estado_prestamo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_prestamo) REFERENCES prestamos (id_prestamo),
     FOREIGN KEY (id_estado_prestamo) REFERENCES estados_prestamo (id_estado_prestamo)
 )ENGINE = InnoDb;
