@@ -1,7 +1,7 @@
 <?php
 
-require_once 'models/hardwaresModel.php';
-require_once 'models/hardwaresEstadosHardwareModel.php';
+require_once 'models/hardwareModel.php';
+require_once 'models/hardwareEstadoHardwareModel.php';
 
 class HardwareController{
 
@@ -12,7 +12,7 @@ class HardwareController{
     public function activo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
-        $titulo = $hardware->getEncabezado('activo');
+        $titulo = $hardware->setEncabezado('activo');
         $estado = 1;
         require_once 'views/hardware/listado.php';
     }
@@ -20,7 +20,7 @@ class HardwareController{
     public function inactivo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
-        $titulo = $hardware->getEncabezado('inactivo');
+        $titulo = $hardware->setEncabezado('inactivo');
         $estado = 2;
         require_once 'views/hardware/listado.php';
     }
@@ -59,7 +59,7 @@ class HardwareController{
 
                 if ($maximo > 0) {
                 
-                    $hardwareEstadoHardware = new HardwareEstadoHardwaresModel();
+                    $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
                     $hardwareEstadoHardware->setIdHardware($maximoMasUno);
                     $hardwareEstadoHardware->setIdEstadoHardware($idEstadoHardware);
                     
@@ -81,6 +81,19 @@ class HardwareController{
             $_SESSION['register'] = "failed";
         }
         header("Location:".URL.'hardware/nuevo');
+    }
+
+
+    public function editar(){
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $hardware = new HardwareModel();
+            $hardware->setIdHardware($id);
+            $hard = $hardware->getOne();
+            require_once 'views/hardware/editar.php';
+        }else{
+            header('Location'.URL.'hardware/index');
+        }
     }
 
 }

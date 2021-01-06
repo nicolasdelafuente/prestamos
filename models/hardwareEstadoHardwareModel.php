@@ -1,6 +1,6 @@
 <?php 
 
-class HardwareEstadoHardwaresModel{
+class HardwareEstadoHardwareModel{
     
     private $idHardwareEstadoHardware;
     private $idHardware;

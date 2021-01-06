@@ -3,13 +3,13 @@
 if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-info" role="alert">
-			<i class="far fa-smile fa-2x"></i> Tu hardware se ha editado correctamente. 
+			<i class="far fa-smile fa-2x"></i>Tu hardware se ha editado correctamente. 
 		</div>
 	</div>
 <?php elseif(isset($_SESSION['edit']) && $_SESSION['edit'] == 'failed'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-danger" role="alert">
-			<i class="far fa-angry fa-2x"></i> <strong> Edicion fallida</strong>, intenta nuevamente. 
+			<i class="far fa-angry fa-2x"></i> <strong>Edicion fallida</strong>, intenta nuevamente. 
 		</div>
 	</div>
 <?php endif;?>
@@ -17,20 +17,16 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 
 <!-- ------- -->
 
-<?php 
-
-require_once 'models/hardwaresEstadosHardwareModel.php';
-$hardwaresEstadosHardware = new HardwareEstadoHardwaresModel();
-
+<?php
+require_once 'models/hardwareEstadoHardwareModel.php';
+$hardwaresEstadosHardware = new HardwareEstadoHardwareModel();
 ?>
-
-
 
 <div class="row">
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> Hardware <?php ?></h5>
+                <h5 class="mb-0"> Hardware <?= $hardware->getEncabezado()?></h5>
                 <a href="<?= URL ?>hardware/nuevo"class="btn btn-success text-light">Nuevo</a>
 			</div>
         </div>
@@ -80,7 +76,7 @@ $hardwaresEstadosHardware = new HardwareEstadoHardwaresModel();
                             <td class="align-middle"><span><?= $dato->numero_serie; ?></span></td>
                             <td class="align-middle"><span><?= $dato->codigo_interno; ?></span></td>
                             <td class="align-middle">
-                                <a href = "http://localhost/prestamoHardware/hardware/editar&id=<?=$dato->id_hardware?>">
+                                <a href = "<?= URL ?>hardware/editar&id=<?=$dato->id_hardware?>">
                                     <span class="badge badge-secondary"><i class="fas fa-pencil-alt"></i></span> 
                                 </a>
                             </td>

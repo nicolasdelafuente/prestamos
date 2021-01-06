@@ -24,6 +24,10 @@ class HardwareModel{
 
     // GETTERS
 
+    public function getIdHardware() {
+        return $this->idHardware;
+    }
+
     public function getIdTipoHardware() {
         return $this->idTipoHardware;
     }
@@ -54,6 +58,11 @@ class HardwareModel{
 
 
     // SETTERS
+
+    public function setIdHardware($idHardware) {
+        $this->idHardware = $idHardware;
+    }
+
         
     public function setIdTipoHardware($idTipoHardware) {
         $this->idTipoHardware = $idTipoHardware;
@@ -108,7 +117,16 @@ class HardwareModel{
             ");
             return $hardwares;
     }
+    
+    public function getOne() {
+        $hardware = $this->db->query("SELECT * FROM hardwares
+            INNER JOIN tipos_hardware ON hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+            INNER JOIN marcas ON hardwares.id_marca  = marcas.id_marca
+            WHERE id_hardware = {$this->getIdHardware()};");
 
+            $hard = $hardware->fetch_object();
+            return $hard;
+    }
 
     public function save() {
         $sql = "INSERT INTO hardwares VALUES(   NULL,
@@ -128,8 +146,26 @@ class HardwareModel{
         if($guardar) {
             $resultado = true;
         }
-
         return $resultado;
+    }
+
+
+    public function edit($id){
+        $sql = "UPDATE hardwares SET    id_tipo_hardware='{$this->getIdTipoHardware()}',
+                                        id_marca='{$this->getIdMarca()}',
+                                        descripcion='{$this->getDescripcion()}',
+                                        modelo='{$this->getModelo()}', 
+                                        numero_serie='{$this->getNumeroSerie()}',
+                                        codigo_interno='{$this->getCodigoInterno()}'
+                WHERE id_hardware=$id;";
+        
+        $save = $this->db->query($sql);
+        
+        $result = false;
+        if($save){
+            $result = true;
+        }
+        return $result;
     }
 
 
