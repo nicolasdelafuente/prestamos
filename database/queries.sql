@@ -1,7 +1,4 @@
 SELECT
-    hardwares_estados_hardware.id_hardware_estado_hardware,
-    hardwares_estados_hardware.created_at as created_at_estado,
-    estados_hardware.estado_hardware,
     hardwares.id_hardware,
     tipos_hardware.tipo_hardware,
     marcas.marca,
@@ -16,8 +13,6 @@ INNER JOIN
     tipos_hardware on hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
 INNER JOIN
     marcas on hardwares.id_marca = marcas.id_marca
-INNER JOIN
-    hardwares_estados_hardware ON hardwares.id_hardware = hardwares_estados_hardware.id_hardware
-INNER JOIN
-    estados_hardware ON hardwares_estados_hardware.id_estado_hardware = estados_hardware.id_estado_hardware    
-ORDER BY hardwares.id_hardware, hardwares_estados_hardware.id_hardware_estado_hardware DESC;
+
+GROUP BY hardwares.id_hardware
+ORDER BY hardwares.id_hardware;

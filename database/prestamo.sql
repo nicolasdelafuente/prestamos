@@ -101,11 +101,9 @@ CREATE TABLE IF NOT EXISTS estados_hardware
 )ENGINE = InnoDb;
 
 INSERT INTO estados_hardware (estado_hardware, color_estado_hardware)
-VALUES('Disponible', 'rgba(0, 244, 0, 0.5)');
+VALUES('Activo', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_hardware (estado_hardware, color_estado_hardware)
-VALUES('No disponible', 'rgba(244, 0, 0, 0.5)');
-INSERT INTO estados_hardware (estado_hardware, color_estado_hardware)
-VALUES('En Reparación', 'rgba(244, 244, 0, 0.5)');
+VALUES('Inactivo', 'rgba(244, 0, 0, 0.5)');
 
 
 
@@ -229,23 +227,12 @@ VALUES(3,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(5,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(7,2);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(6,2);
+INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
+VALUES(7,2);
 INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
 VALUES(9,2);
 */
-
--- ESTADO 3
-/*
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(1,3);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(5,3);
-INSERT INTO hardwares_estados_hardware (id_hardware, id_estado_hardware)
-VALUES(18,3);
-*/
-
 
 
 
@@ -282,7 +269,7 @@ VALUES('Aprobada', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_solicitud (estado_solicitud, color_estado_solicitud)
 VALUES('Desaprobada', 'rgba(244, 0, 0, 0.5)');
 INSERT INTO estados_solicitud (estado_solicitud, color_estado_solicitud)
-VALUES('Pendiente', 'rgba(150, 152, 154, 0.5)');
+VALUES('Pendiente', 'rgba(244, 244, 0, 0.5)');
 
 
 
@@ -368,22 +355,22 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
 ( 
     id_estado_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     estado_prestamo VARCHAR(40) NOT NULL UNIQUE,
-    color_estado_prestamo VARCHAR(40) NOT NULL UNIQUE, 
+    color_estado_prestamo VARCHAR(40) NOT NULL, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
 
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('No entregado', 'rgba(0, 244, 0, 0.5)');
+VALUES('No entregado', 'rgba(244, 0, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Entregado', 'rgba(244, 0, 0, 0.5)');
+VALUES('Entregado', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Recibido', 'rgba(0, 244, 244, 0.5)');
+VALUES('Recibido', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('No Recibido', 'rgba(244, 244, 0, 0.5)');
+VALUES('No Recibido', 'rgba(244, 0, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Recibido, con problemas', 'rgba(244, 156, 0, 0.5)');
+VALUES('Recibido, con problemas', 'rgba(244, 244, 0, 0.5)');
 
 
 

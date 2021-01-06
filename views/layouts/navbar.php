@@ -13,10 +13,9 @@
                     Hardwares
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/disponible">Disponible</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/enprestamo">Es préstamo</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/enreparación">En reparación</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/fueraDeServicio">No disponible</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/activo">Activo</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/inactivo">Inactivo</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>hardware/nuevo">Nuevo</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
