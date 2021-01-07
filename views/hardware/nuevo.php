@@ -33,9 +33,6 @@ if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
 <?php Utils::deleteSession('register');?>
 
 <!-- ------- -->
-<?php 
-// Id del Usuario logueado.
-$usuarioSolicitante = 2; ?>
 
     <div class="row my-3">
         <div class="col align-middle">
@@ -52,8 +49,6 @@ $usuarioSolicitante = 2; ?>
 
 			<div class="card card-body shadow-sm p-3 mb-5 bg-white rounded border-0">
 				<form action="<?= URL?>hardware/guardar" method="POST">
-				
-					<input type="hidden" name="id_usuario" value="<?php echo $usuarioSolicitante ?>">
 
 					<div class="row my-1">
 						<div class="col-sm-6">

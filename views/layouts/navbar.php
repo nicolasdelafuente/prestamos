@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<?php echo URL ?>">Prestamos</a>
+        <a class="navbar-brand" href="<?php echo URL ?>"><i class="fas fa-cubes mx-2"></i>Préstamos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,11 +24,11 @@
                     Solicitudes
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/pendientes">Pendientes</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/pendientes">Pendientes</a> </li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/aprobadas">Aprobadas</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/desaprobadas">Desaprobadas</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/solicitar">Solicitar</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/nuevo">Nueva</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -36,9 +36,12 @@
                     Prestamos
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/aprobadas">Pendientes</a></li>
-                    <li><a class="dropdown-item" href="#">En curso</a></li>
-                    <li><a class="dropdown-item" href="#">Finalizados</a></li>
+                    <li><a class="dropdown-item" href="#">No entregados</a></li>
+                    <li><a class="dropdown-item" href="#">Entregados</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="#">Recibidos</a></li>
+                    <li><a class="dropdown-item" href="#">Recibidos, con problema</a></li>
+                    <li><a class="dropdown-item" href="#">No recibido</a></li>
                 </ul>
             </li>
         </ul>

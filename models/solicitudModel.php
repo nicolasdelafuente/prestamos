@@ -190,19 +190,33 @@
 
 
         public function save() {
-            $sql = "INSERT INTO solicitudes VALUES(NULL, '{$this->getIdTipoHardware()}', '{$this->getIdUsuario()}', '{$this->getIdEdificio()}',
-                                                    '{$this->getFechaDesde()}', '{$this->getFechaHasta()}', 3,
-                                                    '{$this->getMotivoSolicitud()}', NULL, NULL, NULL)";
+            $sql = "INSERT INTO solicitudes VALUES( NULL,
+                                                    '{$this->getIdTipoHardware()}',
+                                                    '{$this->getIdUsuario()}',
+                                                    '{$this->getIdEdificio()}',
+                                                    '{$this->getFechaDesde()}',
+                                                    '{$this->getFechaHasta()}',
+                                                    '{$this->getMotivoSolicitud()}',
+                                                    NULL, NULL, NULL
+                                                    )";
             $guardar = $this->db->query($sql);
 
-            $resultado = false;
- 
+            $resultado = false; 
 
             if($guardar) {
                 $resultado = true;
             }
 
             return $resultado;
+        }
+
+
+        public function maximoID() {
+            $dato = $this->db->query(
+            "SELECT MAX( id_solicitud ) as id_solicitud FROM solicitudes;");
+    
+            $maximoId = $dato->fetch_object();
+            return $maximoId;
         }
 
 

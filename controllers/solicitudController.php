@@ -1,7 +1,7 @@
 <?php
 
 require_once 'models/solicitudModel.php';
-/*require_once 'controllers/prestamoController.php';*/
+require_once 'models/solicitudEstadoSolicitudModel.php';
 
 class SolicitudController{
 
@@ -35,20 +35,21 @@ class SolicitudController{
 
 
 
-    public function solicitar(){
-        require_once 'views/solicitud/solicitud.php';
+    public function nuevo(){
+        require_once 'views/solicitud/nuevo.php';
     }
 
-    public function save(){
+    public function guardar(){
         if(isset($_POST)) {
-            $idTipoHardware = isset($_POST['id_tipo']) ? $_POST['id_tipo']:false;
+            $idTipoHardware = isset($_POST['id_tipo_hardware']) ? $_POST['id_tipo_hardware']:false;
             $idEdificio = isset($_POST['id_edificio']) ? $_POST['id_edificio']:false;
             $idUsuario = isset($_POST['id_usuario']) ? $_POST['id_usuario']:false;
             $fechaDesde = isset($_POST['fecha_desde']) ? $_POST['fecha_desde']:false;
             $fechaHasta = isset($_POST['fecha_hasta']) ? $_POST['fecha_hasta']:false;
-            $motivo_solciitud = isset($_POST['motivo_solicitud']) ? $_POST['motivo_solicitud']:false;
+            $motivoSolcitud = isset($_POST['motivo_solicitud']) ? $_POST['motivo_solicitud']:false;
 
-            if($idTipoHardware && $idEdificio && $idUsuario && $fechaDesde && $fechaHasta && $motivo_solciitud) {
+
+            if($idTipoHardware && $idEdificio && $idUsuario && $fechaDesde && $fechaHasta && $motivoSolcitud) {
 
                 $solicitud = new SolicitudModel();
                 $solicitud->setIdTipoHardware($idTipoHardware);
@@ -56,28 +57,40 @@ class SolicitudController{
                 $solicitud->setIdusuario($idUsuario);
                 $solicitud->setFechaDesde($fechaDesde);
                 $solicitud->setFechaHasta($fechaHasta);
-                $solicitud->setMotivoSolicitud($motivo_solciitud);     
-            
+                $solicitud->setMotivoSolicitud($motivoSolcitud);
                 
                 
-                $save = $solicitud->save(); 
+                $maximoId = $solicitud->maximoID();
+                $maximo = $maximoId->id_solicitud;
+                $maximoMasUno = $maximo + 1;
 
-                if($save) {
-                    $_SESSION['solicitar'] = "complete";
+                if (isset($maximo)) {
+
+                    $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
+                    $solicitudEstadoSolicitud->setIdSolicitud($maximoMasUno);
+                    $solicitudEstadoSolicitud->setIdEstadoSolicitud(3);
+                
+                    $save1 = $solicitud->save(); 
+
+                    if ($save1) {
+                        $save2 = $solicitudEstadoSolicitud->save();
+
+                    }else{
+                        $_SESSION['register'] = "failed";
+                    }
+                    if($save1) {
+                        $_SESSION['solicitar'] = "complete";
+                    }else{
+                        $_SESSION['solicitar'] = "failed";
+                    }
                 }else{
                     $_SESSION['solicitar'] = "failed";
-                }
+                }                
             }else{
                 $_SESSION['solicitar'] = "failed";
-            }                
-        }else{
-            $_SESSION['solicitar'] = "failed";
+            }
+            header("Location:".URL.'solicitud/nuevo');
         }
-        header("Location:".URL.'solicitud/solicitar');
-
-        
-
-
     }
     
     public function editar(){
@@ -111,16 +124,16 @@ class SolicitudController{
             
             $id = (int)$idSolicitud; 
             if(isset($idHardware)) {                
-                $save = $solicitud->estadoAprobado($id);
+                $save1 = $solicitud->estadoAprobado($id);
             }else{
                 Echo "Desaprobado";
-                $save = $solicitud->estadoDesAprobado($id);
+                $save1 = $solicitud->estadoDesAprobado($id);
             }
 
 
 
 
-                if($save) {
+                if($save1) {
                     $_SESSION['confirmar'] = "complete";
                 }else{
                     $_SESSION['confirmar'] = "failed";

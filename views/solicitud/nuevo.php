@@ -48,7 +48,7 @@ if (isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'complete'): ?>
 		<div class="col-xl-12 col-lg-12">			
 
 			<div class="card card-body shadow-sm p-3 mb-5 bg-white rounded border-0">
-				<form action="<?= URL?>solicitud/save" method="POST">
+				<form action="<?= URL?>solicitud/guardar" method="POST">
 
 					<input type="hidden" name="id_usuario" value="<?php echo $usuarioSolicitante ?>">
 
@@ -57,7 +57,7 @@ if (isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'complete'): ?>
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Tipo</h5>
-									<select class="form-select" name="id_tipo" required>
+									<select class="form-select" name="id_tipo_hardware" required>
 										<option disabled selected>Selecciona una opción</option>
 										<?php while($dato = $tiposHardware->fetch_object()): ?>
 										<option value="<?= $dato->id_tipo_hardware ?>"><?= $dato->tipo_hardware ?> </option>
