@@ -62,7 +62,6 @@ class HardwareModel{
     public function setIdHardware($idHardware) {
         $this->idHardware = $idHardware;
     }
-
         
     public function setIdTipoHardware($idTipoHardware) {
         $this->idTipoHardware = $idTipoHardware;

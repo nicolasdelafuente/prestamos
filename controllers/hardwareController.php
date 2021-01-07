@@ -12,7 +12,7 @@ class HardwareController{
     public function activo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
-        $titulo = $hardware->setEncabezado('activo');
+        $hardware->setEncabezado('activo');
         $estado = 1;
         require_once 'views/hardware/listado.php';
     }
@@ -20,7 +20,7 @@ class HardwareController{
     public function inactivo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
-        $titulo = $hardware->setEncabezado('inactivo');
+        $hardware->setEncabezado('inactivo');
         $estado = 2;
         require_once 'views/hardware/listado.php';
     }

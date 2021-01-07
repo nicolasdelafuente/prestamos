@@ -313,7 +313,7 @@ INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde,
 VALUES(3, 2, 1, '2021-01-17', '2021-05-05', 'Motivo Solicitud: Motivo?' );
 
 
-CREATE TABLE IF NOT EXISTS solcitudes_estados_solicitud
+CREATE TABLE IF NOT EXISTS solicitudes_estados_solicitud
 (
     id_solicitud_estado_solicitud INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     id_solicitud INT NOT NULL,
@@ -324,31 +324,46 @@ CREATE TABLE IF NOT EXISTS solcitudes_estados_solicitud
 )ENGINE = InnoDb;
 
 
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(1,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(2,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(3,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(4,3);
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(5,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(6,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(7,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(8,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(9,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(10,3);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
-VALUES(5,1);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
-VALUES(6,1);
-INSERT INTO solcitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
-VALUES(7,2);
 
+
+-- ESTADO 1
+/*
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(1,1);
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(2,1);
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(3,1);
+*/
+
+
+-- ESTADO 2
+/*
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(7,2);
+INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
+VALUES(8,2);
+*/
 
 
 CREATE TABLE IF NOT EXISTS estados_prestamo

@@ -21,6 +21,8 @@
             $this->db = Database::connect();
         }
         
+
+        // GETTERS
             
         function getIdSolicitud() {
             return $this->idSolicitud;
@@ -66,6 +68,12 @@
             return $this->updatedAt;
         }
 
+        public function getEncabezado() {
+            return $this->encabezado;
+        }
+
+
+        // SETTERS
 
         function setIdSolicitud($idSolicitud) {
             $this->idSolicitud= $idSolicitud;
@@ -103,6 +111,34 @@
             $this->motivoAprobacion = $motivoAprobacion;
         }
 
+        public function setEncabezado($encabezado) {
+            $this->encabezado = $encabezado;
+        }
+
+
+
+        public function getAll() {
+            $hardwares = $this->db->query(
+            "SELECT
+                solicitudes.id_solicitud,
+                tipos_hardware.tipo_hardware,
+                usuarios.nombre,
+                usuarios.apellido,
+                usuarios.email,
+                edificios.edificio,
+                solicitudes.fecha_desde,
+                solicitudes.fecha_hasta
+                FROM
+                    solicitudes
+                INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio            
+                GROUP BY solicitudes.id_solicitud
+                ORDER BY solicitudes.fecha_desde;        
+            ");
+            return $hardwares;
+    }
+
 
 
         public function getOne() {
@@ -117,14 +153,6 @@
             return $soli;
         }
 
-        public function getAll() {
-            $solicitudes = $this->db->query("SELECT * FROM solicitudes
-                INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-                INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud = estados_solicitud.id_estado_solicitud;");
-            return $solicitudes;
-        }
 
         public function getAllAprobado() {
             $solicitudes = $this->db->query("SELECT * FROM solicitudes

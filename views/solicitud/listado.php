@@ -17,13 +17,17 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 
 <!-- ------- -->
 
+<?php
+    require_once 'models/solicitudEstadoSolicitudModel.php';
+    $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
+?>
 
 
 <div class="row">
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> Solicitudes</h5>
+                <h5 class="mb-0"> Solicitudes <?= $solicitud->getEncabezado()?></h5>
 			</div>
         </div>
     </div>
@@ -45,14 +49,15 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                     </tr>
                 </thead>
                 <tbody>
-
-
                     <?php while($dato = $solicitudes->fetch_object()): ?>
+                    <?php  $ultimo = $solicitudEstadoSolicitud->getUltimoEstado($dato->id_solicitud);
+                        if($ultimo->id_estado_solicitud == $estado) {
+                    ?>                    
                         <tr class="shadow-sm">
                         <td class="align-middle">
-                                <i class="fas fa-circle mr-1"
+                                <i class="fas fa-grip-lines-vertical"
                                     <?php
-                                        switch ($dato->id_estado_solicitud) {
+                                        switch ($estado) {
                                             case 1:
                                                 echo  'style="color:rgba(0, 244, 0, 0.5)"';
                                                 break;
@@ -60,14 +65,14 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                                                 echo 'style="color:rgba(244, 0, 0, 0.5)"';
                                                 break;
                                             case 3:
-                                                echo 'style="color:rgba(150, 152, 154, 0.5)"';
+                                                echo 'style="color:rgba(244, 244, 0, 0.5)"';
                                                 break;
                                         }
                                     ?>
                                 
                                 > </i>
                             </td>
-                            <td><span class="d-block"><?= $dato->apellido; ?></span><small class="text-muted"><?= $dato->nombre; ?></small>
+                            <td><span class="d-block"><?= $dato->nombre; ?> <?= $dato->apellido; ?></span><small class="text-muted"><?= $dato->email; ?></small>
                             </td>
                             <td class="align-middle"><span><?= $dato->tipo_hardware; ?></span></td>
                             <td class="align-middle"><span><?= $dato->edificio; ?></span></td>
@@ -79,7 +84,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                                 </a>
                             </td>
                         </tr>
-                    <?php endwhile; ?>
+                    <?php } endwhile; ?>
                 </tbody>
             </table>
         </div>

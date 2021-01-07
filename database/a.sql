@@ -1,1 +1,0 @@
-SELECT * FROM estados_hardware WHERE id_estado_Hardware = 1

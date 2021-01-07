@@ -6,7 +6,31 @@ require_once 'models/solicitudModel.php';
 class SolicitudController{
 
     public function index(){
-        echo "desde SolicitudController/index";
+        return $this->pendientes();
+    }
+
+    public function pendientes() {
+        $solicitud = new SolicitudModel();
+        $solicitudes = $solicitud->getAll();
+        $solicitud->setEncabezado('pendientes');
+        $estado = 3;
+        require_once 'views/solicitud/listado.php';
+    }
+
+    public function aprobadas() {
+        $solicitud = new SolicitudModel();
+        $solicitudes = $solicitud->getAll();
+        $solicitud->setEncabezado('aprobadas');
+        $estado = 1;
+        require_once 'views/solicitud/listado.php';
+    }
+
+    public function desaprobadas() {
+        $solicitud = new SolicitudModel();
+        $solicitudes = $solicitud->getAll();
+        $solicitud->setEncabezado('desaprobadas');
+        $estado = 2;
+        require_once 'views/solicitud/listado.php';
     }
 
 

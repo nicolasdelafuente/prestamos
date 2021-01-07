@@ -17,9 +17,9 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 
 <!-- ------- -->
 
-<?php
+<?php 
 require_once 'models/hardwareEstadoHardwareModel.php';
-$hardwaresEstadosHardware = new HardwareEstadoHardwareModel();
+$hardwareEstadoHardware = new HardwareEstadoHardwareModel();
 ?>
 
 <div class="row">
@@ -50,10 +50,9 @@ $hardwaresEstadosHardware = new HardwareEstadoHardwareModel();
 
                 <tbody>
                     <?php while($dato = $hardwares->fetch_object()): ?>
-                    <?php  $ultimo = $hardwaresEstadosHardware->getUltimoEstado($dato->id_hardware);
+                    <?php  $ultimo = $hardwareEstadoHardware->getUltimoEstado($dato->id_hardware);
                         if($ultimo->id_estado_hardware == $estado) {
                     ?>
-                        
                         <tr class="shadow-sm">
                             <td class="align-middle text-center">
                                 <i class="fas fa-grip-lines-vertical"
