@@ -1,7 +1,7 @@
 <?php
 
 require_once 'models/solicitudModel.php';
-require_once 'controllers/prestamoController.php';
+/*require_once 'controllers/prestamoController.php';*/
 
 class SolicitudController{
 
@@ -9,26 +9,6 @@ class SolicitudController{
         echo "desde SolicitudController/index";
     }
 
-    public function aprobadas() {
-        $solicitud = new SolicitudModel();
-        $solicitudes = $solicitud->getAllAprobado();
-        $mensaje = $solicitud->getEstadoAprobado();
-        require_once 'views/solicitud/listado2.php';
-    }
-
-    public function desaprobadas() {
-        $solicitud = new SolicitudModel();
-        $solicitudes = $solicitud->getAllDesaprobado();
-        $mensaje = $solicitud->getEstadoDesaprobado();
-        require_once 'views/solicitud/listado2.php';
-    }
-
-    public function pendientes() {
-        $solicitud = new SolicitudModel();
-        $solicitudes = $solicitud->getAllPendiente();
-        $mensaje = $solicitud->getEstadoPendiente();
-        require_once 'views/solicitud/listado.php';
-    }
 
 
     public function solicitar(){

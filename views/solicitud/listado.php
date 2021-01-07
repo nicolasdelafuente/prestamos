@@ -23,7 +23,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> Solicitudes <?php echo ($mensaje) ?></h5>
+                <h5 class="mb-0"> Solicitudes</h5>
 			</div>
         </div>
     </div>

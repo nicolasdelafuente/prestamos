@@ -5,7 +5,6 @@
     require_once "autoload.php";
     require_once "config/database.php";
 
-
     include_once "views/layouts/header.php";    
     include_once "views/layouts/navbar.php";
     include_once "views/layouts/main.php";

@@ -1,6 +1,6 @@
 <?php
 
-class errorController{
+class ErrorController{
 
     public function index(){
         require_once 'views/error/index.php';

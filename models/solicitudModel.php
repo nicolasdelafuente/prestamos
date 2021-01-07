@@ -21,18 +21,6 @@
             $this->db = Database::connect();
         }
         
-    
-        function getEstadoPendiente() {
-            return $this->estadoPendiente;
-        }
-
-        function getEstadoAprobado() {
-            return $this->estadoAprobado;
-        }
-
-        function getEstadoDesaprobado() {
-            return $this->estadoDesaprobado;
-        }
             
         function getIdSolicitud() {
             return $this->idSolicitud;
