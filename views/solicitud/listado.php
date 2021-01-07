@@ -45,7 +45,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                         <th scope="col"><small class="font-weight-bold">Edificio<small></th>
                         <th scope="col"><small class="font-weight-bold">Desde<small></th>
                         <th scope="col"><small class="font-weight-bold">Hasta<small></th>
-                        <th scope="col"><small class="font-weight-bold">Editar<small></th>
+                        <th scope="col"><small class="font-weight-bold">Ver<small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +72,8 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                                 
                                 > </i>
                             </td>
-                            <td><span class="d-block"><?= $dato->nombre; ?> <?= $dato->apellido; ?></span><small class="text-muted"><?= $dato->email; ?></small>
+                            <td><span class="d-block"></i>     <?= $dato->nombre; ?> <?= $dato->apellido; ?>
+                                </span><small class="text-muted"><i class="far fa-envelope fa-xs"></i>     <?= $dato->email; ?></small>
                             </td>
                             <td class="align-middle"><span><?= $dato->tipo_hardware; ?></span></td>
                             <td class="align-middle"><span><?= $dato->edificio; ?></span></td>
@@ -80,7 +81,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
                                 <a href = "http://localhost/prestamoHardware/solicitud/editar&id=<?=$dato->id_solicitud?>">
-                                    <span class="badge badge-secondary"><i class="fas fa-pencil-alt"></i></span> 
+                                    <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>
                         </tr>
