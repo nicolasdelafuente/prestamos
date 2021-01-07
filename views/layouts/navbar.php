@@ -24,10 +24,11 @@
                     Solicitudes
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/solicitar">Solicitar</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/pendientes">Pendientes</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/aprobadas">Aprobadas</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/desaprobadas">Desaprobadas</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/solicitar">Solicitar</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

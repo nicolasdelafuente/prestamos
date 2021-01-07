@@ -153,7 +153,7 @@ class HardwareModel{
     public function edit($id){
         $sql = "UPDATE hardwares SET    id_tipo_hardware='{$this->getIdTipoHardware()}',
                                         id_marca='{$this->getIdMarca()}',
-                                        descripcion_hatrware='{$this->getDescripcion()}',
+                                        descripcion_hardware='{$this->getDescripcion()}',
                                         modelo='{$this->getModelo()}', 
                                         numero_serie='{$this->getNumeroSerie()}',
                                         codigo_interno='{$this->getCodigoInterno()}'

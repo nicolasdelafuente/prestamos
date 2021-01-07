@@ -63,24 +63,26 @@ class HardwareController{
                     $hardwareEstadoHardware->setIdHardware($maximoMasUno);
                     $hardwareEstadoHardware->setIdEstadoHardware($idEstadoHardware);
                     
-
                     $save1 = $hardware->save();
-                    $save2 = $hardwareEstadoHardware->save();
+                    if ($save1) {                    
+                        $save2 = $hardwareEstadoHardware->save();
+                    
+                    }else{
+                        $_SESSION['register'] = "failed";
+                    }
+                    if($save2) {
+                        $_SESSION['register'] = "complete";
+                    }else{
+                        $_SESSION['register'] = "failed";
+                    }
                 }else{
                     $_SESSION['register'] = "failed";
-                }
-                if($save1 && $save2) {
-                    $_SESSION['register'] = "complete";
-                }else{
-                    $_SESSION['register'] = "failed";
-                }
+                }                
             }else{
                 $_SESSION['register'] = "failed";
-            }                
-        }else{
-            $_SESSION['register'] = "failed";
+            }
+            header("Location:".URL.'hardware/nuevo');
         }
-        header("Location:".URL.'hardware/nuevo');
     }
 
 
@@ -118,7 +120,9 @@ class HardwareController{
                 $hardware->setDescripcion($descripcion);
                 $hardware->setModelo($modelo);
                 $hardware->setNumeroSerie($numeroSerie);
-                $hardware->setCodigoInterno($codigoInterno);             
+                $hardware->setCodigoInterno($codigoInterno);
+
+                  
 
                 $id = (int) $idHardware;
 
@@ -127,24 +131,25 @@ class HardwareController{
                 $hardwareEstadoHardware->setIdEstadoHardware($idEstadoHardware);
 
                 
-                $save1 = $hardware->edit($id);           
-                $save2 = $hardwareEstadoHardware->save();
-                var_dump($save1);
-                var_dump($save2);
+                $save1 = $hardware->edit($id);  
+                var_dump($save1);     
+                
+                if ($save1) {
+                    $save2 = $hardwareEstadoHardware->save();               
 
-
-                if($save1 && $save2) {
-                    $_SESSION['edit'] = "complete";
+                    if($save2) {
+                        $_SESSION['edit'] = "complete";
+                    }else{
+                        $_SESSION['edit'] = "failed";
+                    }
                 }else{
                     $_SESSION['edit'] = "failed";
-                }
+                }                
             }else{
                 $_SESSION['edit'] = "failed";
-            }                
-        }else{
-            $_SESSION['edit'] = "failed";
-        }
-        /*header("Location:".URL.'hardware/activo');*/
+            }
+        }   
+        header("Location:".URL.'hardware/activo');
     }
 
 }

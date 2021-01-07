@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS hardwares
     descripcion_hardware VARCHAR(1024),
     modelo VARCHAR(40) NOT NULL,
     numero_serie VARCHAR(40) NOT NULL UNIQUE,
-    codigo_interno VARCHAR(40) UNIQUE,
+    codigo_interno VARCHAR(40),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware (id_tipo_hardware),
