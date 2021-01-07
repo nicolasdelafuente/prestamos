@@ -46,10 +46,15 @@
             return $estadosHardware;
         }
 
-        public function getAllButOne($idEstadoHardwareNo) {
-            $estadosHardware = $this->db->query("SELECT * FROM estados_Hardware WHERE id_estado_Hardware != $idEstadoHardwareNo ORDER BY estado_Hardware");
+        public function getAllButOne($id) {
+            $estadosHardware = $this->db->query("SELECT * FROM estados_Hardware WHERE id_estado_Hardware != $id ORDER BY estado_Hardware");
             return $estadosHardware;
-        }     
+        }
+        
+        public function getOne($id) {
+            $estadoHardware = $this->db->query("SELECT * FROM estados_hardware WHERE id_estado_Hardware = $id;");
+            return $estadoHardware;
+        }
 
         
 

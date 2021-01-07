@@ -15,6 +15,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="<?php echo URL ?>hardware/activo">Activo</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL ?>hardware/inactivo">Inactivo</a></li>
+                    <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php echo URL ?>hardware/nuevo">Nuevo</a></li>
                 </ul>
             </li>
@@ -40,8 +41,8 @@
                 </ul>
             </li>
         </ul>
-            <span class="d-flex">
-                <a class="btn" type="submit">Cerrar sesion</a>
+            <span class="d-flex ">
+                <a class="btn p-0" type="submit">Cerrar sesion</a>
             </span>
         </div>
     </div>

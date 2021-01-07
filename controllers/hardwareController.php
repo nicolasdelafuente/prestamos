@@ -57,7 +57,7 @@ class HardwareController{
                 $maximoMasUno = $maximo + 1;
 
 
-                if ($maximo > 0) {
+                if (isset($maximo)) {
                 
                     $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
                     $hardwareEstadoHardware->setIdHardware($maximoMasUno);
@@ -94,6 +94,57 @@ class HardwareController{
         }else{
             header('Location'.URL.'hardware/index');
         }
+    }
+
+
+    public function edicion(){
+        
+        if(isset($_POST)) {
+            $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
+            $idTipoHardware = isset($_POST['id_tipo_hardware']) ? $_POST['id_tipo_hardware']:false;
+            $idMarca = isset($_POST['id_marca']) ? $_POST['id_marca']:false;
+            $descripcion = isset($_POST['descripcion_hardware']) ? $_POST['descripcion_hardware']:false;
+            $modelo = isset($_POST['modelo']) ? $_POST['modelo']:false;
+            $numeroSerie = isset($_POST['numero_serie']) ? $_POST['numero_serie']:false;
+            $codigoInterno = isset($_POST['codigo_interno']) ? $_POST['codigo_interno']:false;
+            $idEstadoHardware = isset($_POST['id_estado_hardware']) ? $_POST['id_estado_hardware']:false;
+
+            if($idTipoHardware && $idMarca && $modelo && $numeroSerie && $idEstadoHardware) {
+
+                $hardware = new HardwareModel();
+                $hardware->setIdHardware($idHardware);
+                $hardware->setIdTipoHardware($idTipoHardware);
+                $hardware->setIdMarca($idMarca);
+                $hardware->setDescripcion($descripcion);
+                $hardware->setModelo($modelo);
+                $hardware->setNumeroSerie($numeroSerie);
+                $hardware->setCodigoInterno($codigoInterno);             
+
+                $id = (int) $idHardware;
+
+                $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
+                $hardwareEstadoHardware->setIdHardware($idHardware);
+                $hardwareEstadoHardware->setIdEstadoHardware($idEstadoHardware);
+
+                
+                $save1 = $hardware->edit($id);           
+                $save2 = $hardwareEstadoHardware->save();
+                var_dump($save1);
+                var_dump($save2);
+
+
+                if($save1 && $save2) {
+                    $_SESSION['edit'] = "complete";
+                }else{
+                    $_SESSION['edit'] = "failed";
+                }
+            }else{
+                $_SESSION['edit'] = "failed";
+            }                
+        }else{
+            $_SESSION['edit'] = "failed";
+        }
+        /*header("Location:".URL.'hardware/activo');*/
     }
 
 }
