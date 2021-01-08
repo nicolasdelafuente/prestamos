@@ -85,7 +85,6 @@ class HardwareController{
         }
     }
 
-
     public function editar(){
         if(isset($_GET['id'])) {
             $id = $_GET['id'];

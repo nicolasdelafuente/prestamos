@@ -55,7 +55,7 @@ class PrestamoController{
     }
     
 
-    public function guardar(){
+    public function guardar($idSolicitud, $idHardware){
         $prestamo = new PrestamoModel();
         $prestamo->save($idSolicitud, $idHardware);
     }
@@ -119,5 +119,11 @@ class PrestamoController{
         }
 
         /*header("Location:".URL.'hardware/index');*/
+    }
+
+
+    function obtenerMáximoId() {
+        $prestamo = new PrestamoModel();
+        return $prestamo->maximoID(); 
     }
 }

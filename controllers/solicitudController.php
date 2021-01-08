@@ -109,7 +109,6 @@ class SolicitudController{
 
     public function confirmar(){
         
-        var_dump($_POST);
         if(isset($_POST)) {
             $motivoAprobacion = isset($_POST['motivo_aprobacion']) ? $_POST['motivo_aprobacion']:false;
             $idSolicitud = isset($_POST['id_solicitud']) ? $_POST['id_solicitud']:false;
@@ -124,53 +123,46 @@ class SolicitudController{
             $estadoSolicitud = 1; //Solicitud aprobada
             $solicitudEstadoSolicitud->setIdEstadoSolicitud($estadoSolicitud);
             $saveSolicitudEstadoSolicitud = $solicitudEstadoSolicitud->save();
-            var_dump($saveSolicitudEstadoSolicitud);
-
 
             // Cargo el motivo a la solicitud.
             $solicitud = new SolicitudModel();
             $solicitud->setMotivoAprobacion($motivoAprobacion);
             $solicitud->setIdSolicitud($idSolicitud);
-
-            echo $solicitud->getIdSolicitud();
-            echo $solicitud->getMotivoAprobacion();
-
-
             $saveSolicitud = $solicitud->editMotivo();
-            var_dump($saveSolicitud);
-
 
 
             // Creo un nuevo prestamo.
             $prestamo = new PrestamoController();
-            $savePrestamo = $prestamo->guardar($idSolicitud, $idHardware);
-            var_dump($savePrestamo);
+            $savePrestamo = $prestamo->guardar($idSolicitud, $idHardware);  //FIXME: GUARDA PERO NO DEVUELVE TRUE
+
+
 
 
             // Creo un nuevo estado del préstamo.
             $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
             //Obtengo el id para el nuevo prestamo
-            $prestamoEstadoPrestamo->setIdPrestamo(1);
+            $maximo= $prestamo->obtenerMáximoId();
+            $maximoPrestamo  = $maximo->id_prestamo;
+
+            $prestamoEstadoPrestamo->setIdPrestamo($maximoPrestamo);
             $estadoPrestamo = 1; //Prestamo No entregado
             $prestamoEstadoPrestamo->setIdEstadoPrestamo($estadoPrestamo);
             $savePrestamoEstadoPrestamo = $prestamoEstadoPrestamo->save();
-            var_dump($prestamoEstadoPrestamo);
 
 
 
-
-                if($save1) {
-                    $_SESSION['confirmar'] = "complete";
+                if($saveSolicitudEstadoSolicitud && $saveSolicitud && $savePrestamoEstadoPrestamo ) {
+                    $_SESSION['register'] = "complete";
                 }else{
-                    $_SESSION['confirmar'] = "failed";
+                    $_SESSION['register'] = "failed";
                 }
             }else{
-                $_SESSION['confirmar'] = "failed";
+                $_SESSION['register'] = "failed";
             }                
         }else{
-            $_SESSION['confirmar'] = "failed";
+            $_SESSION['register'] = "failed";
         }
 
-        /*header("Location:".URL.'hardware/index');*/
+       header("Location:".URL.'solicitud/index');
     }
 }

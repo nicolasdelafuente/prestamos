@@ -20,13 +20,13 @@ $usuarioSolicitante = 2; ?>
 if (isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'complete'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-info" role="alert">
-			<i class="far fa-smile fa-2x"></i> Tu solicitud se ha realizado correctamente. 
+			<i class="far fa-smile fa-2x mx-2"></i> Tu solicitud se ha realizado correctamente. 
 		</div>
 	</div>
 <?php elseif(isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'failed'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-danger" role="alert">
-			<i class="far fa-angry fa-2x"></i> <strong> Solicitud fallida</strong>, introduce los datos correctamente. 
+			<i class="far fa-angry fa-2x mx-2"></i> <strong> Solicitud fallida</strong>, introduce los datos correctamente. 
 		</div>
 	</div>
 <?php endif;?>

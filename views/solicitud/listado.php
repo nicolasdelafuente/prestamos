@@ -3,17 +3,33 @@
 if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-info" role="alert">
-			<i class="far fa-smile fa-2x"></i> Tu hardware se ha editado correctamente. 
+			<i class="far fa-smile fa-2x mx-2"></i> Tu solcitud se ha editado correctamente. 
 		</div>
 	</div>
 <?php elseif(isset($_SESSION['edit']) && $_SESSION['edit'] == 'failed'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-danger" role="alert">
-			<i class="far fa-angry fa-2x"></i> <strong> Edicion fallida</strong>, intenta nuevamente. 
+			<i class="far fa-angry fa-2x mx-2"></i> <strong> Edicion fallida</strong>, intenta nuevamente. 
 		</div>
 	</div>
 <?php endif;?>
 <?php Utils::deleteSession('edit');?>
+
+<?php
+if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="far fa-smile fa-2x mx-2"></i> La solicitud se a aprobado correctamente. 
+		</div>
+	</div>
+<?php elseif(isset($_SESSION['register']) && $_SESSION['register'] == 'failed'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-danger" role="alert">
+			<i class="far fa-angry fa-2x mx-2"></i> <strong> La solicitud no se ha registrado</strong>, intenta nuevamente. 
+		</div>
+	</div>
+<?php endif;?>
+<?php Utils::deleteSession('register');?>
 
 <!-- ------- -->
 
