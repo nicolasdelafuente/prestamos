@@ -2,6 +2,7 @@
 
 require_once 'models/solicitudModel.php';
 require_once 'models/solicitudEstadoSolicitudModel.php';
+require_once 'controllers/prestamoController.php';
 
 class SolicitudController{
 
@@ -38,6 +39,7 @@ class SolicitudController{
     public function nuevo(){
         require_once 'views/solicitud/nuevo.php';
     }
+    
 
     public function guardar(){
         if(isset($_POST)) {
@@ -113,22 +115,46 @@ class SolicitudController{
             $idSolicitud = isset($_POST['id_solicitud']) ? $_POST['id_solicitud']:false;
             $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
 
-            if($motivoAprobacion && $idSolicitud) {
+            if($motivoAprobacion && $idSolicitud && $idHardware) {
 
             
+            // Creo estado APROBADO a la solciitud (En solicitudes_estados_solicitud).
+            $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
+            $solicitudEstadoSolicitud->setIdSolicitud($idSolicitud);
+            $estadoSolicitud = 1; //Solicitud aprobada
+            $solicitudEstadoSolicitud->setIdEstadoSolicitud($estadoSolicitud);
+            $saveSolicitudEstadoSolicitud = $solicitudEstadoSolicitud->save();
+            var_dump($saveSolicitudEstadoSolicitud);
+
+
+            // Cargo el motivo a la solicitud.
             $solicitud = new SolicitudModel();
-            $solicitud->setMotivoAprobacion($motivoAprobacion); 
-            
+            $solicitud->setMotivoAprobacion($motivoAprobacion);
+            $solicitud->setIdSolicitud($idSolicitud);
+
+            echo $solicitud->getIdSolicitud();
+            echo $solicitud->getMotivoAprobacion();
+
+
+            $saveSolicitud = $solicitud->editMotivo();
+            var_dump($saveSolicitud);
+
+
+
+            // Creo un nuevo prestamo.
             $prestamo = new PrestamoController();
-            $prestamo->save();
-            
-            $id = (int)$idSolicitud; 
-            if(isset($idHardware)) {                
-                $save1 = $solicitud->estadoAprobado($id);
-            }else{
-                Echo "Desaprobado";
-                $save1 = $solicitud->estadoDesAprobado($id);
-            }
+            $savePrestamo = $prestamo->guardar($idSolicitud, $idHardware);
+            var_dump($savePrestamo);
+
+
+            // Creo un nuevo estado del préstamo.
+            $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
+            //Obtengo el id para el nuevo prestamo
+            $prestamoEstadoPrestamo->setIdPrestamo(1);
+            $estadoPrestamo = 1; //Prestamo No entregado
+            $prestamoEstadoPrestamo->setIdEstadoPrestamo($estadoPrestamo);
+            $savePrestamoEstadoPrestamo = $prestamoEstadoPrestamo->save();
+            var_dump($prestamoEstadoPrestamo);
 
 
 

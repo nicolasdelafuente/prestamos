@@ -72,7 +72,6 @@ class HardwareEstadoHardwareModel{
         return $dato1;
     }
 
-
     public function save() {
         $sql = "INSERT INTO hardwares_estados_hardware VALUES(   NULL,
                                                 '{$this->getIdHardware()}',

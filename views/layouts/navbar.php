@@ -36,10 +36,10 @@
                     Prestamos
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">No entregados</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/noEntregado">No entregados</a></li>
                     <li><a class="dropdown-item" href="#">Entregados</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="#">Recibidos</a></li>
+                    <li><a class="dropdown-item" href="<#">Recibidos</a></li>
                     <li><a class="dropdown-item" href="#">Recibidos, con problema</a></li>
                     <li><a class="dropdown-item" href="#">No recibido</a></li>
                 </ul>

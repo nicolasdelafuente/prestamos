@@ -80,7 +80,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
                             <td class="align-middle"><span><?= $dato->fecha_desde; ?></span></td>
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
-                                <a href = "http://localhost/prestamoHardware/solicitud/editar&id=<?=$dato->id_solicitud?>">
+                                <a href = "<?= URL ?>solicitud/editar&id=<?=$dato->id_solicitud?>">
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>

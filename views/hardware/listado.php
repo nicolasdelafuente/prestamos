@@ -16,6 +16,23 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
 <?php Utils::deleteSession('edit');?>
 
 <!-- ------- -->
+<?php
+if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="far fa-smile fa-2x"></i> Tu hardware se ha agregado correctamente. 
+		</div>
+	</div>
+<?php elseif(isset($_SESSION['register']) && $_SESSION['register'] == 'failed'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-danger" role="alert">
+			<i class="far fa-angry fa-2x"></i> <strong> Registro fallido</strong>, introduce los datos correctamente. 
+		</div>
+	</div>
+<?php endif;?>
+<?php Utils::deleteSession('register');?>
+
+<!-- ------- -->
 
 <?php 
 require_once 'models/hardwareEstadoHardwareModel.php';

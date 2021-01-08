@@ -146,46 +146,10 @@
                 INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
                 INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
                 INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud = estados_solicitud.id_estado_solicitud
                 WHERE id_solicitud = {$this->getIdSolicitud()};");
             
             $soli = $solicitud->fetch_object();
             return $soli;
-        }
-
-
-        public function getAllAprobado() {
-            $solicitudes = $this->db->query("SELECT * FROM solicitudes
-                INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-                INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud = estados_solicitud.id_estado_solicitud
-                WHERE estados_solicitud.id_estado_solicitud = 1
-                ORDER BY solicitudes.fecha_desde");
-            return $solicitudes;
-        }
-        
-        public function getAllDesaprobado() {
-            $solicitudes = $this->db->query("SELECT * FROM solicitudes
-                INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-                INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud = estados_solicitud.id_estado_solicitud
-                WHERE estados_solicitud.id_estado_solicitud = 2
-                ORDER BY solicitudes.fecha_desde DESC");
-            return $solicitudes;
-        }
-
-
-        public function getAllPendiente() {
-                $solicitudes = $this->db->query("SELECT * FROM solicitudes
-                INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-                INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud = estados_solicitud.id_estado_solicitud
-                WHERE estados_solicitud.id_estado_solicitud = 3
-                ORDER BY solicitudes.fecha_desde");
-            return $solicitudes;
         }
 
 
@@ -219,7 +183,7 @@
             return $maximoId;
         }
 
-
+/*
         public function edit($id){
             $sql = "UPDATE INTO solicitudes SET id_tipo_hardware='{$this->getIdTipoHardware()}', id_usuario='{$this->getIdUsuario()}', id_edificio='{$this->getIdEdificio()}',
                                         fecha_desde='{$this->getFechaDesde()}', fecha_hasta='{$this->getFechaHasta()}', 
@@ -234,6 +198,21 @@
             }
             return $result;
         }
+*/
+
+        public function editMotivo(){
+            $sql = "UPDATE solicitudes SET motivo_aprobacion = '{$this->getMotivoAprobacion()}'
+                    WHERE id_solicitud = {$this->getIdSolicitud()}";
+            
+            $save = $this->db->query($sql);
+            
+            $result = false;
+            if($save){
+                $result = true;
+            }
+            return $result;
+        }
+        
 
         public function estadoAprobado($id){
             $sql = "UPDATE solicitudes SET id_estado_solicitud = 1 , motivo_aprobacion='{$this->getMotivoAprobacion()}'

@@ -42,7 +42,7 @@
             <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Editar hardware </h5>
-					<h6 class="mb-0">ID: <?php echo $hard->id_hardware?></h6>
+					<h6 class="mb-0">ID hardware: <?php echo $hard->id_hardware?></h6>
                 </div>
             </div>
         </div>

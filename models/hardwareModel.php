@@ -112,7 +112,7 @@ class HardwareModel{
                 marcas on hardwares.id_marca = marcas.id_marca
             
             GROUP BY hardwares.id_hardware
-            ORDER BY tipos_hardware.tipo_hardware;           
+            ORDER BY tipos_hardware.tipo_hardware, hardwares.numero_serie;           
             ");
             return $hardwares;
     }
@@ -176,6 +176,27 @@ class HardwareModel{
         return $maximoId;
     }
 
+
+    
+    public function hardwareDisponible($estado, $idTipo) {
+        $hardwares = $this->db->query(
+            "SELECT
+                hardwares.id_hardware, hardwares.numero_serie
+            FROM hardwares
+            LEFT JOIN hardwares_estados_hardware ON hardwares.id_hardware = hardwares_estados_hardware.id_hardware
+            INNER JOIN estados_hardware on hardwares_estados_hardware.id_estado_hardware = estados_hardware.id_estado_hardware
+            WHERE hardwares_estados_hardware.created_at IS NULL
+                OR hardwares_estados_hardware.created_at = (
+                    SELECT MAX(hardwares_estados_hardware.created_at)
+                    FROM hardwares_estados_hardware
+                    WHERE hardwares_estados_hardware.id_hardware = hardwares.id_hardware)
+            AND estados_hardware.id_estado_hardware = $estado
+            AND hardwares.id_tipo_hardware = $idTipo
+            ORDER BY hardwares.numero_serie;
+            ");
+        return $hardwares;
+    }
+
+
+
 }
-
-

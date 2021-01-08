@@ -81,7 +81,7 @@ class HardwareController{
             }else{
                 $_SESSION['register'] = "failed";
             }
-            header("Location:".URL.'hardware/nuevo');
+            header("Location:".URL.'hardware/index');
         }
     }
 
@@ -132,8 +132,7 @@ class HardwareController{
 
                 
                 $save1 = $hardware->edit($id);  
-                var_dump($save1);     
-                
+
                 if ($save1) {
                     $save2 = $hardwareEstadoHardware->save();               
 
