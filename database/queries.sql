@@ -1,13 +1,12 @@
 SELECT
-                hardwares.id_hardware, hardwares.numero_serie
-            FROM hardwares
-            LEFT JOIN hardwares_estados_hardware ON hardwares.id_hardware = hardwares_estados_hardware.id_hardware
-            INNER JOIN estados_hardware on hardwares_estados_hardware.id_estado_hardware = estados_hardware.id_estado_hardware
-            WHERE hardwares_estados_hardware.created_at IS NULL
-                OR hardwares_estados_hardware.created_at = (
-                    SELECT MAX(hardwares_estados_hardware.created_at)
-                    FROM hardwares_estados_hardware
-                    WHERE hardwares_estados_hardware.id_hardware = hardwares.id_hardware)
-            AND estados_hardware.id_estado_hardware = 1
-            AND hardwares.id_tipo_hardware = 5
-            ORDER BY hardwares.numero_serie;
+    prestamos.id_prestamo, prestamos.id_hardware, prestamos_estados_prestamo.id_estado_prestamo
+FROM prestamos
+LEFT JOIN prestamos_estados_prestamo
+    ON prestamos.id_prestamo = .prestamos_estados_prestamo.id_prestamo
+INNER JOIN estados_prestamo
+    ON prestamos_estados_prestamo.id_estado_prestamo = estados_prestamo.id_estado_prestamo
+WHERE prestamos_estados_prestamo.created_at IS NULL
+    OR prestamos_estados_prestamo.created_at = (
+        SELECT MAX(.prestamos_estados_prestamo.created_at)
+        FROM prestamos_estados_prestamo
+        WHERE prestamos_estados_prestamo.id_prestamo = prestamos.id_prestamo)

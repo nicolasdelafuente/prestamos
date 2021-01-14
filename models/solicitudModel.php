@@ -176,8 +176,7 @@
 
 
         public function maximoID() {
-            $dato = $this->db->query(
-            "SELECT MAX( id_solicitud ) as id_solicitud FROM solicitudes;");
+            $dato = $this->db->query("SELECT MAX( id_solicitud ) as id_solicitud FROM solicitudes;");
     
             $maximoId = $dato->fetch_object();
             return $maximoId;

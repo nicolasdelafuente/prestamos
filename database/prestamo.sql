@@ -115,6 +115,8 @@ CREATE TABLE IF NOT EXISTS hardwares
     modelo VARCHAR(40) NOT NULL,
     numero_serie VARCHAR(40) NOT NULL UNIQUE,
     codigo_interno VARCHAR(40),
+    id_estado_hardware INT NOT NULL,
+    id_estado_prestamo INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware (id_tipo_hardware),
@@ -122,46 +124,46 @@ CREATE TABLE IF NOT EXISTS hardwares
 )ENGINE = InnoDb;
 
 
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0001', 'INT-0000-0001' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('8', '6', 'Ninguna', 'Modelo#', '0000-0002', 'INT-0000-0002' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0003', 'INT-0000-0003' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0004', 'INT-0000-0004' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0006', 'INT-0000-0005' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0005', 'INT-0000-0006' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0007', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0010', 'INT-0000-0007' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0011', 'INT-0000-0008' );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0013', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0012', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0009', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0014', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0016', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0017', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0018', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL );
-INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020' );
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0001', 'INT-0000-0001', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('8', '6', 'Ninguna', 'Modelo#', '0000-0002', 'INT-0000-0002', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0003', 'INT-0000-0003', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0004', 'INT-0000-0004', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0006', 'INT-0000-0005', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0005', 'INT-0000-0006', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0007', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0010', 'INT-0000-0007', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0011', 'INT-0000-0008', 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0013', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0012', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0009', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0014', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0016', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0017', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0018', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL, 1, 1);
+INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020', 1, 1);
 
 
 CREATE TABLE IF NOT EXISTS hardwares_estados_hardware
@@ -282,6 +284,7 @@ CREATE TABLE IF NOT EXISTS solicitudes
     fecha_hasta DATE NOT NULL,
     motivo_solicitud VARCHAR(1024) NOT NULL,
     motivo_aprobacion VARCHAR(1024),
+    id_estado_solicitud INT NOT NULL ,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_tipo_hardware) REFERENCES tipos_hardware(id_tipo_hardware),
@@ -290,26 +293,26 @@ CREATE TABLE IF NOT EXISTS solicitudes
 ) ENGINE = InnoDb;
 
 
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(1, 2, 1, '2020-12-31', '2021-01-31', 'Motivo Solicitud: Necesidad' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(2, 2, 3, '2020-12-01', '2021-02-15', 'Motivo Solicitud: Necesidad para fines de enero' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(3, 2, 1, '2020-12-30', '2021-01-28', 'Motivo Solicitud: Necesidad Urgente' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(4, 2, 1, '2021-02-02', '2021-02-28', 'Motivo Solicitud: Necesidad ---' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(1, 2, 2, '2021-01-12', '2021-07-31', 'Motivo Solicitud: No se' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(1, 2, 2, '2021-01-12', '2021-09-30', 'Motivo Solicitud: Para usarlo' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(5, 2, 1, '2021-01-26', '2022-01-25', 'Motivo Solicitud: Capricho' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(6, 2, 3, '2021-01-12', '2023-01-12', 'Motivo Solicitud: Paar Trabajar' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(2, 2, 1, '2021-01-15', '2021-06-25', 'Motivo Solicitud: Ahora' );
-INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud)
-VALUES(3, 2, 1, '2021-01-17', '2021-05-05', 'Motivo Solicitud: Motivo?' );
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(1, 2, 1, '2020-12-31', '2021-01-31', 'Motivo Solicitud: Necesidad', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(2, 2, 3, '2020-12-01', '2021-02-15', 'Motivo Solicitud: Necesidad para fines de enero', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(3, 2, 1, '2020-12-30', '2021-01-28', 'Motivo Solicitud: Necesidad Urgente', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(4, 2, 1, '2021-02-02', '2021-02-28', 'Motivo Solicitud: Necesidad ---', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(1, 2, 2, '2021-01-12', '2021-07-31', 'Motivo Solicitud: No se', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(1, 2, 2, '2021-01-12', '2021-09-30', 'Motivo Solicitud: Para usarlo', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(5, 2, 1, '2021-01-26', '2022-01-25', 'Motivo Solicitud: Capricho', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(6, 2, 3, '2021-01-12', '2023-01-12', 'Motivo Solicitud: Paar Trabajar', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(2, 2, 1, '2021-01-15', '2021-06-25', 'Motivo Solicitud: Ahora', 3);
+INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
+VALUES(3, 2, 1, '2021-01-17', '2021-05-05', 'Motivo Solicitud: Motivo?', 3);
 
 
 CREATE TABLE IF NOT EXISTS solicitudes_estados_solicitud
@@ -394,6 +397,7 @@ CREATE TABLE IF NOT EXISTS prestamos
     id_solicitud INT NOT NULL,
     id_hardware INT NOT NULL,
     observacion_devolucion VARCHAR(1024),
+    id_estado_prestamo INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_solicitud) REFERENCES solicitudes(id_solicitud),

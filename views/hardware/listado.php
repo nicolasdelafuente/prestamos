@@ -61,14 +61,16 @@ $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
                         <th scope="col"><small class="font-weight-bold">Modelo<small></th>
                         <th scope="col"><small class="font-weight-bold">Numero de Serie<small></th>
                         <th scope="col"><small class="font-weight-bold">Código Unahur<small></th>
+                        <th scope="col" colspan=2><small class="font-weight-bold">Estado Préstamo<small></th>
+                        
                         <th scope="col"><small class="font-weight-bold">Editar<small></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php while($dato = $hardwares->fetch_object()): ?>
-                    <?php  $ultimo = $hardwareEstadoHardware->getUltimoEstado($dato->id_hardware);
-                        if($ultimo->id_estado_hardware == $estado) {
+                    <?php  $ultimo = $dato->id_estado_hardware;
+                        if($ultimo == $estado) {
                     ?>
                         <tr class="shadow-sm">
                             <td class="align-middle text-center">
@@ -91,6 +93,34 @@ $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
                             <td class="align-middle"><span><?= $dato->modelo; ?></span></td>
                             <td class="align-middle"><span><?= $dato->numero_serie; ?></span></td>
                             <td class="align-middle"><span><?= $dato->codigo_interno; ?></span></td>
+                            <td class="align-middle"><span>
+                                <i class="far fa-handshake fa-sm"
+                                            <?php
+                                                switch ($dato->id_estado_prestamo) {
+                                                    case 1:
+                                                        echo  'style="color:rgba(244, 0, 0, 0.5)"';
+                                                    break;
+                                                    case 2:
+                                                        echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                    break;
+                                                    case 3:
+                                                        echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                    break;
+                                                    case 4:
+                                                        echo 'style="color:rgba(244, 0, 0, 0.5)"';
+                                                    break;
+                                                    case 5:
+                                                        echo 'style="color:rgba(244, 244, 0, 0.5)"';
+                                                    break;
+                                            }
+                                        ?>                                
+                                    > </i>
+                                
+                                </span>
+                            </td>
+                            <td class="align-middle">
+                                <?= $dato->estado_prestamo; ?>
+                            </td>
                             <td class="align-middle">
                                 <a href = "<?= URL ?>hardware/editar&id=<?=$dato->id_hardware?>">
                                     <span class="badge badge-secondary"><i class="fas fa-pencil-alt"></i></span> 
