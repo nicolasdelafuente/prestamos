@@ -34,11 +34,6 @@ if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
 
 <!-- ------- -->
 
-<?php 
-require_once 'models/hardwareEstadoHardwareModel.php';
-$hardwareEstadoHardware = new HardwareEstadoHardwareModel();
-?>
-
 <div class="row">
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
@@ -69,8 +64,8 @@ $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
 
                 <tbody>
                     <?php while($dato = $hardwares->fetch_object()): ?>
-                    <?php  $ultimo = $dato->id_estado_hardware;
-                        if($ultimo == $estado) {
+                    <?php  $estadoHardware = $dato->id_estado_hardware;
+                        if($estadoHardware == $estado) {
                     ?>
                         <tr class="shadow-sm">
                             <td class="align-middle text-center">
@@ -93,29 +88,29 @@ $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
                             <td class="align-middle"><span><?= $dato->modelo; ?></span></td>
                             <td class="align-middle"><span><?= $dato->numero_serie; ?></span></td>
                             <td class="align-middle"><span><?= $dato->codigo_interno; ?></span></td>
-                            <td class="align-middle"><span>
-                                <i class="far fa-handshake fa-sm"
-                                            <?php
-                                                switch ($dato->id_estado_prestamo) {
-                                                    case 1:
-                                                        echo  'style="color:rgba(244, 0, 0, 0.5)"';
-                                                    break;
-                                                    case 2:
-                                                        echo 'style="color:rgba(0, 244, 0, 0.5)"';
-                                                    break;
-                                                    case 3:
-                                                        echo 'style="color:rgba(0, 244, 0, 0.5)"';
-                                                    break;
-                                                    case 4:
-                                                        echo 'style="color:rgba(244, 0, 0, 0.5)"';
-                                                    break;
-                                                    case 5:
-                                                        echo 'style="color:rgba(244, 244, 0, 0.5)"';
-                                                    break;
-                                            }
-                                        ?>                                
-                                    > </i>
-                                
+                            <td class="align-middle">
+                                <span>
+                                    <i class="far fa-handshake fa-sm"
+                                                <?php
+                                                    switch ($dato->id_estado_prestamo) {
+                                                        case 1:
+                                                            echo  'style="color:rgba(244, 0, 0, 0.5)"';
+                                                        break;
+                                                        case 2:
+                                                            echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                        break;
+                                                        case 3:
+                                                            echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                        break;
+                                                        case 4:
+                                                            echo 'style="color:rgba(244, 0, 0, 0.5)"';
+                                                        break;
+                                                        case 5:
+                                                            echo 'style="color:rgba(244, 244, 0, 0.5)"';
+                                                        break;
+                                                }
+                                            ?>                                
+                                        > </i>                                
                                 </span>
                             </td>
                             <td class="align-middle">

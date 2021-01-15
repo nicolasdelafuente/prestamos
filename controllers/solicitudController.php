@@ -2,7 +2,10 @@
 
 require_once 'models/solicitudModel.php';
 require_once 'models/solicitudEstadoSolicitudModel.php';
-require_once 'controllers/prestamoController.php';
+require_once 'models/hardwareModel.php';
+require_once 'models/prestamoEstadoPrestamoModel.php';
+require_once 'models/prestamoModel.php';
+
 
 class SolicitudController{
 
@@ -38,8 +41,7 @@ class SolicitudController{
 
     public function nuevo(){
         require_once 'views/solicitud/nuevo.php';
-    }
-    
+    }    
 
     public function guardar(){
         if(isset($_POST)) {
@@ -61,28 +63,30 @@ class SolicitudController{
                 $solicitud->setFechaHasta($fechaHasta);
                 $solicitud->setMotivoSolicitud($motivoSolcitud);
                 
-                
+
+          
+                //Creo una solicitud
+                $saveSolicitud = $solicitud->save();
+
+                //Obtengo el ID de la nueva solciitud.
                 $maximoId = $solicitud->maximoID();
-                $maximo = $maximoId->id_solicitud;
-                $maximoMasUno = $maximo + 1;
+                $maximoId = $maximoId->id_solicitud;
 
-                if (isset($maximo)) {
-
+                //Si existe la nueva solicitud => creo un nuevo estado de la solicitud en tabla intermedia.
+                if ($saveSolicitud) {
                     $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
-                    $solicitudEstadoSolicitud->setIdSolicitud($maximoMasUno);
+                    $solicitudEstadoSolicitud->setIdSolicitud($maximoId);
                     $solicitudEstadoSolicitud->setIdEstadoSolicitud(3);
-                
-                    $save1 = $solicitud->save(); 
 
-                    if ($save1) {
-                        $save2 = $solicitudEstadoSolicitud->save();
-
-                    }else{
-                        $_SESSION['register'] = "failed";
-                    }
-                    if($save1) {
+                    
+                    $saveEstadoSolicitud = $solicitudEstadoSolicitud->save();
+                               
+                     //Si existe el estado en tabla intermedia => creo un nuevo estado de la solicitud en tabla intermedia.
+                    if($saveEstadoSolicitud) {                        
                         $_SESSION['solicitar'] = "complete";
                     }else{
+                        // Si no existe el estado en tabla intermedia => elimino la solicitud creada.
+                        $solicitud->delete($maximoId);
                         $_SESSION['solicitar'] = "failed";
                     }
                 }else{
@@ -91,7 +95,7 @@ class SolicitudController{
             }else{
                 $_SESSION['solicitar'] = "failed";
             }
-            header("Location:".URL.'solicitud/nuevo');
+           /*header("Location:".URL.'solicitud/nuevo');*/
         }
     }
     
@@ -115,52 +119,57 @@ class SolicitudController{
             $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
 
             if($motivoAprobacion && $idSolicitud && $idHardware) {
+                
+                $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
+                $hardware = new HardwareModel();
+                $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
+                $prestamoModel = new PrestamoModel();
+                $solicitudModel = new SolicitudModel();
+                
+                $idEstadoSolicitud = 1; // Aprobado.
+                $idEstadoPrestamo = 1; // Asignado / no entregado.
 
+
+                //EDITAR: solicitudes.id_estado_solicitud
+                $solicitudModel->setMotivoAprobacion($motivoAprobacion);
+                $solicitudModel->setIdEstadoSolicitud($idEstadoSolicitud);
+                $solicitudModel->setIdSolicitud($idSolicitud);
+                $saveEstadoSolicitud = $solicitudModel->aprobarSolicitud();
+
+                //CREAR: solicitudes_estados_solicitud.idestado_solicitud OK               
+                $solicitudEstadoSolicitud->setIdSolicitud($idSolicitud);
+                $solicitudEstadoSolicitud->setIdEstadoSolicitud($idEstadoSolicitud);    
+                $saveSolicitudEstadoSolicitud = $solicitudEstadoSolicitud->save();  
+
+                //EDITAR: hardwares.id_estado_prestamo                
+                $saveEstadoHardware = $hardware->actualizarEstadoPrestamo($idHardware, $idEstadoPrestamo);
+
+                //CREAR: prestamos.id_estados_prestamos
+                $idSolicitud = (int)$idSolicitud;
+                $idHardware = (int)$idHardware;
+                $idEstadoPrestamo = (int)$idEstadoPrestamo;
+                $savePrestamo = $prestamoModel->save($idSolicitud, $idHardware, $idEstadoPrestamo);
+
+                //CREAR: prestamos_estados_prestamo.id_estado_prestamo
+                $idPrestamo = $prestamoModel->maximoID();
+                $idPrestamo = $idPrestamo->id_prestamo; 
+                $prestamoEstadoPrestamo->setIdPrestamo($idPrestamo);
+                $prestamoEstadoPrestamo->setIdEstadoPrestamo($idEstadoPrestamo);
+                $savePrestamoEstadoPrestamo = $prestamoEstadoPrestamo->save();                           
             
-            // Creo estado APROBADO a la solciitud (En solicitudes_estados_solicitud).
-            $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
-            $solicitudEstadoSolicitud->setIdSolicitud($idSolicitud);
-            $estadoSolicitud = 1; //Solicitud aprobada
-            $solicitudEstadoSolicitud->setIdEstadoSolicitud($estadoSolicitud);
-            $saveSolicitudEstadoSolicitud = $solicitudEstadoSolicitud->save();
+        
 
-            // Cargo el motivo a la solicitud.
-            $solicitud = new SolicitudModel();
-            $solicitud->setMotivoAprobacion($motivoAprobacion);
-            $solicitud->setIdSolicitud($idSolicitud);
-            $saveSolicitud = $solicitud->editMotivo();
-
-
-            // Creo un nuevo prestamo.
-            $prestamo = new PrestamoController();
-            $savePrestamo = $prestamo->guardar($idSolicitud, $idHardware);  //FIXME: GUARDA PERO NO DEVUELVE TRUE
-
-
-
-
-            // Creo un nuevo estado del préstamo.
-            $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
-            //Obtengo el id para el nuevo prestamo
-            $maximo= $prestamo->obtenerMáximoId();
-            $maximoPrestamo  = $maximo->id_prestamo;
-
-            $prestamoEstadoPrestamo->setIdPrestamo($maximoPrestamo);
-            $estadoPrestamo = 1; //Prestamo No entregado
-            $prestamoEstadoPrestamo->setIdEstadoPrestamo($estadoPrestamo);
-            $savePrestamoEstadoPrestamo = $prestamoEstadoPrestamo->save();
-
-
-
-                if($saveSolicitudEstadoSolicitud && $saveSolicitud && $savePrestamoEstadoPrestamo ) {
-                    $_SESSION['register'] = "complete";
+                if($saveEstadoSolicitud && $saveSolicitudEstadoSolicitud && $saveEstadoHardware && $savePrestamo && $savePrestamoEstadoPrestamo) {
+                    $_SESSION['confirmarSolicitud'] = "complete";
                 }else{
-                    $_SESSION['register'] = "failed";
+                    $_SESSION['confirmarSolicitud'] = "failed";
                 }
+
             }else{
-                $_SESSION['register'] = "failed";
+                $_SESSION['confirmarSolicitud'] = "failed";
             }                
         }else{
-            $_SESSION['register'] = "failed";
+            $_SESSION['confirmarSolicitud'] = "failed";
         }
 
        header("Location:".URL.'solicitud/index');

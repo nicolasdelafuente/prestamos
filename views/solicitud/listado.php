@@ -1,43 +1,21 @@
 <!-- ------- -->
 <?php
-if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
+if (isset($_SESSION['confirmarSolicitud']) && $_SESSION['confirmarSolicitud'] == 'complete'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-info" role="alert">
-			<i class="far fa-smile fa-2x mx-2"></i> Tu solcitud se ha editado correctamente. 
+			<i class="far fa-smile fa-2x mx-2"></i> La solicitud se ha aceptado. 
 		</div>
 	</div>
-<?php elseif(isset($_SESSION['edit']) && $_SESSION['edit'] == 'failed'): ?>
+<?php elseif(isset($_SESSION['confirmarSolicitud']) && $_SESSION['confirmarSolicitud'] == 'failed'): ?>
 	<div class="col-lg-6 mt-3">
 		<div class="alert alert-danger" role="alert">
-			<i class="far fa-angry fa-2x mx-2"></i> <strong> Edicion fallida</strong>, intenta nuevamente. 
+			<i class="far fa-angry fa-2x mx-2"></i> <strong> Error</strong>, intenta nuevamente. 
 		</div>
 	</div>
 <?php endif;?>
-<?php Utils::deleteSession('edit');?>
-
-<?php
-if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
-	<div class="col-lg-6 mt-3">
-		<div class="alert alert-info" role="alert">
-			<i class="far fa-smile fa-2x mx-2"></i> La solicitud se a aprobado correctamente. 
-		</div>
-	</div>
-<?php elseif(isset($_SESSION['register']) && $_SESSION['register'] == 'failed'): ?>
-	<div class="col-lg-6 mt-3">
-		<div class="alert alert-danger" role="alert">
-			<i class="far fa-angry fa-2x mx-2"></i> <strong> La solicitud no se ha registrado</strong>, intenta nuevamente. 
-		</div>
-	</div>
-<?php endif;?>
-<?php Utils::deleteSession('register');?>
+<?php Utils::deleteSession('confirmarSolicitud');?>
 
 <!-- ------- -->
-
-<?php
-    require_once 'models/solicitudEstadoSolicitudModel.php';
-    $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
-?>
-
 
 <div class="row">
     <div class="col align-middle">
@@ -56,6 +34,7 @@ if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
                 <thead class="thead-light">
                     <tr>
                         <th scope="col"><small class="font-weight-bold"><small></th>
+                        <th scope="col"><small class="font-weight-bold">Id<small></th>
                         <th scope="col"><small class="font-weight-bold">Usuario<small></th>
                         <th scope="col"><small class="font-weight-bold">Tipo<small></th>
                         <th scope="col"><small class="font-weight-bold">Edificio<small></th>
@@ -66,8 +45,8 @@ if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
                 </thead>
                 <tbody>
                     <?php while($dato = $solicitudes->fetch_object()): ?>
-                    <?php  $ultimo = $solicitudEstadoSolicitud->getUltimoEstado($dato->id_solicitud);
-                        if($ultimo->id_estado_solicitud == $estado) {
+                    <?php  $estadoSolicitud = $dato->id_estado_solicitud;
+                        if($estadoSolicitud == $estado) {
                     ?>                    
                         <tr class="shadow-sm">
                         <td class="align-middle">
@@ -88,6 +67,7 @@ if (isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
                                 
                                 > </i>
                             </td>
+                            <td class="align-middle"><span><?= $dato->id_solicitud; ?></span></td>
                             <td><span class="d-block"></i>     <?= $dato->nombre; ?> <?= $dato->apellido; ?>
                                 </span><small class="text-muted"><i class="far fa-envelope fa-xs"></i>     <?= $dato->email; ?></small>
                             </td>

@@ -1,6 +1,7 @@
 <?php
-require_once 'models/pestamoModel.php';
+require_once 'models/prestamoModel.php';
 require_once 'models/prestamoEstadoPrestamoModel.php';
+require_once 'models/hardwareModel.php';
 
 class PrestamoController{
 
@@ -10,7 +11,7 @@ class PrestamoController{
 
     public function noEntregado() {
         $prestamo = new PrestamoModel();
-        /*$prestamos = $prestamo->getAll();*/
+        $prestamos = $prestamo->getAll();
         $prestamo->setEncabezado('no entregados');
         $estado = 1;
         require_once 'views/prestamo/listado.php';
@@ -49,81 +50,38 @@ class PrestamoController{
     }
 
 
+    public function confirmarPrestamo() {
+        $id_prestamo =  isset($_GET['id']) ? $_GET['id']:false;
 
-    public function nuevo(){
-        require_once 'views/prestamo/nuevo.php';
-    }
-    
+        if($id_prestamo) {
+                
+            $idEstadoPrestamo = 2;
+            $prestamo = new PrestamoModel();
+            $prestamo->setIdPrestamo($id_prestamo);
+            $prestamo->setIdEstadoPrestamo($idEstadoPrestamo);
 
-    public function guardar($idSolicitud, $idHardware){
-        $prestamo = new PrestamoModel();
-        $prestamo->save($idSolicitud, $idHardware);
-    }
-    
-    public function editar(){
-        if(isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $prestamo = new prestamoModel();
-            $prestamo->setIdprestamo($id);
-            $soli = $prestamo->getOne();
-            require_once 'views/prestamo/editar.php';
-        }else{
-            header('Location'.URL.'prestamo/pendientes');
+            $save = $prestamo->cambiarEstado();
+
+            $hardware = new HardwareModel();
+            
+
         }
+
+        /*header("Location:".URL.'prestamo/noEntregado');*/
     }
 
-    public function confirmar(){
+/*
+    public function actualizarEstado($idHardware, $idPrestamo, $idEstadoPrestamo){
         
-        var_dump($_POST);
-        if(isset($_POST)) {
-            $motivoAprobacion = isset($_POST['motivo_aprobacion']) ? $_POST['motivo_aprobacion']:false;
-            $idprestamo = isset($_POST['id_prestamo']) ? $_POST['id_prestamo']:false;
-            $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
-
-            if($motivoAprobacion && $idprestamo && $idHardware) {
-
-            
-            $prestamo = new prestamoModel();
-            $prestamo->setMotivoAprobacion($motivoAprobacion); 
-            $saveprestamo = $prestamostadoprestamo->editar();
-            
-            $prestamo = new PrestamoController();
-            $prestamo->setId_prestamo($idprestamo);
-            $prestamo->setId_Hardware($idHardware);
-            $savePrestamo = $prestamo->save();
-
-            $prestamostadoprestamo = new prestamoEstadoprestamoModel();
-            $prestamostadoprestamo->setIdprestamo();
-            $prestamostadoprestamo->setIdEstadoprestamo();
-            $saveprestamoEstadoprestamo = $prestamostadoprestamo->save();
-            
-            $prestamostadoPrestamo = new PrestamoEstadoPrestamoModel();
-            $prestamostadoPrestamo->setIDPrestamo();
-            $estadoPrestamo = 1; //Estado No entregado
-            $prestamostadoPrestamo->setIdEstadoPrestamo($estadoPrestamo);
-            $savePrestamoEstadoPrestamo = $prestamostadoPrestamo->save();
+        $hardware = new HardwareModel();
+        $saveHardware = $hardware->actualizarEstadoPrestamo($idHardware, $idEstadoPrestamo);
 
 
-
-
-                if($save1) {
-                    $_SESSION['confirmar'] = "complete";
-                }else{
-                    $_SESSION['confirmar'] = "failed";
-                }
-            }else{
-                $_SESSION['confirmar'] = "failed";
-            }                
-        }else{
-            $_SESSION['confirmar'] = "failed";
-        }
-
-        /*header("Location:".URL.'hardware/index');*/
+        $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
+        $prestamoEstadoPrestamo->setIdPrestamo($idPrestamo);
+        $prestamoEstadoPrestamo->setIdEstadoPrestamo($idEstadoPrestamo);
+        $savePrestamoEstadoPrestamo  = $prestamoEstadoPrestamo->save();
+        var_dump($savePrestamoEstadoPrestamo);
     }
-
-
-    function obtenerMáximoId() {
-        $prestamo = new PrestamoModel();
-        return $prestamo->maximoID(); 
-    }
+*/
 }

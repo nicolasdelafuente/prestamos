@@ -7,7 +7,7 @@
             private $idEdificio;
             private $fechaDesde;
             private $fechaHasta;
-            private $motivoSolcitud;
+            private $motivoSolicitud;
             private $motivoAprobacion;
             private $createdAt;
             private $updatedAt;
@@ -118,7 +118,7 @@
 
 
         public function getAll() {
-            $hardwares = $this->db->query(
+            $solicitudes = $this->db->query(
             "SELECT
                 solicitudes.id_solicitud,
                 tipos_hardware.tipo_hardware,
@@ -127,18 +127,19 @@
                 usuarios.email,
                 edificios.edificio,
                 solicitudes.fecha_desde,
-                solicitudes.fecha_hasta
+                solicitudes.fecha_hasta,
+                estados_solicitud.id_estado_solicitud
                 FROM
                     solicitudes
                 INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
                 INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio            
+                INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
+                INNER JOIN estados_solicitud ON solicitudes.id_estado_solicitud =  estados_solicitud.id_estado_solicitud      
                 GROUP BY solicitudes.id_solicitud
                 ORDER BY solicitudes.fecha_desde;        
             ");
-            return $hardwares;
-    }
-
+            return $solicitudes;
+        }
 
 
         public function getOne() {
@@ -161,8 +162,7 @@
                                                     '{$this->getFechaDesde()}',
                                                     '{$this->getFechaHasta()}',
                                                     '{$this->getMotivoSolicitud()}',
-                                                    NULL, NULL, NULL
-                                                    )";
+                                                    NULL,3,NULL, NULL)";
             $guardar = $this->db->query($sql);
 
             $resultado = false; 
@@ -174,6 +174,19 @@
             return $resultado;
         }
 
+        public function delete($idSolicitud) {
+            $sql = "DELETE FROM solicitudes WHERE id_solicitud = $idSolicitud;";
+    
+            $save = $this->db->query($sql);
+            
+            $result = false;
+            if($save){
+                $result = true;
+            }
+            return $result;
+    
+        }
+
 
         public function maximoID() {
             $dato = $this->db->query("SELECT MAX( id_solicitud ) as id_solicitud FROM solicitudes;");
@@ -182,12 +195,16 @@
             return $maximoId;
         }
 
-/*
-        public function edit($id){
-            $sql = "UPDATE INTO solicitudes SET id_tipo_hardware='{$this->getIdTipoHardware()}', id_usuario='{$this->getIdUsuario()}', id_edificio='{$this->getIdEdificio()}',
-                                        fecha_desde='{$this->getFechaDesde()}', fecha_hasta='{$this->getFechaHasta()}', 
-                                        id_estado_solicitud='{$this->getidEstadoSolicitud()}', motivo_solicitud='{$this->getMotivoSolciitud()}'
-                    WHERE id_hardware=$id;";
+        public function edit(){
+            $sql = "UPDATE solicitudes SET  id_tipo_hardware='{$this->getIdTipoHardware()}',
+                                            id_usuario='{$this->getIdUsuario()}',
+                                            id_edificio='{$this->getIdEdificio()}',
+                                            fecha_desde='{$this->getFechaDesde()}',
+                                            fecha_hasta='{$this->getFechaHasta()}', 
+                                            id_estado_solicitud='{$this->getidEstadoSolicitud()}',
+                                            motivo_solicitud='{$this->getMotivoSolicitud()}',
+                                            motivo_aprobacion='{$this->getMotivoAprobacion()}'
+                    WHERE id_solicitud='{$this->getIdSolicitud()}';";
             
             $save = $this->db->query($sql);
             
@@ -197,7 +214,20 @@
             }
             return $result;
         }
-*/
+
+        public function aprobarSolicitud(){
+            $sql = "UPDATE solicitudes SET  id_estado_solicitud='{$this->getidEstadoSolicitud()}',
+                                            motivo_aprobacion='{$this->getMotivoAprobacion()}'
+                    WHERE id_solicitud='{$this->getIdSolicitud()}';";
+            
+            $save = $this->db->query($sql);
+            
+            $result = false;
+            if($save){
+                $result = true;
+            }
+            return $result;
+        }
 
         public function editMotivo(){
             $sql = "UPDATE solicitudes SET motivo_aprobacion = '{$this->getMotivoAprobacion()}'
@@ -210,8 +240,7 @@
                 $result = true;
             }
             return $result;
-        }
-        
+        }        
 
         public function estadoAprobado($id){
             $sql = "UPDATE solicitudes SET id_estado_solicitud = 1 , motivo_aprobacion='{$this->getMotivoAprobacion()}'

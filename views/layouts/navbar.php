@@ -37,11 +37,11 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/noEntregado">No entregados</a></li>
-                    <li><a class="dropdown-item" href="#">Entregados</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/entregado">Entregados</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="<#">Recibidos</a></li>
-                    <li><a class="dropdown-item" href="#">Recibidos, con problema</a></li>
-                    <li><a class="dropdown-item" href="#">No recibido</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/recibido">Recibidos</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/noRecibido">Recibidos, con problema</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/recibidoConProblema">No recibido</a></li>
                 </ul>
             </li>
         </ul>

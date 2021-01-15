@@ -5,6 +5,7 @@
             private $idSolicitud;
             private $idHardware;
             private $observacionDevolucion;
+            private $idEstadoPrestamo;
             private $createdAt;
             private $updatedAt;
             
@@ -34,6 +35,10 @@
 
         function getObservacionDevolucion() {
             return $this->observacionDevolucion;
+        }
+
+        function getIdEstadoPrestamo() {
+            return $this->idEstadoPrestamo;
         }
 
         function getCreatedAt() {
@@ -68,6 +73,10 @@
             $this->observacionDevolucion = $observacionDevolucion;
         }
 
+        function setIdEstadoPrestamo($idEstadoPrestamo) {
+            $this->idEstadoPrestamo = $idEstadoPrestamo;
+        }
+
         public function setEncabezado($encabezado) {
             $this->encabezado = $encabezado;
         }
@@ -79,24 +88,26 @@
             "SELECT
                 prestamos.id_prestamo,
                 tipos_hardware.tipo_hardware,
-                hardwares.marca
-                hardwares.numero_serie
-                hardwares.codigo_interno
+                marcas.marca,
+                hardwares.numero_serie,
+                hardwares.codigo_interno,
                 usuarios.nombre,
                 usuarios.apellido,
                 usuarios.email,
                 edificios.edificio,
                 solicitudes.fecha_desde,
-                solicitudes.fecha_hasta
+                solicitudes.fecha_hasta,
+                prestamos.id_estado_prestamo
                 FROM
                     prestamos
-                INNER JOIN hardwares ON prestamos.idHardwares = hardwares.id_hardware
+                INNER JOIN hardwares ON prestamos.id_Hardware = hardwares.id_hardware
                 INNER JOIN tipos_hardware ON hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                INNER JOIN marcas ON hardwares.id_marca = marcas.id_marca
                 INNER JOIN solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
                 INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
                 INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio            
                 GROUP BY prestamos.id_prestamo
-                ORDER BY prestamos.fecha_desde;        
+                ORDER BY solicitudes.fecha_desde;        
             ");
             return $prestamos;
     }
@@ -115,12 +126,8 @@
         }
 
 
-        public function save($idSolicitud, $idHardware) {
-            $sql = "INSERT INTO prestamos VALUES( NULL,
-                                                    $idSolicitud,
-                                                    $idHardware,
-                                                    NULL, NULL, NULL
-                                                )";
+        public function save($idSolicitud, $idHardware, $idEstadoPrestamo) {
+            $sql = "INSERT INTO prestamos VALUES( NULL, $idSolicitud, $idHardware, NULL, $idEstadoPrestamo, NULL, NULL)";
             $guardar = $this->db->query($sql);
 
             $resultado = false; 
@@ -182,5 +189,20 @@
             }
             return $result;
         }
+
+        public function cambiarEstado(){
+            $sql = "UPDATE prestamos SET id_estado_prestamo = '{$this->getIdEstadoPrestamo()}'
+                    WHERE id_prestamo='{$this->getIdPrestamo()}';";
+            
+            $save = $this->db->query($sql);
+            
+            $result = false;
+            if($save){
+                $result = true;
+            }
+            return $result;
+        }
+
+
 
     }

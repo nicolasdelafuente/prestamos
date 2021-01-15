@@ -31,8 +31,33 @@
         <div class="col align-middle">
             <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Editar hardware </h5>
-					<h6 class="mb-0">ID hardware: <?php echo $hard->id_hardware?></h6>
+                    <h5 class="mb-0">Editar hardware - Id: <?php echo $hard->id_hardware?></h5>
+					<h6 class="mb-0">
+						<span>
+							<i class="far fa-handshake fa"
+								<?php
+									switch ($hard->id_estado_prestamo) {
+										case 1:
+											echo  'style="color:rgba(244, 0, 0, 0.5)"';
+										break;
+										case 2:
+											echo 'style="color:rgba(0, 244, 0, 0.5)"';
+										break;
+										case 3:
+											echo 'style="color:rgba(0, 244, 0, 0.5)"';
+										break;
+										case 4:
+											echo 'style="color:rgba(244, 0, 0, 0.5)"';
+										break;
+										case 5:
+											echo 'style="color:rgba(244, 244, 0, 0.5)"';
+										break;
+									}
+								?>                                
+							> </i>                                
+						</span>
+							<?php echo $hard->estado_prestamo?>
+					</h6>				
                 </div>
             </div>
         </div>

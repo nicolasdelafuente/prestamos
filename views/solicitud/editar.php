@@ -112,7 +112,7 @@
 								
 
 										$hardware = new HardwareModel();
-										$hardwares = $hardware->hardwareDisponible($hardwareActivo, $idTipo);
+										$hardwares = $hardware->hardwareDisponible($idTipo);
 										?>
 
 										<?php while($dato = $hardwares->fetch_object()): ?>

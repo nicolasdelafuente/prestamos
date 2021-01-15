@@ -54,27 +54,8 @@ class HardwareController{
 
                 $saveHardware = $hardware->save();
 
-                var_dump($saveHardware);
-
                 if($saveHardware) {
-                    $id = $hardware->maximoID();
-                    $id = $id->id_hardware;
-
-                    // Set estado hardware                         
-                    $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
-                    $hardwareEstadoHardware->setIdHardware('no');
-                    $hardwareEstadoHardware->setIdEstadoHardware($idEstadoHardware);
-
-                    $saveEstadoHardware = $hardwareEstadoHardware->save();
-
-                    if($saveEstadoHardware) {
-                        $_SESSION['register'] = "complete";
-                    } else {
-                        $id = $hardware->maximoID();
-                        $id = $id->id_hardware;
-                        $hardware->delete($id);
-                        $_SESSION['register'] = "failed";
-                    }   
+                    $_SESSION['register'] = "complete";
                 }else{
                     $_SESSION['register'] = "failed";
                 }
@@ -99,7 +80,6 @@ class HardwareController{
             header('Location'.URL.'hardware/index');
         }
     }
-
 
     public function edicion(){
         
@@ -139,7 +119,6 @@ class HardwareController{
 
                 // Edito el hardware
                 $saveHardware = $hardware->edit($idHardware);
-                var_dump($saveHardware);
                 
                 if ($saveHardware) {
                     // Ver si el estado hardware no se modificó
@@ -157,7 +136,7 @@ class HardwareController{
                 $_SESSION['edit'] = "failed";
             }
         }   
-        /*header("Location:".URL.'hardware/activo');*/
+        header("Location:".URL.'hardware/activo');
     }
 
 }

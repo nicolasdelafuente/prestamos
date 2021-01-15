@@ -125,45 +125,45 @@ CREATE TABLE IF NOT EXISTS hardwares
 
 
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0001', 'INT-0000-0001', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0001', 'INT-0000-0001', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('8', '6', 'Ninguna', 'Modelo#', '0000-0002', 'INT-0000-0002', 1, 1);
+VALUES('8', '6', 'Ninguna', 'Modelo#', '0000-0002', 'INT-0000-0002', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0003', 'INT-0000-0003', 1, 1);
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0003', 'INT-0000-0003', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0004', 'INT-0000-0004', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0004', 'INT-0000-0004', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0006', 'INT-0000-0005', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0006', 'INT-0000-0005', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0005', 'INT-0000-0006', 1, 1);
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0005', 'INT-0000-0006', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0007', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0007', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0010', 'INT-0000-0007', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0010', 'INT-0000-0007', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0011', 'INT-0000-0008', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0011', 'INT-0000-0008', 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0013', NULL, 1, 1);
+VALUES('8', '5', 'Ninguna', 'Modelo#', '0000-0013', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0012', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0012', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0009', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0009', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0014', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0014', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0016', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0016', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0017', NULL, 1, 1);
+VALUES('3', '4', 'Ninguna', 'Modelo#', '0000-0017', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL, 1, 1);
+VALUES('1', '1', 'Ninguna', 'Modelo#', '0000-0015', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0018', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0018', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0019', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL, 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0020', NULL, 1, 3);
 INSERT INTO hardwares (id_tipo_hardware, id_marca, descripcion_hardware, modelo, numero_serie, codigo_interno, id_estado_hardware, id_estado_prestamo)
-VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020', 1, 1);
+VALUES('5', '2', 'Ninguna', 'Modelo#', '0000-0021', 'INT-0000-0020', 1, 3);
 
 
 CREATE TABLE IF NOT EXISTS hardwares_estados_hardware
@@ -379,9 +379,9 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
 
 
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('No entregado', 'rgba(244, 0, 0, 0.5)');
+VALUES('Asignado - No prestado', 'rgba(244, 0, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Entregado', 'rgba(0, 244, 0, 0.5)');
+VALUES('Prestado', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
 VALUES('Recibido', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
