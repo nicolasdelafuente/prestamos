@@ -49,12 +49,12 @@
         <div class = "shadow p-2 mb-5 bg-white rounded">        
             <a href="<?= URL ?>solicitud/index" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
                 <i class="far fa-hand-pointer fa-5x my-3"></i> </br>
-                Solicitudes 
+                Solicitar 
             </a>
 
             <a href="<?= URL ?>prestamo/index"" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
                 <i class="far fa-handshake fa-5x my-3"></i> </br>
-                Préstamos
+                Mis préstamos
             </a>
         </div>
 
