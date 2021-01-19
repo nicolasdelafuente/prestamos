@@ -377,15 +377,10 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDb;
 
-
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Asignado - No prestado', 'rgba(244, 0, 0, 0.5)');
+VALUES('Disponible para préstamo', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Prestado', 'rgba(0, 244, 0, 0.5)');
-INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Recibido', 'rgba(0, 244, 0, 0.5)');
-INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('No Recibido', 'rgba(244, 0, 0, 0.5)');
+VALUES('En Prestamo', 'rgba(244, 0, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
 VALUES('Recibido, con problemas', 'rgba(244, 244, 0, 0.5)');
 
