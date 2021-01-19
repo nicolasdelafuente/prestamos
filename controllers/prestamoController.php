@@ -1,87 +1,75 @@
 <?php
-require_once 'models/prestamoModel.php';
-require_once 'models/prestamoEstadoPrestamoModel.php';
-require_once 'models/hardwareModel.php';
 
+require_once 'models/prestamoModel.php';
+require_once 'modelsprestamoEstadoPrestamo.php';
+require_once 'controllers/hardwareController.php';
 class PrestamoController{
 
     public function index(){
-        return $this->noEntregado();
+        return $this->pendiente();
     }
 
-    public function noEntregado() {
+
+    // Listado prestamos pendientes de entrega.
+    public function pendiente() {
         $prestamo = new PrestamoModel();
         $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('no entregados');
+        $prestamo->setEncabezado('pendientes de entrega');
         $estado = 1;
         require_once 'views/prestamo/listado.php';
     }
 
-    public function entregado() {
+    // Listado prestamos en curso.
+    public function enPrestamo() {
         $prestamo = new PrestamoModel();
         $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('entregados');
+        $prestamo->setEncabezado('en curso');
         $estado = 2;
         require_once 'views/prestamo/listado.php';
     }
 
-    public function recibido() {
+    // Listado prestamos en finalizados.
+    public function finalizado() {
         $prestamo = new PrestamoModel();
         $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('recibidos');
+        $prestamo->setEncabezado('finalizados');
         $estado = 3;
         require_once 'views/prestamo/listado.php';
     }
 
-    public function noRecibido() {
+    // Listado prestamos recibidos con probmlemas.
+    public function conProblemas() {
         $prestamo = new PrestamoModel();
         $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('no recibidos');
-        $estado = 4;
-        require_once 'views/prestamo/listado.php';
-    }
-
-    public function recibidoConProblema() {
-        $prestamo = new PrestamoModel();
-        $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('recibido con problema');
+        $prestamo->setEncabezado('recibidos con problemas');
         $estado = 4;
         require_once 'views/prestamo/listado.php';
     }
 
 
-    public function confirmarPrestamo() {
-        $id_prestamo =  isset($_GET['id']) ? $_GET['id']:false;
+    public function nuevo($idSolicitud, $idHardware, $idEstadoHardware) {
+        $prestamo = new PrestamoModel();
+        $prestamo->setIdSolicitud($idSolicitud);
+        $prestamo->setIdHardware($idHardware);
+        $prestamo->save();
 
-        if($id_prestamo) {
-                
-            $idEstadoPrestamo = 2;
-            $prestamo = new PrestamoModel();
-            $prestamo->setIdPrestamo($id_prestamo);
-            $prestamo->setIdEstadoPrestamo($idEstadoPrestamo);
 
-            $save = $prestamo->cambiarEstado();
-
-            $hardware = new HardwareModel();
-            
-
-        }
-
-        /*header("Location:".URL.'prestamo/noEntregado');*/
+        $this->setEstadoHardware($idHardware, $idEstadoHardware);
+        $this->setHardwareEstadoHardware($idHardware, $idEstadoHardware);
     }
 
-/*
-    public function actualizarEstado($idHardware, $idPrestamo, $idEstadoPrestamo){
-        
-        $hardware = new HardwareModel();
-        $saveHardware = $hardware->actualizarEstadoPrestamo($idHardware, $idEstadoPrestamo);
-
-
-        $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
-        $prestamoEstadoPrestamo->setIdPrestamo($idPrestamo);
-        $prestamoEstadoPrestamo->setIdEstadoPrestamo($idEstadoPrestamo);
-        $savePrestamoEstadoPrestamo  = $prestamoEstadoPrestamo->save();
-        var_dump($savePrestamoEstadoPrestamo);
+    public function setEstadoHardware($idHardware, $idEstadoHardware) {
+        $hardware = new HardwareControler();
+        $resultado = $hardware->setEstadoHardware($idHardware, $idEstadoHardware);
+        return $resultado;                      
     }
-*/
+
+
+    public function setHardwareEstadoHardware($idHardware, $idEstadoHardware){
+        $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
+        $hardwareEstadoHardware->setEstadoHardware($idEstadoHardware);
+        $hardwareEstadoHardware->setIdHardware($idHardware);
+        $hardwareEstadoHardware->save();
+    }
+
 }

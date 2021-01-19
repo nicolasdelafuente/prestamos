@@ -1,5 +1,4 @@
 <?php 
-
 class HardwareModel{
     
     private $idHardware;
@@ -112,35 +111,35 @@ class HardwareModel{
 
 
     public function getAll() {
-        $hardwares = $this->db->query(
-            "SELECT
-                hardwares.id_hardware,
-                tipos_hardware.tipo_hardware,
-                marcas.marca,
-                hardwares.modelo,
-                hardwares.numero_serie,
-                hardwares.codigo_interno,
-                hardwares.id_estado_hardware,
-                estados_hardware.estado_hardware,
-                hardwares.id_estado_prestamo,
-                estados_prestamo.estado_prestamo,
-                hardwares.descripcion_hardware,
-                hardwares.created_at AS created_at_hardware
-            FROM
-                hardwares
-            INNER JOIN
-                tipos_hardware ON hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-            INNER JOIN
-                marcas ON hardwares.id_marca = marcas.id_marca
-            INNER JOIN
-                estados_hardware ON hardwares.id_estado_hardware = estados_hardware.id_estado_hardware
-            INNER JOIN
-                estados_prestamo ON hardwares.id_estado_prestamo = estados_prestamo.id_estado_prestamo
-            ORDER BY tipos_hardware.tipo_hardware, hardwares.numero_serie;          
-        ");
+        $query = "SELECT
+                        hardwares.id_hardware,
+                        tipos_hardware.tipo_hardware,
+                        marcas.marca,
+                        hardwares.modelo,
+                        hardwares.numero_serie,
+                        hardwares.codigo_interno,
+                        hardwares.id_estado_hardware,
+                        estados_hardware.estado_hardware,
+                        hardwares.id_estado_prestamo,
+                        estados_prestamo.estado_prestamo,
+                        hardwares.descripcion_hardware,
+                        hardwares.created_at AS created_at_hardware
+                    FROM
+                        hardwares
+                    INNER JOIN
+                        tipos_hardware ON hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                    INNER JOIN
+                        marcas ON hardwares.id_marca = marcas.id_marca
+                    INNER JOIN
+                        estados_hardware ON hardwares.id_estado_hardware = estados_hardware.id_estado_hardware
+                    INNER JOIN
+                        estados_prestamo ON hardwares.id_estado_prestamo = estados_prestamo.id_estado_prestamo
+                    ORDER BY tipos_hardware.tipo_hardware, hardwares.numero_serie;";          
+
+        $hardwares = $this->db->query($query);
         return $hardwares;
     }
-    
+
     public function getOne() {
         $hardware = $this->db->query("SELECT * FROM hardwares
             INNER JOIN
@@ -192,11 +191,11 @@ class HardwareModel{
         
         $save = $this->db->query($sql);
         
-        $result = false;
+        $resultado = false;
         if($save){
-            $result = true;
+            $resultado = true;
         }
-        return $result;
+        return $resultado;
     }
 
     public function delete($idHardware) {
@@ -204,11 +203,19 @@ class HardwareModel{
 
         $save = $this->db->query($sql);
         
-        $result = false;
+        $resultado = false;
         if($save){
-            $result = true;
+            $resultado = true;
         }
-        return $result;
+        return $resultado;
+    }
+
+
+    public function estadoHardwareActual($idHardware) {
+        $estadoHardware = $this->db->query("SELECT id_estado_hardware FROM hardwares WHERE id_hardware = $idHardware;");
+
+        $resultado = $estadoHardware->fetch_object();
+        return $resultado;
 
     }
 
@@ -219,7 +226,8 @@ class HardwareModel{
         $maximoId = $dato->fetch_object();
         return $maximoId;
     }
-    
+
+
     public function hardwareDisponible($idTipo) {
         $hardwares = $this->db->query(
             "SELECT
@@ -231,43 +239,24 @@ class HardwareModel{
                 AND hardwares.id_estado_prestamo !=1
                 AND hardwares.id_estado_prestamo !=2
                 AND hardwares.id_estado_prestamo !=4
-                AND hardwares.id_estado_prestamo !=5
             ORDER BY hardwares.numero_serie;
             ");
         return $hardwares;
     }
 
-    public function actualizarEstadoHardware($idHardware, $idEstadoHardware) {
-        $sql = "UPDATE hardwares SET    id_estado_hardware= $idEstadoHardware,
-        WHERE id_hardware=$idHardware;";
 
+    public function editEstado(){
+        $sql = "UPDATE hardwares SET id_estado_hardware='{$this->getIdEstadoHardware()}'
+                WHERE id_hardware='{$this->getIdEstadoHardware()}';";
+        
         $save = $this->db->query($sql);
-
-        $result = false;
+        
+        $resultado = false;
         if($save){
-            $result = true;
+            $resultado = true;
         }
-        return $result;
+        return $resultado;
     }
 
-    public function actualizarEstadoPrestamo($idHardware, $idEstadoPrestamo) {
-        $sql = "UPDATE hardwares SET id_estado_prestamo = $idEstadoPrestamo
-        WHERE id_hardware=$idHardware;";
 
-        $save = $this->db->query($sql);
-
-        $result = false;
-        if($save){
-            $result = true;
-        }
-        return $result;
-    }
-
-    public function estadoHardwareActual($idHardware) {
-        $estadoHardware = $this->db->query("SELECT id_estado_hardware FROM hardwares WHERE id_hardware = $idHardware;");
-
-        $result = $estadoHardware->fetch_object();
-        return $result;
-
-    }
 }

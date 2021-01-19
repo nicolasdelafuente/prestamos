@@ -41,6 +41,9 @@ if (isset($_SESSION['confirmarSolicitud']) && $_SESSION['confirmarSolicitud'] ==
                         <th scope="col"><small class="font-weight-bold">Desde<small></th>
                         <th scope="col"><small class="font-weight-bold">Hasta<small></th>
                         <th scope="col"><small class="font-weight-bold">Ver<small></th>
+                        <th scope="col"><small class="font-weight-bold"><small></th>
+                        <th scope="col"><small class="font-weight-bold"><small></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -49,8 +52,8 @@ if (isset($_SESSION['confirmarSolicitud']) && $_SESSION['confirmarSolicitud'] ==
                         if($estadoSolicitud == $estado) {
                     ?>                    
                         <tr class="shadow-sm">
-                        <td class="align-middle">
-                                <i class="fas fa-grip-lines-vertical"
+                            <td class="align-middle">
+                                <i class="far fa-hand-pointer"
                                     <?php
                                         switch ($estado) {
                                             case 1:
@@ -80,6 +83,16 @@ if (isset($_SESSION['confirmarSolicitud']) && $_SESSION['confirmarSolicitud'] ==
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>
+                            <td class="align-middle">
+                                <a href = "<?= URL ?>solicitud/confirmarSolicitud&id=<?=$dato->id_solicitud?>">
+                                    <span><i class="fas fa-check-square text-success fa-lg"></i></span> 
+                                </a>
+                            </td>          
+                            <td class="align-middle">
+                                <a href = "<?= URL ?>solicitud/rechazar&id=<?=$dato->id_solicitud?>">
+                                    <span><i class="far fa-window-close text-danger fa-lg"></i></span> 
+                                </a>
+                            </td>    
                         </tr>
                     <?php } endwhile; ?>
                 </tbody>

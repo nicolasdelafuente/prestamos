@@ -21,7 +21,7 @@ if (isset($_SESSION['edit']) && $_SESSION['edit'] == 'complete'): ?>
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> Prestamos <?= $prestamo->getEncabezado()?></h5>
+                <h5 class="mb-0"> Préstamos <?= $prestamo->getEncabezado()?></h5>
 			</div>
         </div>
     </div>

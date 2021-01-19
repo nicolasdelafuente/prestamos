@@ -283,7 +283,6 @@ CREATE TABLE IF NOT EXISTS solicitudes
     fecha_desde DATE NOT NULL,
     fecha_hasta DATE NOT NULL,
     motivo_solicitud VARCHAR(1024) NOT NULL,
-    motivo_aprobacion VARCHAR(1024),
     id_estado_solicitud INT NOT NULL ,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -378,11 +377,13 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
 ) ENGINE = InnoDb;
 
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Disponible para préstamo', 'rgba(0, 244, 0, 0.5)');
+VALUES('Pendiente de entrega', 'rgba(244, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('En Prestamo', 'rgba(244, 0, 0, 0.5)');
+VALUES('En Prestamo', 'rgba(0, 64, 208, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('Recibido, con problemas', 'rgba(244, 244, 0, 0.5)');
+VALUES('Finalizado', 'rgba(0, 244, 0, 0.5)');
+INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
+VALUES('Recibido, con problemas', 'rgba(244, 0, 0, 0.5)');
 
 
 
@@ -391,6 +392,7 @@ CREATE TABLE IF NOT EXISTS prestamos
     id_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     id_solicitud INT NOT NULL,
     id_hardware INT NOT NULL,
+    observacion_prestamo VARCHAR(1024),
     observacion_devolucion VARCHAR(1024),
     id_estado_prestamo INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

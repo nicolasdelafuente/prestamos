@@ -2,26 +2,15 @@
 
 require_once 'models/solicitudModel.php';
 require_once 'models/solicitudEstadoSolicitudModel.php';
-require_once 'models/hardwareModel.php';
-require_once 'models/prestamoEstadoPrestamoModel.php';
-require_once 'models/prestamoModel.php';
-
-
+require_once 'controllers/prestamoController.php';
 class SolicitudController{
 
     public function index(){
-        return $this->pendientes();
+        return $this->pendiente();
     }
 
-    public function pendientes() {
-        $solicitud = new SolicitudModel();
-        $solicitudes = $solicitud->getAll();
-        $solicitud->setEncabezado('pendientes');
-        $estado = 3;
-        require_once 'views/solicitud/listado.php';
-    }
-
-    public function aprobadas() {
+    // Listado solicitudes aprobadas.
+    public function aprobada() {
         $solicitud = new SolicitudModel();
         $solicitudes = $solicitud->getAll();
         $solicitud->setEncabezado('aprobadas');
@@ -29,7 +18,8 @@ class SolicitudController{
         require_once 'views/solicitud/listado.php';
     }
 
-    public function desaprobadas() {
+    // Listado solicitudes desaprobadas.
+    public function desaprobada() {
         $solicitud = new SolicitudModel();
         $solicitudes = $solicitud->getAll();
         $solicitud->setEncabezado('desaprobadas');
@@ -37,12 +27,20 @@ class SolicitudController{
         require_once 'views/solicitud/listado.php';
     }
 
-
+    // Listado solicitudes pendientes.
+    public function pendiente() {
+        $solicitud = new SolicitudModel();
+        $solicitudes = $solicitud->getAll();
+        $solicitud->setEncabezado('pendientes');
+        $estado = 3;
+        require_once 'views/solicitud/listado.php';
+    }
 
     public function nuevo(){
         require_once 'views/solicitud/nuevo.php';
-    }    
-
+    }
+    
+    
     public function guardar(){
         if(isset($_POST)) {
             $idTipoHardware = isset($_POST['id_tipo_hardware']) ? $_POST['id_tipo_hardware']:false;
@@ -95,10 +93,10 @@ class SolicitudController{
             }else{
                 $_SESSION['solicitar'] = "failed";
             }
-           /*header("Location:".URL.'solicitud/nuevo');*/
+           header("Location:".URL.'solicitud/nuevo');
         }
     }
-    
+
     public function editar(){
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -107,71 +105,55 @@ class SolicitudController{
             $soli = $solicitud->getOne();
             require_once 'views/solicitud/editar.php';
         }else{
-            header('Location'.URL.'solicitud/pendientes');
+            header('Location'.URL.'solicitud/pendiente');
         }
     }
 
+
     public function confirmar(){
-        
-        if(isset($_POST)) {
-            $motivoAprobacion = isset($_POST['motivo_aprobacion']) ? $_POST['motivo_aprobacion']:false;
-            $idSolicitud = isset($_POST['id_solicitud']) ? $_POST['id_solicitud']:false;
-            $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
 
-            if($motivoAprobacion && $idSolicitud && $idHardware) {
-                
+        if(isset($_GET['id'])) {
+            $idSolicitud = $_GET['id'];
+            $solicitud = new SolicitudModel();
+            $solicitud->setIdSolicitud($idSolicitud);
+            $solicitud->setIdEstadoSolicitud(1);
+            $saveConfirmar = $solicitud->editEstado($solicitud->getIdEstadoSolicitud(),$solicitud->getIdSolicitud());
+        
+            if($saveConfirmar) {    
+                //Crear Solicitudes_estados_solicitud
                 $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
-                $hardware = new HardwareModel();
-                $prestamoEstadoPrestamo = new PrestamoEstadoPrestamoModel();
-                $prestamoModel = new PrestamoModel();
-                $solicitudModel = new SolicitudModel();
+                $solicitudEstadoSolicitud->setIdSolicitud($solicitud->getIdSolicitud());
+                $solicitudEstadoSolicitud->setIdEstadoSolicitud($solicitud->getIdEstadoSolicitud());
+                $saveEstadoSolicitud = $solicitudEstadoSolicitud->save();
                 
-                $idEstadoSolicitud = 1; // Aprobado.
-                $idEstadoPrestamo = 1; // Asignado / no entregado.
+                if($saveEstadoSolicitud) {
+                    $prestamo = new PrestamoController();
+                    $idSolicitud = $solicitud->getIdSolicitud();
+                    $idHardware = ;
+                    $idEstadoHardware= ;
 
+                    $prestamo->nuevo($idSolicitud, $idHardware, $idEstadoHardware);
 
-                //EDITAR: solicitudes.id_estado_solicitud
-                $solicitudModel->setMotivoAprobacion($motivoAprobacion);
-                $solicitudModel->setIdEstadoSolicitud($idEstadoSolicitud);
-                $solicitudModel->setIdSolicitud($idSolicitud);
-                $saveEstadoSolicitud = $solicitudModel->aprobarSolicitud();
-
-                //CREAR: solicitudes_estados_solicitud.idestado_solicitud OK               
-                $solicitudEstadoSolicitud->setIdSolicitud($idSolicitud);
-                $solicitudEstadoSolicitud->setIdEstadoSolicitud($idEstadoSolicitud);    
-                $saveSolicitudEstadoSolicitud = $solicitudEstadoSolicitud->save();  
-
-                //EDITAR: hardwares.id_estado_prestamo                
-                $saveEstadoHardware = $hardware->actualizarEstadoPrestamo($idHardware, $idEstadoPrestamo);
-
-                //CREAR: prestamos.id_estados_prestamos
-                $idSolicitud = (int)$idSolicitud;
-                $idHardware = (int)$idHardware;
-                $idEstadoPrestamo = (int)$idEstadoPrestamo;
-                $savePrestamo = $prestamoModel->save($idSolicitud, $idHardware, $idEstadoPrestamo);
-
-                //CREAR: prestamos_estados_prestamo.id_estado_prestamo
-                $idPrestamo = $prestamoModel->maximoID();
-                $idPrestamo = $idPrestamo->id_prestamo; 
-                $prestamoEstadoPrestamo->setIdPrestamo($idPrestamo);
-                $prestamoEstadoPrestamo->setIdEstadoPrestamo($idEstadoPrestamo);
-                $savePrestamoEstadoPrestamo = $prestamoEstadoPrestamo->save();                           
-            
-        
-
-                if($saveEstadoSolicitud && $saveSolicitudEstadoSolicitud && $saveEstadoHardware && $savePrestamo && $savePrestamoEstadoPrestamo) {
                     $_SESSION['confirmarSolicitud'] = "complete";
-                }else{
-                    $_SESSION['confirmarSolicitud'] = "failed";
-                }
 
+                }else{
+                    $_SESSION['confirmarSolicitud'] = "failed"; 
+                }                
             }else{
                 $_SESSION['confirmarSolicitud'] = "failed";
-            }                
-        }else{
-            $_SESSION['confirmarSolicitud'] = "failed";
+            }           
+            header("Location:".URL.'solicitud/index');
         }
+        
+    }
 
-       header("Location:".URL.'solicitud/index');
+    public function rechazar() {
+        if(isset($_GET['id'])) {
+            $idSolicitud = $_GET['id'];
+            $solicitud = new SolicitudModel();
+            $solicitud->setIdSolicitud($idSolicitud);
+            $solicitud->setIdEstadoSolicitud(2);
+            $solicitud->editEstado($solicitud->getIdEstadoSolicitud(),$solicitud->getIdSolicitud());
+        }
     }
 }

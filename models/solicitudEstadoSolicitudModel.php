@@ -1,5 +1,4 @@
 <?php 
-
 class SolicitudEstadoSolicitudModel{
     
     private $idsolicitudEstadoSolicitud;
@@ -48,31 +47,6 @@ class SolicitudEstadoSolicitudModel{
 
 
 
-    public function getUltimoEstado($id) {
-        $ultimoEstado = $this->db->query(
-        "SELECT
-            solicitudes_estados_solicitud.id_solicitud_estado_solicitud,
-            solicitudes_estados_solicitud.id_solicitud,
-            solicitudes_estados_solicitud.created_at,
-            solicitudes_estados_solicitud.id_estado_solicitud
-        FROM
-            solicitudes_estados_solicitud
-        INNER JOIN
-            ( SELECT id_solicitud, MAX(created_at) fecha_max
-                FROM solicitudes_estados_solicitud
-                GROUP BY id_solicitud ) resultado
-            ON solicitudes_estados_solicitud.id_solicitud = resultado.id_solicitud
-                AND solicitudes_estados_solicitud.created_at = resultado.fecha_max
-                WHERE solicitudes_estados_solicitud.id_solicitud = $id
-        GROUP BY solicitudes_estados_solicitud.id_solicitud
-        ORDER BY solicitudes_estados_solicitud.id_solicitud
-        ");
-        
-        $dato1 = $ultimoEstado->fetch_object();
-        return $dato1;
-    }
-
-
     public function save() {
         $sql = "INSERT INTO solicitudes_estados_solicitud VALUES(   NULL,
                                                 '{$this->getIdsolicitud()}',
@@ -89,5 +63,7 @@ class SolicitudEstadoSolicitudModel{
 
         return $resultado;
     }
+
+
 
 }

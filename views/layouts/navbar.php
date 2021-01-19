@@ -24,33 +24,35 @@
                     Solicitudes
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/pendientes">Pendientes</a> </li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/aprobadas">Aprobadas</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/desaprobadas">Desaprobadas</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/pendiente">Pendientes</a> </li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/aprobada">Aprobadas</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/desaprobada">Desaprobadas</a></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="<?php echo URL ?>solicitud/nuevo">Nueva</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Prestamos
+                    Préstamos
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/noEntregado">No entregados</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/entregado">Entregados</a></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/recibido">Recibidos</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/noRecibido">Recibidos, con problema</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/recibidoConProblema">No recibido</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/pendiente">Pendientes de aprobación</a> </li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/enPrestamo">En curso</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/finalizado">Recibido / Finalizado</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL ?>prestamo/conProblemas">Recibidos con problemas</a></li>
                 </ul>
             </li>
+
+
+
+
+
+
+            
         </ul>
             <span class="d-flex ">
-                <a class="btn p-0" type="submit">Cerrar sesion</a>
+                <a class="btn p-0" type="submit">Cerrar sesión</a>
             </span>
         </div>
     </div>
 </nav>
-
-
-  

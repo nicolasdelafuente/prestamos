@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class = "shadow p-2 mb-5 bg-white rounded">
+        <div class = "shadow-sm shadow-hover p-2 mb-5 bg-white rounded">
             <a href="<?= URL ?>hardware/index" class="btn btn-sq-lg btn-success m-3 shadow-sm">
                 <i class="fas fa-laptop fa-5x my-3"></i> </br>
                 Hardware 
@@ -46,8 +46,8 @@
             </div>
         </div>
 
-        <div class = "shadow p-2 mb-5 bg-white rounded">        
-            <a href="<?= URL ?>solicitud/index" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
+        <div class = "shadow-sm shadow-hover p-2 mb-5 bg-white rounded">        
+            <a href="<?= URL ?>solicitud/nuevo" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
                 <i class="far fa-hand-pointer fa-5x my-3"></i> </br>
                 Solicitar 
             </a>

@@ -88,7 +88,7 @@ if (isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'complete'): ?>
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Fecha desde</h5>
-                                    <input class="form-control" type="date" value="fecha_desde" name="fecha_desde">
+                                    <input class="form-control" type="date"  name="fecha_desde" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>">
                                     <small class="form-text text-muted">Campo obligatorio.</small>
 								</div>
 							</div>
@@ -97,7 +97,7 @@ if (isset($_SESSION['solicitar']) && $_SESSION['solicitar'] == 'complete'): ?>
 							<div class="card border-0">
 								<div class="card-body">
 									<h5 class="card-title">Fecha hasta</h5>
-                                    <input class="form-control" type="date" name="fecha_hasta">
+                                    <input class="form-control" type="date" name="fecha_hasta" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 1 days"));?>">
                                     <small class="form-text text-muted">Campo obligatorio.</small>
 								</div>
 							</div>

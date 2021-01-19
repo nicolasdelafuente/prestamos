@@ -8,6 +8,7 @@ class HardwareController{
         return $this->activo();
     }
 
+    // Listado hardwares activos.
     public function activo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
@@ -16,6 +17,7 @@ class HardwareController{
         require_once 'views/hardware/listado.php';
     }
 
+    // Listado hardwares inactivos.
     public function inactivo() {
         $hardware = new HardwareModel();
         $hardwares = $hardware->getAll();
@@ -38,7 +40,7 @@ class HardwareController{
             $numeroSerie = isset($_POST['numero_serie']) ? $_POST['numero_serie']:false;
             $codigoInterno = isset($_POST['codigo_interno']) ? $_POST['codigo_interno']:false;
             $idEstadoHardware = isset($_POST['id_estado_hardware']) ? $_POST['id_estado_hardware']:false;
-            $idEstadoPrestamo = 1;  //No entregado
+            $idEstadoPrestamo = 3;  // Finalizado
 
             if($idTipo && $idMarca && $numeroSerie && $idEstadoHardware) {
 
@@ -54,20 +56,37 @@ class HardwareController{
 
                 $saveHardware = $hardware->save();
 
+                
+
                 if($saveHardware) {
-                    $_SESSION['register'] = "complete";
-                }else{
-                    $_SESSION['register'] = "failed";
+                    //Obtengo el máximo hardwares.id_hardware
+                    $maximoIdHardware = $hardware->maximoID();
+                    $maximoIdHardware = $maximoIdHardware->id_hardware;
+
+                    // Seteo, hardware_estados_hardware el estado del nuevo hardware
+                    $hardwareEstadoHardware = new HardwareEstadoHardwareModel();
+                    $hardwareEstadoHardware->setIdHardware($maximoIdHardware);
+                    $hardwareEstadoHardware->setIdEstadoHardware($hardware->getIdEstadoHardware());
+                    $saveHardwareEstadoHardware = $hardwareEstadoHardware->save();
+                    
+                    if($saveHardwareEstadoHardware) {
+                        $_SESSION['hardwareRegistrado'] = "complete";
+                    }else {
+                        //Elimino el hardware recien creado
+                        $hardware->delete($maximoIdHardware);
+                    $_SESSION['hardwareRegistrado'] = "failed";
+                    }
                 }
             }else{
-                $_SESSION['register'] = "failed";
+                $_SESSION['hardwareRegistrado'] = "failed";
             }                
         }else{
-            $_SESSION['register'] = "failed";
+            $_SESSION['hardwareRegistrado'] = "failed";
         }
         header("Location:".URL.'hardware/index');
         
     }
+
 
     public function editar(){
         if(isset($_GET['id'])) {
@@ -108,7 +127,7 @@ class HardwareController{
                 $idHardware = $hardware->getIdHardware();  
 
                 // Estado hardware en BD.
-                $idEstadoHardwareActual = $hardware->estadoHardwareActual($idHardware);
+                $idEstadoHardwareActual = $hardware->estadoHardwareActual($hardware->getIdHardware());
                 $idEstadoHardwareActual = $idEstadoHardwareActual->id_estado_hardware;
                   
                 // Estado hardware recibido por POST.
@@ -118,7 +137,7 @@ class HardwareController{
                 $comparaEstadoHardware = ($idEstadoHardwareActual == $idNuevoEstadoHardware);
 
                 // Edito el hardware
-                $saveHardware = $hardware->edit($idHardware);
+                $saveHardware = $hardware->edit($hardware->getIdHardware());
                 
                 if ($saveHardware) {
                     // Ver si el estado hardware no se modificó
@@ -128,15 +147,23 @@ class HardwareController{
                         $hardwareEstadoHardware->setIdEstadoHardware($idNuevoEstadoHardware);
                         $hardwareEstadoHardware->save();
                     }
-                    $_SESSION['edit'] = "complete";
+                    $_SESSION['editHardware'] = "complete";
                 }else{
-                    $_SESSION['edit'] = "failed";
+                    $_SESSION['editHardware'] = "failed";
                 }                
             }else{
-                $_SESSION['edit'] = "failed";
+                $_SESSION['editHardware'] = "failed";
             }
         }   
-        header("Location:".URL.'hardware/activo');
+        header("Location:".URL.'hardware/index');
+    }
+
+    function setEstado($idHardware, $idEstadoHardware) {
+        $hardware = new HardwareModel();
+        $hardware->setIdHardware($idHardware);
+        $hardware->getIdEstadoHardware($idEstadoHardware);
+        $resultado = $hardware->editEstado();
+        return $resultado;
     }
 
 }
