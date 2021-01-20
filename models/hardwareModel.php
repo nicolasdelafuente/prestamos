@@ -247,7 +247,20 @@ class HardwareModel{
 
     public function editEstado(){
         $sql = "UPDATE hardwares SET id_estado_hardware='{$this->getIdEstadoHardware()}'
-                WHERE id_hardware='{$this->getIdEstadoHardware()}';";
+                WHERE id_hardware='{$this->getIdHardware()}';";
+        
+        $save = $this->db->query($sql);
+        
+        $resultado = false;
+        if($save){
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
+    public function editEstadoPrestamo(){
+        $sql = "UPDATE hardwares SET id_estado_prestamo ='{$this->getIdEstadoPrestamo()}'
+                WHERE id_hardware='{$this->getIdHardware()}';";
         
         $save = $this->db->query($sql);
         

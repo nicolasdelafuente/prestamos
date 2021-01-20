@@ -161,8 +161,16 @@ class HardwareController{
     function setEstado($idHardware, $idEstadoHardware) {
         $hardware = new HardwareModel();
         $hardware->setIdHardware($idHardware);
-        $hardware->getIdEstadoHardware($idEstadoHardware);
+        $hardware->setIdEstadoHardware($idEstadoHardware);
         $resultado = $hardware->editEstado();
+        return $resultado;
+    }
+
+    function setEstadoPrestamo($idHardware, $idEstadoPrestamo) {
+        $hardware = new HardwareModel();
+        $hardware->setIdHardware($idHardware);
+        $hardware->setIdEstadoPrestamo($idEstadoPrestamo);
+        $resultado = $hardware->editEstadoPrestamo();
         return $resultado;
     }
 

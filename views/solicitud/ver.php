@@ -2,7 +2,7 @@
 	<div class="col align-middle">
 		<div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
 			<div class="card-body d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Confirmar solicitud: #<?= $soli->id_solicitud?></h5>
+				<h5 class="mb-0">Solicitud: #<?= $soli->id_solicitud?></h5>
 				<h6 class="mb-0">
 					<span>
 						<i class="far fa-hand-pointer"
@@ -123,29 +123,7 @@
 						</div>
 					</div>
 				</div>	
-			</form>
-
-			<a href = "<?= URL ?>solicitud/confirmarSolicitud&id=<?=$soli->id_solicitud?>" style= "text-decoration: none">
-				<div class="row my-1">
-					<div class="col">
-						<div class="card border-0 px-3">
-							<input type="submit" class="btn btn-success btn-block" value="Confirmar">
-						</div>
-					</div>
-				</div>
-            </a>
-			
-			<a href = "<?= URL ?>solicitud/rechazarSolicitud&id=<?=$soli->id_solicitud?>" style= "text-decoration: none" >
-            	<div class="row mt-3 mb-1">
-					<div class="col">
-						<div class="card border-0 px-3">
-							<input type="submit" class="btn btn-outline-danger" value="Rechazar">
-						</div>
-					</div>
-				</div>
-            </a>
-				
-
+			</form>		
 		</div> <!-- card card-body-->
 	</div> <!-- col-xl-12 col-lg-12 -->
 </div> <!-- row-->

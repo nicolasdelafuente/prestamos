@@ -15,7 +15,7 @@ class SolicitudController{
         $solicitudes = $solicitud->getAll();
         $solicitud->setEncabezado('aprobadas');
         $estado = 1;
-        require_once 'views/solicitud/listado.php';
+        require_once 'views/solicitud/listado2.php';
     }
 
     // Listado solicitudes desaprobadas.
@@ -24,7 +24,7 @@ class SolicitudController{
         $solicitudes = $solicitud->getAll();
         $solicitud->setEncabezado('desaprobadas');
         $estado = 2;
-        require_once 'views/solicitud/listado.php';
+        require_once 'views/solicitud/listado2.php';
     }
 
     // Listado solicitudes pendientes.
@@ -109,51 +109,82 @@ class SolicitudController{
         }
     }
 
-
-    public function confirmar(){
-
+    public function ver(){
         if(isset($_GET['id'])) {
-            $idSolicitud = $_GET['id'];
+            $id = $_GET['id'];
             $solicitud = new SolicitudModel();
-            $solicitud->setIdSolicitud($idSolicitud);
-            $solicitud->setIdEstadoSolicitud(1);
-            $saveConfirmar = $solicitud->editEstado($solicitud->getIdEstadoSolicitud(),$solicitud->getIdSolicitud());
-        
-            if($saveConfirmar) {    
-                //Crear Solicitudes_estados_solicitud
-                $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
-                $solicitudEstadoSolicitud->setIdSolicitud($solicitud->getIdSolicitud());
-                $solicitudEstadoSolicitud->setIdEstadoSolicitud($solicitud->getIdEstadoSolicitud());
-                $saveEstadoSolicitud = $solicitudEstadoSolicitud->save();
-                
-                if($saveEstadoSolicitud) {
-                    $prestamo = new PrestamoController();
-                    $idSolicitud = $solicitud->getIdSolicitud();
-                    $idHardware = ;
-                    $idEstadoHardware= ;
+            $solicitud->setIdSolicitud($id);
+            $soli = $solicitud->getOne();
+            require_once 'views/solicitud/ver.php';
+        }else{
+            header('Location'.URL.'solicitud/pendiente');
+        }
+    }
 
-                    $prestamo->nuevo($idSolicitud, $idHardware, $idEstadoHardware);
+    public function confirmarSolicitud() {
+        if(isset($_GET['id'])) {
+            $id= $_GET['id'];
 
-                    $_SESSION['confirmarSolicitud'] = "complete";
+            $solicitud = new SolicitudModel();
+            $solicitud->setIdSolicitud($id);
+            $idSolicitud = $solicitud->getIdSolicitud();
+            $idEstadoSolicitud = 1; //Solicitud Aprobada        
 
-                }else{
-                    $_SESSION['confirmarSolicitud'] = "failed"; 
-                }                
+            $saveEditarEstadoSolicitud = $this->editarEstadoSolicitud($idSolicitud, $idEstadoSolicitud);
+            $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idSolicitud, $idEstadoSolicitud);
+
+            $prestamo = new PrestamoController();
+            $saveNuevoPrestamo = $prestamo->nuevoPrestamo($idSolicitud);
+
+            if($saveEditarEstadoSolicitud && $saveNuevoEstadoIntermedia && $saveNuevoPrestamo ) 
+                $_SESSION['confirmarSolicitud'] = "complete";
             }else{
                 $_SESSION['confirmarSolicitud'] = "failed";
-            }           
-            header("Location:".URL.'solicitud/index');
         }
+        header("Location:".URL.'solicitud/pendiente');
+    }
+    
+    
+    public function rechazarSolicitud() {
+        if(isset($_GET['id'])) {
+            $id= $_GET['id'];
+
+            $solicitud = new SolicitudModel();
+            $solicitud->setIdSolicitud($id);
+            $idSolicitud = $solicitud->getIdSolicitud();
+            $idEstadoSolicitud = 2; //Solicitud Aprobada        
+
+            $saveEditarEstadoSolicitud = $this->editarEstadoSolicitud($idSolicitud, $idEstadoSolicitud);
+            $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idSolicitud, $idEstadoSolicitud);
+
+            
+            if($saveEditarEstadoSolicitud && $saveNuevoEstadoIntermedia) 
+                $_SESSION['rechazarSolicitud'] = "complete";
+            }else{
+                $_SESSION['rechazarSolicitud'] = "failed";
+        }
+        header("Location:".URL.'solicitud/pendiente');
+    }
         
+
+
+
+    public function editarEstadoSolicitud($idSolicitud, $idEstadoSolicitud) {
+        $solicitud = new SolicitudModel();
+        $solicitud->setIdSolicitud($idSolicitud);
+        $solicitud->setIdEstadoSolicitud($idEstadoSolicitud);
+        $resultado = $solicitud->updateEstado();
+        return $resultado;
     }
 
-    public function rechazar() {
-        if(isset($_GET['id'])) {
-            $idSolicitud = $_GET['id'];
-            $solicitud = new SolicitudModel();
-            $solicitud->setIdSolicitud($idSolicitud);
-            $solicitud->setIdEstadoSolicitud(2);
-            $solicitud->editEstado($solicitud->getIdEstadoSolicitud(),$solicitud->getIdSolicitud());
-        }
+    public function nuevoEstadoIntermedia($idSolicitud, $idEstadoSolicitud) {
+        $solicitudEstadoSolicitud = new SolicitudEstadoSolicitudModel();
+        $solicitudEstadoSolicitud->setIdSolicitud($idSolicitud);
+        $solicitudEstadoSolicitud->setIdEstadoSolicitud($idEstadoSolicitud);
+        $resultado = $solicitudEstadoSolicitud->save();
+        return $resultado;    
     }
+
+
+    
 }

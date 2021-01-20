@@ -47,4 +47,21 @@ class PrestamoEstadoPrestamoModel{
 
 
 
+    public function save() {
+        $sql = "INSERT INTO prestamos_estados_prestamo VALUES(   NULL,
+                                                '{$this->getIdPrestamo()}',
+                                                '{$this->getIdEstadoPrestamo()}',
+                                                NULL
+                                            )";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
 }

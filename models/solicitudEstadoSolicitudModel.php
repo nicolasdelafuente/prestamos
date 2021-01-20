@@ -49,19 +49,19 @@ class SolicitudEstadoSolicitudModel{
 
     public function save() {
         $sql = "INSERT INTO solicitudes_estados_solicitud VALUES(   NULL,
-                                                '{$this->getIdsolicitud()}',
+                                                '{$this->getIdSolicitud()}',
                                                 '{$this->getIdEstadoSolicitud()}',
                                                 NULL
                                             )";
-        $guardar = $this->db->query($sql);
+        $save = $this->db->query($sql);
 
-        $resultado = false;
+        $result= false;
 
-        if($guardar) {
-            $resultado = true;
+        if($save) {
+            $result= true;
         }
 
-        return $resultado;
+        return $result;
     }
 
 

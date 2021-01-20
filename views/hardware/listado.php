@@ -56,9 +56,8 @@ if (isset($_SESSION['hardwareRegistrado']) && $_SESSION['hardwareRegistrado'] ==
                         <th scope="col"><small class="font-weight-bold">Modelo<small></th>
                         <th scope="col"><small class="font-weight-bold">Numero de Serie<small></th>
                         <th scope="col"><small class="font-weight-bold">Código Unahur<small></th>
-                        <th scope="col" colspan=2><small class="font-weight-bold">Estado Préstamo<small></th>
-                        
-                        <th scope="col"><small class="font-weight-bold">Editar<small></th>
+                        <th scope="col" colspan=2><small class="font-weight-bold">Estado Préstamo<small></th>                        
+                        <th scope="col"><small class="font-weight-bold"><small></th>
                     </tr>
                 </thead>
 
@@ -94,19 +93,16 @@ if (isset($_SESSION['hardwareRegistrado']) && $_SESSION['hardwareRegistrado'] ==
                                                 <?php
                                                     switch ($dato->id_estado_prestamo) {
                                                         case 1:
-                                                            echo  'style="color:rgba(244, 0, 0, 0.5)"';
+                                                            echo  'style="color:rgba(244, 244, 0, 0.5)"';
                                                         break;
                                                         case 2:
-                                                            echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                            echo 'style="color:rgba(0, 64, 208, 0.5)"';
                                                         break;
                                                         case 3:
                                                             echo 'style="color:rgba(0, 244, 0, 0.5)"';
                                                         break;
                                                         case 4:
                                                             echo 'style="color:rgba(244, 0, 0, 0.5)"';
-                                                        break;
-                                                        case 5:
-                                                            echo 'style="color:rgba(244, 244, 0, 0.5)"';
                                                         break;
                                                 }
                                             ?>                                

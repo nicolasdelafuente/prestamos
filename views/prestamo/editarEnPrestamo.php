@@ -113,9 +113,9 @@
 					<div class="col-sm-6">
 						<div class="card border-0">
 							<div class="card-body">
-								<h5 class="card-title">Tipo</h5>
+								<h5 class="card-title">Tipo / Marca</h5>
 								<input type="text" class="form-control"
-									value="<?= $prest->tipo_hardware ?>" name="tipo_hardware" required readonly>
+									value="<?= $prest->tipo_hardware ?> / <?= $prest->marca?> " name="tipo_hardware" required readonly>
 							</div>
 						</div>
 					</div>
@@ -123,23 +123,8 @@
 						<div class="card border-0">
 							<div class="card-body">
 								<h5 class="card-title">Numero de serie</h5>
-								<select class="form-select" name="id_hardware" required>
-									<option selected="true" disabled="disabled">Seleccionar número de serie</option>
-
-									<?php 
-									$idTipo = (int) $prest->id_tipo_hardware;			
-
-									$hardware = new HardwareModel();
-									$hardwares = $hardware->hardwareDisponible($idTipo);
-									?>
-
-									<?php while($dato = $hardwares->fetch_object()): ?>
-									
-									<option value="<?= $dato->id_hardware ?>"><?= $dato->numero_serie; ?></option>
-									<?php endwhile; ?>
-								</select>
-
-								
+								<input type="text" class="form-control"
+									value="<?= $prest->numero_serie ?>" name="fecha_hasta" required readonly>			
 								<small class="form-text text-muted">Campo obligatorio.</small>
 							</div>
 						</div>

@@ -90,13 +90,11 @@ class PrestamoModel{
     }
 
 
-    public function getAll() {
+    public function getAllPendiente() {
         $query =    "SELECT
                         prestamos.id_prestamo,
+                        prestamos.id_solicitud,
                         tipos_hardware.tipo_hardware,
-                        marcas.marca,
-                        hardwares.numero_serie,
-                        hardwares.codigo_interno,
                         usuarios.nombre,
                         usuarios.apellido,
                         usuarios.email,
@@ -107,43 +105,145 @@ class PrestamoModel{
                     FROM
                         prestamos
                     INNER JOIN
-                        hardwares ON prestamos.id_Hardware = hardwares.id_hardware
-                    INNER JOIN
-                        tipos_hardware ON hardwares.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-                    INNER JOIN
-                        marcas ON hardwares.id_marca = marcas.id_marca
-                    INNER JOIN
                         solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
+                    INNER JOIN
+                        tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
                     INNER JOIN
                         usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
                     INNER JOIN
                         edificios ON solicitudes.id_edificio = edificios.id_edificio            
-                    GROUP BY prestamos.id_prestamo
-                    ORDER BY solicitudes.fecha_desde;";          
+                    ORDER BY solicitudes.fecha_desde
+                    ;";          
 
         $prestamos = $this->db->query($query);
         return $prestamos;
     }
 
+    public function getAllEnPrestamo() {
+        $query =    "SELECT
+                        prestamos.id_prestamo,
+                        prestamos.id_solicitud,
+                        tipos_hardware.tipo_hardware,
+                        usuarios.nombre,
+                        usuarios.apellido,
+                        usuarios.email,
+                        edificios.edificio,
+                        solicitudes.fecha_desde,
+                        solicitudes.fecha_hasta,
+                        prestamos.id_estado_prestamo
+                    FROM
+                        prestamos
+                    INNER JOIN
+                        solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
+                    INNER JOIN
+                        tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                    INNER JOIN
+                        usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+                    INNER JOIN
+                        edificios ON solicitudes.id_edificio = edificios.id_edificio            
+                    ORDER BY solicitudes.fecha_hasta DESC
+                    ;";          
+
+        $prestamos = $this->db->query($query);
+        return $prestamos;
+    }
 
     public function save() {
         $sql = "INSERT INTO prestamos VALUES(   NULL,
-                                                '{$this->getIdsolicitud()}',
-                                                '{$this->getIdHardware()}',
+                                                '{$this->getIdSolicitud()}',
+                                                NULL, 
+                                                NULL,
                                                 NULL,
                                                 1,
                                                 NULL,
                                                 NULL
                                             )";
-        $guardar = $this->db->query($sql);
+        $save = $this->db->query($sql);
 
-        $resultado = false;
+        $result = false;
 
-        if($guardar) {
-            $resultado = true;
+        if($save) {
+            $result = true;
         }
 
-        return $resultado;
+        return $result;
+    }
+
+    public function delete() {
+        $sql =  "DELETE FROM prestamos WHERE id_prestamo = '{$this->getIdHardware()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+  
+
+    public function updateHardware() {
+        $sql = "UPDATE prestamos SET id_hardware = '{$this->getIdHardware()}' WHERE id_prestamo = '{$this->getIdPrestamo()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function updateObservacion() {
+        $sql = "UPDATE prestamos SET observacion_prestamo = '{$this->getObservacionPrestamo()}' WHERE id_prestamo = '{$this->getIdPrestamo()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function updateEstado() {
+        $sql = "UPDATE prestamos SET id_estado_prestamo = '{$this->getIdEstadoPrestamo()}' WHERE id_prestamo = '{$this->getIdPrestamo()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+
+    public function maximoID() {
+        $dato = $this->db->query("SELECT MAX( id_prestamo) as id_prestamo FROM prestamos;");
+
+        $maximoId = $dato->fetch_object();
+        return $maximoId;
+    }
+
+
+    public function getOne() {
+        $prestamo = $this->db->query("SELECT * FROM prestamos
+            INNER JOIN estados_prestamo ON prestamos.id_estado_prestamo = estados_prestamo.id_estado_prestamo
+            INNER JOIN solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
+            INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+            INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+            INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
+            INNER JOIN hardwares ON prestamos.id_hardware = hardwares.id_hardware
+            INNER JOIN marcas ON hardwares.id_Marca = marcas.id_marca
+            WHERE id_prestamo = {$this->getIdPrestamo()};");
+        
+        $prest = $prestamo->fetch_object();
+        return $prest;
     }
 
 }

@@ -58,9 +58,6 @@ if (isset($_SESSION['rechazarSolicitud']) && $_SESSION['rechazarSolicitud'] == '
                         <th scope="col"><small class="font-weight-bold">Desde<small></th>
                         <th scope="col"><small class="font-weight-bold">Hasta<small></th>
                         <th scope="col"><small class="font-weight-bold"><small></th>
-                        <th scope="col"><small class="font-weight-bold"><small></th>
-                        <th scope="col"><small class="font-weight-bold"><small></th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -96,20 +93,10 @@ if (isset($_SESSION['rechazarSolicitud']) && $_SESSION['rechazarSolicitud'] == '
                             <td class="align-middle"><span><?= $dato->fecha_desde; ?></span></td>
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
-                                <a href = "<?= URL ?>solicitud/editar&id=<?=$dato->id_solicitud?>">
+                                <a href = "<?= URL ?>solicitud/ver&id=<?=$dato->id_solicitud?>">
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>
-                            <td class="align-middle">
-                                <a href = "<?= URL ?>solicitud/confirmarSolicitud&id=<?=$dato->id_solicitud?>">
-                                    <span><i class="fas fa-check-square text-success fa-lg"></i></span> 
-                                </a>
-                            </td>          
-                            <td class="align-middle">
-                                <a href = "<?= URL ?>solicitud/rechazarSolicitud&id=<?=$dato->id_solicitud?>">
-                                    <span><i class="far fa-window-close text-danger fa-lg"></i></span> 
-                                </a>
-                            </td>    
                         </tr>
                     <?php } endwhile; ?>
                 </tbody>

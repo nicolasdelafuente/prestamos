@@ -307,9 +307,9 @@ VALUES(1, 2, 2, '2021-01-12', '2021-09-30', 'Motivo Solicitud: Para usarlo', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
 VALUES(5, 2, 1, '2021-01-26', '2022-01-25', 'Motivo Solicitud: Capricho', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
-VALUES(6, 2, 3, '2021-01-12', '2023-01-12', 'Motivo Solicitud: Paar Trabajar', 3);
+VALUES(5, 2, 3, '2021-01-12', '2023-01-12', 'Motivo Solicitud: Paar Trabajar', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
-VALUES(2, 2, 1, '2021-01-15', '2021-06-25', 'Motivo Solicitud: Ahora', 3);
+VALUES(5, 2, 1, '2021-01-15', '2021-06-25', 'Motivo Solicitud: Ahora', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
 VALUES(3, 2, 1, '2021-01-17', '2021-05-05', 'Motivo Solicitud: Motivo?', 3);
 
@@ -391,7 +391,7 @@ CREATE TABLE IF NOT EXISTS prestamos
 ( 
     id_prestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     id_solicitud INT NOT NULL,
-    id_hardware INT NOT NULL,
+    id_hardware INT,
     observacion_prestamo VARCHAR(1024),
     observacion_devolucion VARCHAR(1024),
     id_estado_prestamo INT NOT NULL,

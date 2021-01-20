@@ -76,7 +76,7 @@ class SolicitudModel{
     // SETTERS
 
     function setIdSolicitud($idSolicitud) {
-        $this->idSolicitud= $idSolicitud;
+        $this->idSolicitud = $idSolicitud;
     }
 
     function setIdTipoHardware($idTipoHardware) {
@@ -167,15 +167,15 @@ class SolicitudModel{
                                                 '{$this->getFechaHasta()}',
                                                 '{$this->getMotivoSolicitud()}',
                                                 3,NULL, NULL)";
-        $guardar = $this->db->query($sql);
+        $save = $this->db->query($sql);
 
-        $resultado = false; 
+        $result = false; 
 
-        if($guardar) {
-            $resultado = true;
+        if($save) {
+            $result = true;
         }
 
-        return $resultado;
+        return $result;
     }
 
     public function delete($idSolicitud) {
@@ -183,12 +183,25 @@ class SolicitudModel{
 
         $save = $this->db->query($sql);
         
-        $resultado = false;
+        $result = false;
         if($save){
-            $resultado = true;
+            $result = true;
         }
-        return $resultado;
+        return $result;
 
+    }
+
+    public function updateEstado() {
+        $sql = "UPDATE solicitudes SET id_estado_solicitud = '{$this->getIdEstadoSolicitud()}' WHERE id_solicitud = '{$this->getIdSolicitud()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
     }
 
     public function maximoID() {
@@ -198,16 +211,5 @@ class SolicitudModel{
         return $maximoId;
     }
 
-    public function editEstado() {
-        $sql = "UPDATE solicitudes SET id_estado_solicitud = '{$this->getIdEstadoSolicitud()}'
-                WHERE id_solicitud = '{$this->getIdSolicitud()}'";
-        
-        $save = $this->db->query($sql);
 
-        $resultado = false;
-        if($save){
-            $resultado = true;
-        }
-        return $resultado;
-    }
 }
