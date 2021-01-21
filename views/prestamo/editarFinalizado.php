@@ -9,7 +9,7 @@
 	<div class="col align-middle">
 		<div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
 			<div class="card-body d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Devolución préstamo: #<?= $prest->id_estado_prestamo?> </h5>
+				<h5 class="mb-0">Préstamo finalizado: #<?= $prest->id_estado_prestamo?> </h5>
 				<h6 class="mb-0">
 				<span>
 					<i class="far fa-handshake"
@@ -116,7 +116,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Tipo / Marca</h5>
 								<input type="text" class="form-control"
-									value="<?= $prest->tipo_hardware ?> / <?= $prest->marca?> " name="tipo_hardware" required readonly>
+									value="<?= $prest->tipo_hardware ?> / <?= $prest->marca?> " name="tipo_hardware" readonly>
 							</div>
 						</div>
 					</div>
@@ -125,8 +125,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Numero de serie</h5>
 								<input type="text" class="form-control"
-									value="<?= $prest->numero_serie ?>" name="fecha_hasta" required readonly>			
-								<small class="form-text text-muted">Campo obligatorio.</small>
+									value="<?= $prest->numero_serie ?>" name="numero_serie" readonly>
 							</div>
 						</div>
 					</div>
@@ -159,32 +158,11 @@
 						<div class="card border-0">
 							<div class="card-body">
 								<h5 class="card-title">Observaciones de la devolucion</h5>
-								<textarea type="text" class="form-control text-left" rows="3" placeHolder="Ingresar un comentario." name="observacion_devolucion" required></textarea>
-								<small class="form-text text-muted">Campo obligatorio.</small>
+								<textarea type="text" class="form-control text-left" rows="3" name="observacion_devolucion" readonly><?= $prest->observacion_devolucion; ?></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<a href = "#" style= "text-decoration: none">
-				<div class="row my-1">
-					<div class="col">
-						<div class="card border-0 px-3">
-							<button type="submit" class="btn btn-success btn-block" name="correcto" value="corrceto">Recepción correcta</button>
-						</div>
-					</div>
-				</div>
-            </a>
-			
-			<a href = # style= "text-decoration: none" >
-            	<div class="row mt-3 mb-1">
-					<div class="col">
-						<div class="card border-0 px-3">
-							<button type="submit" class="btn btn-outline-warning" name="inconveniente" value="inconveniente">Recepción con inconvenientes</button>
-						</div>
-					</div>
-				</div>
-            </a>
 			</form>
 		</div> <!-- card card-body-->
 	</div> <!-- col-xl-12 col-lg-12 -->

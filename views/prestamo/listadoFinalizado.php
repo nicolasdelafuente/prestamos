@@ -51,7 +51,7 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                     ?>                    
                         <tr class="shadow-sm">
                         <td class="align-middle">
-                                <i class="far fa-handshake" style="color:rgba(244, 244, 0, 0.5)";> </i>
+                                <i class="far fa-handshake" style="color:rgba(0, 244, 0, 0.5)";> </i>
                             </td>
                             <td class="align-middle"><span><?= $dato->id_prestamo; ?></span></td>
                             <td class="align-middle"><span><?= $dato->id_solicitud; ?></span></td>
@@ -64,7 +64,7 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
                             <td class="align-middle">
-                                <a href = "<?= URL ?>prestamo/editarPendiente&id=<?=$dato->id_prestamo?>">
+                                <a href = "<?= URL ?>prestamo/editarFinalizado&id=<?=$dato->id_prestamo?>">
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>

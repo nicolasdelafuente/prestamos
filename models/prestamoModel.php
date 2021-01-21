@@ -149,7 +149,7 @@ class PrestamoModel{
     }
 
     public function save() {
-        $sql = "INSERT INTO prestamos VALUES(   NULL,
+         $sql = "INSERT INTO prestamos VALUES(   NULL,
                                                 '{$this->getIdSolicitud()}',
                                                 NULL, 
                                                 NULL,
@@ -209,6 +209,19 @@ class PrestamoModel{
         return $result;
     }
 
+    public function updateObservacionDevolucion() {
+        $sql = "UPDATE prestamos SET observacion_devolucion = '{$this->getObservacionDevolucion()}' WHERE id_prestamo = '{$this->getIdPrestamo()}'";
+        $save = $this->db->query($sql);
+
+        $result = false;
+
+        if($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
     public function updateEstado() {
         $sql = "UPDATE prestamos SET id_estado_prestamo = '{$this->getIdEstadoPrestamo()}' WHERE id_prestamo = '{$this->getIdPrestamo()}'";
         $save = $this->db->query($sql);
@@ -232,15 +245,18 @@ class PrestamoModel{
 
 
     public function getOne() {
-        $prestamo = $this->db->query("SELECT * FROM prestamos
-            INNER JOIN estados_prestamo ON prestamos.id_estado_prestamo = estados_prestamo.id_estado_prestamo
-            INNER JOIN solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
-            INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
-            INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
-            INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
-            INNER JOIN hardwares ON prestamos.id_hardware = hardwares.id_hardware
-            INNER JOIN marcas ON hardwares.id_Marca = marcas.id_marca
-            WHERE id_prestamo = {$this->getIdPrestamo()};");
+        $prestamo = $this->db->query("SELECT *, 
+                                        prestamos.id_estado_prestamo as idEstadoPrestamo,
+                                        tipos_hardware.id_tipo_hardware as idTipoHardware
+                                        FROM prestamos
+                                        INNER JOIN estados_prestamo ON prestamos.id_estado_prestamo = estados_prestamo.id_estado_prestamo
+                                        INNER JOIN solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
+                                        INNER JOIN tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                                        INNER JOIN usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+                                        INNER JOIN edificios ON solicitudes.id_edificio = edificios.id_edificio
+                                        LEFT JOIN hardwares ON prestamos.id_hardware = hardwares.id_hardware
+                                        LEFT JOIN marcas ON hardwares.id_Marca = marcas.id_marca
+                                        WHERE id_prestamo = {$this->getIdPrestamo()};");
         
         $prest = $prestamo->fetch_object();
         return $prest;

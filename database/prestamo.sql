@@ -379,7 +379,7 @@ CREATE TABLE IF NOT EXISTS estados_prestamo
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
 VALUES('Pendiente de entrega', 'rgba(244, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
-VALUES('En Prestamo', 'rgba(0, 64, 208, 0.5)');
+VALUES('En préstamo', 'rgba(0, 64, 208, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)
 VALUES('Finalizado', 'rgba(0, 244, 0, 0.5)');
 INSERT INTO estados_prestamo (estado_prestamo, color_estado_prestamo)

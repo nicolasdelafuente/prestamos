@@ -9,10 +9,10 @@
 	<div class="col align-middle">
 		<div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
 			<div class="card-body d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Confirmar entrega: #<?= $prest->id_prestamo?> </h5>
+				<h5 class="mb-0">Préstamo finalizado con nconveniente: #<?= $prest->id_prestamo?> </h5>
 				<h6 class="mb-0">
 				<span>
-					<i class="far fa-hand-pointer"
+					<i class="far fa-handshake"
 						<?php
 							switch ($prest->id_estado_prestamo) {
 								case 1:
@@ -42,9 +42,10 @@
 	<div class="col-xl-12 col-lg-12">			
 
 		<div class="card card-body shadow-sm p-3 mb-5 bg-white rounded border-0">
-			<form action="<?= URL ?>prestamo/confirmarEntrega" method="POST">
+			<form action="<?= URL ?>prestamo/devolucion" method="POST">
 
 				<input type="hidden" name="id_prestamo" value="<?= $prest->id_prestamo ?>">
+				<input type="hidden" name="id_hardware" value="<?= $prest->id_hardware ?>">
 
 				<div class="row my-1">
 					<div class="col-sm-6">
@@ -113,9 +114,9 @@
 					<div class="col-sm-6">
 						<div class="card border-0">
 							<div class="card-body">
-								<h5 class="card-title">Tipo</h5>
+								<h5 class="card-title">Tipo / Marca</h5>
 								<input type="text" class="form-control"
-									value="<?= $prest->tipo_hardware ?>" name="tipo_hardware" required readonly>
+									value="<?= $prest->tipo_hardware ?> / <?= $prest->marca?> " name="tipo_hardware" readonly>
 							</div>
 						</div>
 					</div>
@@ -123,24 +124,8 @@
 						<div class="card border-0">
 							<div class="card-body">
 								<h5 class="card-title">Numero de serie</h5>
-								<select class="form-select" name="id_hardware" required>
-									<option selected="true" disabled="disabled">Seleccionar número de serie</option>
-
-									<?php 
-									$idTipo = (int) $prest->id_tipo_hardware;			
-
-									$hardware = new HardwareModel();
-									$hardwares = $hardware->hardwareDisponible($idTipo);
-									?>
-
-									<?php while($dato = $hardwares->fetch_object()): ?>
-									
-									<option value="<?= $dato->id_hardware ?>"><?= $dato->numero_serie; ?></option>
-									<?php endwhile; ?>
-								</select>
-
-								
-								<small class="form-text text-muted">Campo obligatorio.</small>
+								<input type="text" class="form-control"
+									value="<?= $prest->numero_serie ?>" name="numero_serie" readonly>
 							</div>
 						</div>
 					</div>
@@ -161,21 +146,32 @@
 					<div class="col">
 						<div class="card border-0">
 							<div class="card-body">
-								<h5 class="card-title">Motivo préstamo</h5>
-								<textarea type="text" class="form-control text-left" rows="3" placeholder="Agregar motivo" name="observacion_prestamo" required></textarea>
-								<small class="form-text text-muted">Campo obligatorio.</small>
+								<h5 class="card-title">Observaciones del prestamo</h5>
+								<textarea type="text" class="form-control text-left" rows="3" name="observacion_prestamo" readonly><?= $prest->observacion_prestamo; ?></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 
+				<div class="row my-1 ">
+					<div class="col">
+						<div class="card border-0">
+							<div class="card-body">
+								<h5 class="card-title">Observaciones de la devolucion</h5>
+								<textarea type="text" class="form-control text-left" rows="3" name="observacion_devolucion" readonly><?= $prest->observacion_devolucion; ?></textarea>
+							</div>
+						</div>
+					</div>
+				</div>	
+
 				<div class="row my-1">
 					<div class="col">
 						<div class="card border-0 px-3">
-							<input type="submit" class="btn btn-success btn-block" value="Confirmar entrega">
+							<input type="submit" class="btn btn-success btn-block" value="Finalizar correctamente">
 						</div>
 					</div>
 				</div>
+
 			</form>
 		</div> <!-- card card-body-->
 	</div> <!-- col-xl-12 col-lg-12 -->

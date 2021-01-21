@@ -31,28 +31,28 @@ class PrestamoController{
     // Listado prestamos en finalizados.
     public function finalizado() {
         $prestamo = new PrestamoModel();
-        $prestamos = $prestamo->getAll();
-        $prestamo->setEncabezado('finalizados');
+        $prestamos = $prestamo->getAllEnPrestamo();
+        $prestamo->setEncabezado('finalizado');
         $estado = 3;
-        require_once 'views/prestamo/listado.php';
+        require_once 'views/prestamo/listadoFinalizado.php';
     }
 
     // Listado prestamos recibidos con probmlemas.
     public function conProblemas() {
         $prestamo = new PrestamoModel();
-        $prestamos = $prestamo->getAll();
+        $prestamos = $prestamo->getAllEnPrestamo();
         $prestamo->setEncabezado('recibidos con problemas');
         $estado = 4;
-        require_once 'views/prestamo/listado.php';
+        require_once 'views/prestamo/listadoConProblemas.php';
     }
 
-    public function editar(){
+    public function editarPendiente(){
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
             $prestamo = new PrestamoModel();
             $prestamo->setIdPrestamo($id);
             $prest = $prestamo->getOne();
-            require_once 'views/prestamo/editar.php';
+            require_once 'views/prestamo/editarPendiente.php';
         }else{
             header('Location'.URL.'prestamo/pendiente');
         }
@@ -67,6 +67,30 @@ class PrestamoController{
             require_once 'views/prestamo/editarEnPrestamo.php';
         }else{
             header('Location'.URL.'prestamo/enPrestamo');
+        }
+    }
+
+    public function editarFinalizado(){
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $prestamo = new PrestamoModel();
+            $prestamo->setIdPrestamo($id);
+            $prest = $prestamo->getOne();
+            require_once 'views/prestamo/editarFinalizado.php';
+        }else{
+            header('Location'.URL.'prestamo/finalizado');
+        }
+    }
+
+    public function editarConProblema(){
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $prestamo = new PrestamoModel();
+            $prestamo->setIdPrestamo($id);
+            $prest = $prestamo->getOne();
+            require_once 'views/prestamo/editarconProblema.php';
+        }else{
+            header('Location'.URL.'prestamo/conProblema');
         }
     }
 
@@ -181,5 +205,90 @@ class PrestamoController{
         }   
         header("Location:".URL.'prestamo/pendiente');
     }
-}
 
+    function devolucion() {
+        if(isset($_POST)) {
+            $correcto = isset($_POST['correcto']) ? $_POST['correcto']:false;
+            //$inconveniente = isset($_POST['inconveniente']) ? $_POST['inconveniente']:false;
+            $idPrestamo = isset($_POST['id_prestamo']) ? $_POST['id_prestamo']:false;
+            $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
+            $observacionDevolucion = isset($_POST['observacion_devolucion']) ? $_POST['observacion_devolucion']:false;
+
+            var_dump($idPrestamo);
+            var_dump($idHardware);
+            var_dump($observacionDevolucion);
+
+            if($idPrestamo && $idHardware && $observacionDevolucion) {
+                $idEstadoPrestamo = 4; //"Recibido con onconveniente"
+                if($correcto){                    
+                $idEstadoPrestamo = 3;
+
+                $prestamo = new PrestamoModel();
+                $prestamo->setIdPrestamo($idPrestamo);
+                $prestamo->setObservacionDevolucion($observacionDevolucion);
+                $prestamo->setIdHardware($idHardware);
+                $prestamo->setIdEstadoPrestamo($idEstadoPrestamo);
+
+                $idPrestamo = $prestamo->getIdPrestamo();
+                $observacionDevolucion = $prestamo->getObservacionDevolucion();
+                $idHardware = $prestamo->getIdHardware();
+
+                // Cambiar id_estado_prestamo en prestamos.
+                $saveInsertarEstadoPrestamo = $this->insertarEstadoPrestamo($idPrestamo, $idEstadoPrestamo);
+                echo "CORRECTO";
+                echo "saveInsertarEstadoPrestamo";
+                var_dump($saveInsertarEstadoPrestamo);
+
+                // Agregar observacion_prestamo en prestamos.
+                $saveAgregarObservacion = $prestamo->updateObservacion();
+                echo "saveAgregarObservacion";
+                var_dump($saveAgregarObservacion);
+
+                // Crear registro en prestamos_estados_prestamo.
+                $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idPrestamo, $idEstadoPrestamo);
+                echo "saveNuevoEstadoIntermedia";
+                var_dump($saveNuevoEstadoIntermedia);
+
+                //Cambiar id_estado_prestamo en hardwares. 
+                $hardware = new HardwareController();
+                $saveNuevoEstadoHardware = $hardware->setEstadoPrestamo($idHardware, $idEstadoPrestamo);
+                echo "saveNuevoEstadoHardware";
+                var_dump($saveNuevoEstadoHardware);
+
+            }else{
+
+                $prestamo = new PrestamoModel();
+                $prestamo->setIdPrestamo($idPrestamo);
+                $prestamo->setObservacionDevolucion($observacionDevolucion);
+                $prestamo->setIdHardware($idHardware);
+                $prestamo->setIdEstadoPrestamo($idEstadoPrestamo);
+
+                $idPrestamo = $prestamo->getIdPrestamo();
+                $observacionDevolucion = $prestamo->getObservacionDevolucion();
+                $idHardware = $prestamo->getIdHardware();
+
+                $saveInsertarEstadoPrestamo = $this->insertarEstadoPrestamo($idPrestamo, $idEstadoPrestamo);
+                echo "INCORRECTO";
+                echo "saveInsertarEstadoPrestamo";
+                var_dump($saveInsertarEstadoPrestamo);
+
+                // Agregar observacion_prestamo en prestamos.
+                $saveAgregarObservacion = $prestamo->updateObservacion();
+                echo "saveAgregarObservacion";
+                var_dump($saveAgregarObservacion);
+
+                // Crear registro en prestamos_estados_prestamo.
+                $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idPrestamo, $idEstadoPrestamo);
+                echo "saveNuevoEstadoIntermedia";
+                var_dump($saveNuevoEstadoIntermedia);
+
+                //Cambiar id_estado_prestamo en hardwares. 
+                $hardware = new HardwareController();
+                $saveNuevoEstadoHardware = $hardware->setEstadoPrestamo($idHardware, $idEstadoPrestamo);
+                echo "saveNuevoEstadoHardware";
+                var_dump($saveNuevoEstadoHardware);
+                }
+            }
+        }
+    }
+}
