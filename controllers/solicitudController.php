@@ -58,8 +58,10 @@ class SolicitudController{
             $fechaHasta = isset($_POST['fecha_hasta']) ? $_POST['fecha_hasta']:false;
             $motivoSolcitud = isset($_POST['motivo_solicitud']) ? $_POST['motivo_solicitud']:false;
 
+            $fechas = $fechaDesde <= $fechaHasta;
 
-            if($idTipoHardware && $idEdificio && $idUsuario && $fechaDesde && $fechaHasta && $motivoSolcitud) {
+
+            if($idTipoHardware && $idEdificio && $idUsuario && $fechaDesde && $fechaHasta && $motivoSolcitud && $fechas) {
 
                 $solicitud = new SolicitudModel();
                 $solicitud->setIdTipoHardware($idTipoHardware);
@@ -68,7 +70,7 @@ class SolicitudController{
                 $solicitud->setFechaDesde($fechaDesde);
                 $solicitud->setFechaHasta($fechaHasta);
                 $solicitud->setMotivoSolicitud($motivoSolcitud);
-                
+            
 
           
                 //Creo una solicitud
