@@ -9,7 +9,7 @@
 	<div class="col align-middle">
 		<div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
 			<div class="card-body d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Préstamo finalizado con nconveniente: #<?= $prest->id_prestamo?> </h5>
+				<h5 class="mb-0">Préstamo finalizado con iconveniente: #<?= $prest->id_prestamo?> </h5>
 				<h6 class="mb-0">
 				<span>
 					<i class="far fa-handshake"
@@ -42,7 +42,7 @@
 	<div class="col-xl-12 col-lg-12">			
 
 		<div class="card card-body shadow-sm p-3 mb-5 bg-white rounded border-0">
-			<form action="<?= URL ?>prestamo/devolucion" method="POST">
+			<form action="<?= URL ?>prestamo/devolucionCambiaEstado" method="POST">
 
 				<input type="hidden" name="id_prestamo" value="<?= $prest->id_prestamo ?>">
 				<input type="hidden" name="id_hardware" value="<?= $prest->id_hardware ?>">

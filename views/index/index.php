@@ -23,12 +23,12 @@
                 Solicitudes 
             </a>
 
-            <a href="<?= URL ?>prestamo/index"" class="btn btn-sq-lg btn-success m-3 shadow-sm">
+            <a href="<?= URL ?>prestamo/index" class="btn btn-sq-lg btn-success m-3 shadow-sm">
                 <i class="far fa-handshake fa-5x my-3"></i> </br>
                 Préstamos
             </a>
 
-            <a href="<?= URL ?>devolucion/index"" class="btn btn-sq-lg btn-success m-3 shadow-sm">
+            <a href="<?= URL ?>prestamo/enPrestamo" class="btn btn-sq-lg btn-success m-3 shadow-sm">
                 <i class="fas fa-undo-alt fa-5x my-3"></i> </br>
                 Devoluciones
             </a>
@@ -47,12 +47,17 @@
         </div>
 
         <div class = "shadow-sm shadow-hover p-2 mb-5 bg-white rounded">        
-            <a href="<?= URL ?>solicitud/nuevo" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
+            <a href="<?= URL ?>solicitud/nuevo" class="btn btn-sq-lg btn-light text-info m-3 shadow-sm">
                 <i class="far fa-hand-pointer fa-5x my-3"></i> </br>
                 Solicitar 
             </a>
 
-            <a href="<?= URL ?>prestamo/index"" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
+            <a href="<?= URL ?>solicitud/usuario"" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
+                <i class="far fa-hand-pointer fa-5x my-3"></i> </br>
+                Mis Solciitudes
+            </a>
+
+            <a href="<?= URL ?>prestamo/usuario"" class="btn btn-sq-lg btn-info text-light m-3 shadow-sm">
                 <i class="far fa-handshake fa-5x my-3"></i> </br>
                 Mis préstamos
             </a>

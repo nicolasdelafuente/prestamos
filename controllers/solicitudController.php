@@ -36,6 +36,14 @@ class SolicitudController{
         require_once 'views/solicitud/listado.php';
     }
 
+    // Listado solicitudes pro usuario.
+    public function usuario() {
+        $idUsuario = 2;
+        $solicitud = new SolicitudModel();
+        $solicitudes = $solicitud->getAllByUser($idUsuario);
+        require_once 'views/solicitud/listadoUsuario.php';
+    }
+
     public function nuevo(){
         require_once 'views/solicitud/nuevo.php';
     }
@@ -187,4 +195,6 @@ class SolicitudController{
 
 
     
+    
+
 }

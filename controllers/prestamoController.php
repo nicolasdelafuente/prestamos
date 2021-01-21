@@ -46,6 +46,18 @@ class PrestamoController{
         require_once 'views/prestamo/listadoConProblemas.php';
     }
 
+    // Listado prestamos pro usuario.
+    public function usuario() {
+        $idUsuario = 2;
+        $prestamos = new PrestamoModel();
+        $solicitudes = $prestamo->getAllByUser($idUsuario);
+        require_once 'views/solicitud/listadoPrestamo.php';
+    }
+
+    public function nuevo(){
+        require_once 'views/solicitud/nuevo.php';
+    }
+
     public function editarPendiente(){
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -214,10 +226,6 @@ class PrestamoController{
             $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
             $observacionDevolucion = isset($_POST['observacion_devolucion']) ? $_POST['observacion_devolucion']:false;
 
-            var_dump($idPrestamo);
-            var_dump($idHardware);
-            var_dump($observacionDevolucion);
-
             if($idPrestamo && $idHardware && $observacionDevolucion) {
                 $idEstadoPrestamo = 4; //"Recibido con onconveniente"
                 if($correcto){                    
@@ -235,25 +243,17 @@ class PrestamoController{
 
                 // Cambiar id_estado_prestamo en prestamos.
                 $saveInsertarEstadoPrestamo = $this->insertarEstadoPrestamo($idPrestamo, $idEstadoPrestamo);
-                echo "CORRECTO";
-                echo "saveInsertarEstadoPrestamo";
-                var_dump($saveInsertarEstadoPrestamo);
 
-                // Agregar observacion_prestamo en prestamos.
-                $saveAgregarObservacion = $prestamo->updateObservacion();
-                echo "saveAgregarObservacion";
-                var_dump($saveAgregarObservacion);
+                // Agregar observacion_devolucionen prestamos.
+                $saveAgregarObservacion = $prestamo->updateObservacionDevolucion();
+
 
                 // Crear registro en prestamos_estados_prestamo.
                 $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idPrestamo, $idEstadoPrestamo);
-                echo "saveNuevoEstadoIntermedia";
-                var_dump($saveNuevoEstadoIntermedia);
 
                 //Cambiar id_estado_prestamo en hardwares. 
                 $hardware = new HardwareController();
                 $saveNuevoEstadoHardware = $hardware->setEstadoPrestamo($idHardware, $idEstadoPrestamo);
-                echo "saveNuevoEstadoHardware";
-                var_dump($saveNuevoEstadoHardware);
 
             }else{
 
@@ -268,27 +268,77 @@ class PrestamoController{
                 $idHardware = $prestamo->getIdHardware();
 
                 $saveInsertarEstadoPrestamo = $this->insertarEstadoPrestamo($idPrestamo, $idEstadoPrestamo);
-                echo "INCORRECTO";
-                echo "saveInsertarEstadoPrestamo";
-                var_dump($saveInsertarEstadoPrestamo);
 
-                // Agregar observacion_prestamo en prestamos.
-                $saveAgregarObservacion = $prestamo->updateObservacion();
-                echo "saveAgregarObservacion";
-                var_dump($saveAgregarObservacion);
+                // Agregar observacion_devolucion en prestamos.
+                $saveAgregarObservacion = $prestamo->updateObservacionDevolucion();
 
                 // Crear registro en prestamos_estados_prestamo.
                 $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idPrestamo, $idEstadoPrestamo);
-                echo "saveNuevoEstadoIntermedia";
-                var_dump($saveNuevoEstadoIntermedia);
 
                 //Cambiar id_estado_prestamo en hardwares. 
                 $hardware = new HardwareController();
                 $saveNuevoEstadoHardware = $hardware->setEstadoPrestamo($idHardware, $idEstadoPrestamo);
-                echo "saveNuevoEstadoHardware";
-                var_dump($saveNuevoEstadoHardware);
+
                 }
+
+                if ($saveInsertarEstadoPrestamo && $saveAgregarObservacion && $saveNuevoEstadoIntermedia && $saveNuevoEstadoHardware) {
+                    $_SESSION['confirmarDevolucion'] = "complete";               
+                }else{
+                    $_SESSION['confirmarDevolucion'] = "failed";
+                }                
+            }else{
+                $_SESSION['confirmarDevolucion'] = "failed";
             }
-        }
+        }   
+        header("Location:".URL.'prestamo/pendiente');
+    }
+
+    function devolucionCambiaEstado() {
+        if(isset($_POST)) {
+            $correcto = isset($_POST['correcto']) ? $_POST['correcto']:false;
+            //$inconveniente = isset($_POST['inconveniente']) ? $_POST['inconveniente']:false;
+            $idPrestamo = isset($_POST['id_prestamo']) ? $_POST['id_prestamo']:false;
+            $idHardware = isset($_POST['id_hardware']) ? $_POST['id_hardware']:false;
+            $observacionDevolucion = isset($_POST['observacion_devolucion']) ? $_POST['observacion_devolucion']:false;
+
+
+                $idEstadoPrestamo = 3; //"Recibido con onconveniente"
+                  
+                $idEstadoPrestamo = 3;
+
+                $prestamo = new PrestamoModel();
+                $prestamo->setIdPrestamo($idPrestamo);
+                $prestamo->setObservacionDevolucion($observacionDevolucion);
+                $prestamo->setIdHardware($idHardware);
+                $prestamo->setIdEstadoPrestamo($idEstadoPrestamo);
+
+                $idPrestamo = $prestamo->getIdPrestamo();
+                $observacionDevolucion = $prestamo->getObservacionDevolucion();
+                $idHardware = $prestamo->getIdHardware();
+
+                // Cambiar id_estado_prestamo en prestamos.
+                $saveInsertarEstadoPrestamo = $this->insertarEstadoPrestamo($idPrestamo, $idEstadoPrestamo);
+
+                // Agregar observacion_devolucionen prestamos.
+                $saveAgregarObservacion = $prestamo->updateObservacionDevolucion();
+
+
+                // Crear registro en prestamos_estados_prestamo.
+                $saveNuevoEstadoIntermedia = $this->nuevoEstadoIntermedia($idPrestamo, $idEstadoPrestamo);
+
+                //Cambiar id_estado_prestamo en hardwares. 
+                $hardware = new HardwareController();
+                $saveNuevoEstadoHardware = $hardware->setEstadoPrestamo($idHardware, $idEstadoPrestamo);
+
+   
+
+                if ($saveInsertarEstadoPrestamo && $saveAgregarObservacion && $saveNuevoEstadoIntermedia && $saveNuevoEstadoHardware) {
+                    $_SESSION['confirmarDevolucion'] = "complete";               
+            
+            }else{
+                $_SESSION['confirmarDevolucion'] = "failed";
+            }
+        }   
+        header("Location:".URL.'prestamo/finalizado');
     }
 }

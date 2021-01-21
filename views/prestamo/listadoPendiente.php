@@ -16,6 +16,23 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
 <?php Utils::deleteSession('confirmarEntrega');?>
 
 <!-- ------- -->
+<?php
+if (isset($_SESSION['confirmarDevolucion']) && $_SESSION['confirmarDevolucion'] == 'complete'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="far fa-smile fa-2x mx-2"></i>La devolución se ha confirmado. 
+		</div>
+	</div>
+<?php elseif(isset($_SESSION['confirmarDevolucion']) && $_SESSION['confirmarDevolucion'] == 'failed'): ?>
+	<div class="col-lg-6 mt-3">
+		<div class="alert alert-danger" role="alert">
+			<i class="far fa-angry fa-2x mx-2"></i> <strong>Error.</strong> No se ha registrado la devolución. Intenta nuevamente. 
+		</div>
+	</div>
+<?php endif;?>
+<?php Utils::deleteSession('confirmarDevolucion');?>
+
+<!-- ------- -->
 
 <div class="row">
     <div class="col align-middle">

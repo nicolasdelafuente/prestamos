@@ -145,6 +145,36 @@ class SolicitudModel{
         return $solicitudes;
     }
 
+    public function getAllByUser($id_usuario) {
+        $query =    "SELECT
+                        solicitudes.id_solicitud,
+                        tipos_hardware.tipo_hardware,
+                        usuarios.nombre,
+                        usuarios.apellido,
+                        usuarios.email,
+                        edificios.edificio,
+                        solicitudes.fecha_desde,
+                        solicitudes.fecha_hasta,
+                        estados_solicitud.id_estado_solicitud,
+                        estados_solicitud.estado_solicitud
+                    FROM
+                        solicitudes
+                    INNER JOIN
+                        tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                    INNER JOIN
+                        usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+                    INNER JOIN
+                        edificios ON solicitudes.id_edificio = edificios.id_edificio
+                    INNER JOIN
+                        estados_solicitud ON solicitudes.id_estado_solicitud =  estados_solicitud.id_estado_solicitud
+                    WHERE usuarios.id_usuario = $id_usuario         
+                    GROUP BY solicitudes.id_solicitud
+                    ORDER BY solicitudes.fecha_desde;";       
+
+        $solicitudes = $this->db->query($query);
+        return $solicitudes;
+    }
+
 
     public function getOne() {
         $solicitud = $this->db->query("SELECT * FROM solicitudes
