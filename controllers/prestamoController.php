@@ -49,9 +49,9 @@ class PrestamoController{
     // Listado prestamos pro usuario.
     public function usuario() {
         $idUsuario = 2;
-        $prestamos = new PrestamoModel();
-        $solicitudes = $prestamo->getAllByUser($idUsuario);
-        require_once 'views/solicitud/listadoPrestamo.php';
+        $prestamo = new PrestamoModel();
+        $prestamos = $prestamo->getAllByUser($idUsuario);
+        require_once 'views/prestamo/listadoUsuario.php';
     }
 
     public function nuevo(){

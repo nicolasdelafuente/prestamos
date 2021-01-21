@@ -36,6 +36,7 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                         <th scope="col"><small class="font-weight-bold"><small></th>
                         <th scope="col"><small class="font-weight-bold">Préstamo<small></th>
                         <th scope="col"><small class="font-weight-bold">Tipo<small></th>
+                        <th scope="col"><small class="font-weight-bold">Numero de serie<small></th>
                         <th scope="col"><small class="font-weight-bold">Solicitante<small></th>
                         <th scope="col"><small class="font-weight-bold">Edificio<small></th>
                         <th scope="col"><small class="font-weight-bold">Desde<small></th>
@@ -49,11 +50,14 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                         if($estadoPrestamo == $estado) {
                     ?>                    
                         <tr class="shadow-sm">
-                        <td class="align-middle">
+                            <td class="align-middle">
                                 <i class="far fa-handshake" style="color:rgba(0, 64, 208, 0.5)";> </i>
                             </td>
                             <td class="align-middle"><span><?= $dato->id_prestamo; ?></span></td>
-                            <td class="align-middle"><span><?= $dato->tipo_hardware; ?></span></td>
+                            <td><span class="d-block"></i><?= $dato->tipo_hardware; ?>
+                                </span><small class="text-muted"><?= $dato->marca; ?></small>
+                            </td>
+                            <td class="align-middle"><span><?= $dato->numero_serie; ?></span></td>
                             <td><span class="d-block"></i><?= $dato->nombre; ?> <?= $dato->apellido; ?>
                                 </span><small class="text-muted"><i class="far fa-envelope fa-xs"></i>     <?= $dato->email; ?></small>
                             </td>

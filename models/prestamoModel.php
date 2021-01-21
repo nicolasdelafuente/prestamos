@@ -119,6 +119,40 @@ class PrestamoModel{
         return $prestamos;
     }
 
+    public function getAllByUser($idUsuario) {
+        $query =    "SELECT
+                        prestamos.id_prestamo,
+                        prestamos.id_solicitud,
+                        tipos_hardware.tipo_hardware,
+                        usuarios.nombre,
+                        usuarios.apellido,
+                        usuarios.email,
+                        edificios.edificio,
+                        solicitudes.fecha_desde,
+                        solicitudes.fecha_hasta,
+                        prestamos.id_estado_prestamo,
+                        estados_prestamo.estado_prestamo
+
+                    FROM
+                        prestamos
+                    INNER JOIN
+                        solicitudes ON prestamos.id_solicitud = solicitudes.id_solicitud
+                    INNER JOIN
+                        tipos_hardware ON solicitudes.id_tipo_hardware = tipos_hardware.id_tipo_hardware
+                    INNER JOIN
+                        usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
+                    INNER JOIN
+                        edificios ON solicitudes.id_edificio = edificios.id_edificio   
+                    INNER JOIN
+                        estados_prestamo ON prestamos.id_estado_prestamo = estados_prestamo.id_estado_prestamo
+                    WHERE usuarios.id_usuario = 2       
+                    ORDER BY solicitudes.fecha_hasta DESC
+                    ;";          
+
+        $prestamos = $this->db->query($query);
+        return $prestamos;
+    }
+
     public function getAllEnPrestamo() {
         $query =    "SELECT
                         prestamos.id_prestamo,
@@ -130,7 +164,9 @@ class PrestamoModel{
                         edificios.edificio,
                         solicitudes.fecha_desde,
                         solicitudes.fecha_hasta,
-                        prestamos.id_estado_prestamo
+                        prestamos.id_estado_prestamo,
+                        hardwares.numero_serie,
+                        marcas.marca
                     FROM
                         prestamos
                     INNER JOIN
@@ -140,7 +176,11 @@ class PrestamoModel{
                     INNER JOIN
                         usuarios ON solicitudes.id_usuario  = usuarios.id_usuario
                     INNER JOIN
-                        edificios ON solicitudes.id_edificio = edificios.id_edificio            
+                        edificios ON solicitudes.id_edificio = edificios.id_edificio 
+                    INNER JOIN 
+                        hardwares ON prestamos.id_hardware = hardwares.id_hardware      
+                    INNER JOIN 
+                        marcas ON hardwares.id_marca = marcas.id_marca  
                     ORDER BY solicitudes.fecha_hasta DESC
                     ;";          
 
@@ -168,6 +208,8 @@ class PrestamoModel{
 
         return $result;
     }
+
+    
 
     public function delete() {
         $sql =  "DELETE FROM prestamos WHERE id_prestamo = '{$this->getIdHardware()}'";

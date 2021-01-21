@@ -2,7 +2,8 @@
     <div class="col align-middle">
         <div class="card d-inline-block border-0 shadow-sm shadow-hover w-100">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> Solicitudes </h5>
+                <h5 class="mb-0"> Mis préstamos </h5>
+                <a href="<?= URL ?>solicitud/usuario"class="btn btn-outline-success">Mis Solicitudes</a>
 			</div>
         </div>
     </div>
@@ -26,21 +27,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($dato = $solicitudes->fetch_object()): ?>
-                    <?php  $estadoSolicitud = $dato->id_estado_solicitud; ?>                    
+                    <?php while($dato = $prestamos->fetch_object()): ?>
+                    <?php  $estadoPrestamo = $dato->id_estado_prestamo ?>                    
                         <tr class="shadow-sm">
                             <td class="align-middle">
-                                <i class="far fa-hand-pointer"
+                                <i class="far fa-handshake"
                                     <?php
-                                        switch ($estadoSolicitud) {
+                                        switch ($estadoPrestamo) {
                                             case 1:
-                                                echo  'style="color:rgba(0, 244, 0, 0.5)"';
+                                                echo  'style="color:rgba(244, 244, 0, 0.5)"';
                                                 break;
                                             case 2:
-                                                echo 'style="color:rgba(244, 0, 0, 0.5)"';
+                                                echo 'style="color:rgba(0, 64, 208, 0.5)"';
                                                 break;
                                             case 3:
-                                                echo 'style="color:rgba(244, 244, 0, 0.5)"';
+                                                echo 'style="color:rgba(0, 244, 0, 0.5)"';
+                                                break;
+                                            case 4:
+                                                echo 'style="color:rgba(244, 0, 0, 0.5)"';
                                                 break;
                                         }
                                     ?>                                        
@@ -51,8 +55,7 @@
                             <td class="align-middle"><span><?= $dato->edificio; ?></span></td>
                             <td class="align-middle"><span><?= $dato->fecha_desde; ?></span></td>
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
-                            <td class="align-middle"><span><?= $dato->estado_solicitud; ?></span></td>
-                            
+                            <td class="align-middle"><span><?= $dato->estado_prestamo; ?></span></td>                            
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

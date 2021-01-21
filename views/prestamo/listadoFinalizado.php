@@ -50,12 +50,14 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                         if($estadoPrestamo == $estado) {
                     ?>                    
                         <tr class="shadow-sm">
-                        <td class="align-middle">
+                            <td class="align-middle">
                                 <i class="far fa-handshake" style="color:rgba(0, 244, 0, 0.5)";> </i>
                             </td>
                             <td class="align-middle"><span><?= $dato->id_prestamo; ?></span></td>
-                            <td class="align-middle"><span><?= $dato->id_solicitud; ?></span></td>
-                            <td class="align-middle"><span><?= $dato->tipo_hardware; ?></span></td>
+                            <td><span class="d-block"></i><?= $dato->tipo_hardware; ?>
+                                </span><small class="text-muted"><?= $dato->marca; ?></small>
+                            </td>
+                            <td class="align-middle"><span><?= $dato->numero_serie; ?></span></td>
                             <td><span class="d-block"></i><?= $dato->nombre; ?> <?= $dato->apellido; ?>
                                 </span><small class="text-muted"><i class="far fa-envelope fa-xs"></i>     <?= $dato->email; ?></small>
                             </td>
@@ -64,10 +66,9 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
                             <td class="align-middle">
-                                <a href = "<?= URL ?>prestamo/editarFinalizado&id=<?=$dato->id_prestamo?>">
+                                <a href = "<?= URL ?>prestamo/editarEnPrestamo&id=<?=$dato->id_prestamo?>">
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
-                            </td>
                             </td>
                         </tr>
                     <?php } endwhile; ?>
