@@ -66,7 +66,7 @@ if (isset($_SESSION['confirmarEntrega']) && $_SESSION['confirmarEntrega'] == 'co
                             <td class="align-middle"><span><?= $dato->fecha_hasta; ?></span></td>
                             <td class="align-middle">
                             <td class="align-middle">
-                                <a href = "<?= URL ?>prestamo/editarEnPrestamo&id=<?=$dato->id_prestamo?>">
+                                <a href = "<?= URL ?>prestamo/editarFinalizado&id=<?=$dato->id_prestamo?>">
                                     <span class="badge badge-secondary"><i class="fas fa-binoculars"></i></span> 
                                 </a>
                             </td>

@@ -146,7 +146,7 @@
 					<div class="col">
 						<div class="card border-0">
 							<div class="card-body">
-								<h5 class="card-title">Observaciones del prestamo</h5>
+								<h5 class="card-title">Observaciones del préstamo</h5>
 								<textarea type="text" class="form-control text-left" rows="3" name="observacion_prestamo" readonly><?= $prest->observacion_prestamo; ?></textarea>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 					<div class="col">
 						<div class="card border-0">
 							<div class="card-body">
-								<h5 class="card-title">Observaciones de la devolucion</h5>
+								<h5 class="card-title">Observaciones de la devolución</h5>
 								<textarea type="text" class="form-control text-left" rows="3" name="observacion_devolucion" readonly><?= $prest->observacion_devolucion; ?></textarea>
 							</div>
 						</div>
