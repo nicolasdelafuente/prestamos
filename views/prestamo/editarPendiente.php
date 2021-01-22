@@ -82,7 +82,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Fecha Solicitud</h5>
 								<input type="text" class="form-control"
-									value="<?= $prest->created_at?>" name="fecha_solicitud" required readonly>
+									value="<?= $prest->solicitud_creada ?>" name="fecha_solicitud" required readonly>
 							</div>
 						</div>
 					</div>

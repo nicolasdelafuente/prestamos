@@ -287,7 +287,7 @@ class PrestamoModel{
 
 
     public function getOne() {
-        $prestamo = $this->db->query("SELECT *, 
+        $prestamo = $this->db->query("SELECT *, solicitudes.created_at as solicitud_creada, 
                                         prestamos.id_estado_prestamo as idEstadoPrestamo,
                                         tipos_hardware.id_tipo_hardware as idTipoHardware
                                         FROM prestamos
