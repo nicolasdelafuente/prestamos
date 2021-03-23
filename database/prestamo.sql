@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS solicitudes
     FOREIGN KEY (id_edificio) REFERENCES edificios(id_edificio)
 ) ENGINE = InnoDb;
 
-
+/*
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
 VALUES(1, 2, 1, '2020-12-31', '2021-01-31', 'Motivo Solicitud: Necesidad', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
@@ -312,7 +312,7 @@ INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde,
 VALUES(5, 2, 1, '2021-01-15', '2021-06-25', 'Motivo Solicitud: Ahora', 3);
 INSERT INTO solicitudes (id_tipo_hardware, id_usuario, id_edificio, fecha_desde, fecha_hasta, motivo_solicitud,  id_estado_solicitud)
 VALUES(3, 2, 1, '2021-01-17', '2021-05-05', 'Motivo Solicitud: Motivo?', 3);
-
+*/
 
 CREATE TABLE IF NOT EXISTS solicitudes_estados_solicitud
 (
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_estados_solicitud
     FOREIGN KEY (id_estado_solicitud) REFERENCES estados_solicitud (id_estado_solicitud)
 )ENGINE = InnoDb;
 
-
+/*
 INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(1,3);
 INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
@@ -345,7 +345,7 @@ INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(9,3);
 INSERT INTO solicitudes_estados_solicitud (id_solicitud, id_estado_solicitud)
 VALUES(10,3);
-
+*/
 
 -- ESTADO 1
 /*
